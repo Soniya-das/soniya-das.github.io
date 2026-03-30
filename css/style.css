@@ -138,7 +138,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
-/* Hexagon Profile */
+/* Hexagon Profile (alternative) */
 .hero-image {
     position: relative;
     display: flex;
@@ -217,17 +217,9 @@ h1, h2, h3, h4, h5, h6 {
     100% { transform: rotate(360deg); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
 }
 
-
 /* ============================================
-   HOME PAGE – MORPHING BLOB SHAPE (Luxury)
+   HOME PAGE – MORPHING BLOB SHAPE (used)
 ============================================ */
-.hero-image {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .blob-wrapper {
     position: relative;
     width: 380px;
@@ -253,21 +245,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes morphBlob {
-    0% {
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-    25% {
-        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-    }
-    50% {
-        border-radius: 50% 50% 30% 70% / 40% 60% 70% 30%;
-    }
-    75% {
-        border-radius: 70% 30% 50% 50% / 30% 70% 40% 60%;
-    }
-    100% {
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    50% { border-radius: 50% 50% 30% 70% / 40% 60% 70% 30%; }
+    75% { border-radius: 70% 30% 50% 50% / 30% 70% 40% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
 }
 
 .blob-shape img {
@@ -302,33 +284,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulseGlow {
-    0%, 100% {
-        opacity: 0.15;
-        transform: scale(0.98);
-    }
-    50% {
-        opacity: 0.35;
-        transform: scale(1.02);
-    }
+    0%, 100% { opacity: 0.15; transform: scale(0.98); }
+    50% { opacity: 0.35; transform: scale(1.02); }
 }
 
-/* 3D Tilt Effect on hover (enhanced via JS) */
-.blob-wrapper.tilt-effect {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .blob-wrapper {
-        width: 260px;
-        height: 260px;
-    }
-}
-
-/* ============================================
-   IMAGE POP-OUT EFFECT (Emerging from shape)
-============================================ */
 .blob-shape {
     transform-style: preserve-3d;
     perspective: 800px;
@@ -340,23 +299,22 @@ h1, h2, h3, h4, h5, h6 {
     will-change: transform;
 }
 
-/* Hover effect: image comes out of the blob */
 .blob-wrapper:hover .blob-shape img {
     transform: scale(1.08) translateZ(30px);
     filter: brightness(1.08) drop-shadow(0 15px 25px rgba(0,0,0,0.3));
 }
 
-/* Optional: also slightly lift the whole blob wrapper */
 .blob-wrapper:hover .blob-shape {
     transform: rotate(2deg) scale(1.01);
     filter: drop-shadow(0 0 25px var(--primary-glow));
 }
 
-/* Smooth transition for the wrapper as well */
-.blob-wrapper {
-    transition: transform 0.3s ease;
+@media (max-width: 768px) {
+    .blob-wrapper {
+        width: 260px;
+        height: 260px;
+    }
 }
-
 
 /* ============================================
    BUTTONS
@@ -761,7 +719,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   SERVICES, PROJECTS, RESUME
+   SERVICES, PROJECTS, RESUME (cards)
 ============================================ */
 .service-card, .project-card, .resume-card {
     background: var(--card-bg);
@@ -802,65 +760,199 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.5rem;
 }
 
-.resume-card h3 {
-    border-left: 3px solid var(--primary);
-    padding-left: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.company {
-    color: var(--primary);
-    font-weight: 500;
-}
-
-
-
-
 /* ============================================
-   SERVICES, PROJECTS, RESUME
+   RESUME PAGE – LUXURY CARD
 ============================================ */
-.service-card, .project-card, .resume-card {
+.resume-download-card {
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 24px;
-    padding: 2rem;
-    transition: var(--transition);
-    height: 100%;
+    backdrop-filter: blur(20px);
+    border-radius: 40px;           /* reduced for compact look */
+    padding: 2rem 1.8rem;          /* compact padding */
+    text-align: center;
     border: 1px solid var(--card-border);
+    transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.service-card:hover, .project-card:hover, .resume-card:hover {
+.resume-download-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(212,175,55,0.1) 0%, transparent 70%);
+    z-index: -1;
+    transition: opacity 0.5s ease;
+}
+
+.resume-download-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px var(--primary-glow);
     border-color: var(--primary);
+    box-shadow: 0 30px 45px var(--primary-glow);
 }
 
-.service-card i {
+.resume-download-card:hover::before {
+    opacity: 0.7;
+}
+
+.resume-icon {
     font-size: 3rem;
     color: var(--primary);
     margin-bottom: 1rem;
+    display: inline-block;
+    animation: floatIcon 3s ease-in-out infinite;
 }
 
-/* Equal height for service cards */
-.services-section .row {
-    display: flex;
-    flex-wrap: wrap;
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
-.services-section [class*="col-"] {
-    display: flex;
-    flex-direction: column;
+.resume-download-card h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, var(--primary), #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.service-card {
-    flex: 1;
-    height: auto;
-    display: flex;
-    flex-direction: column;
+.resume-download-card p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-download {
+    padding: 0.7rem 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.btn-download:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px var(--primary-glow);
+}
+
+.btn-download i {
+    margin-right: 8px;
+}
+
+/* Icon‑only download button – single definition */
+.btn-icon-only {
+    width: 36px;
+    height: 36px;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 1rem;
+    background: var(--primary);
+    color: #0a0a0a;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    border: none;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+.btn-icon-only:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: var(--primary-dark);
+    box-shadow: 0 6px 12px var(--primary-glow);
+}
+
+.btn-icon-only:active {
+    transform: translateY(1px);
+}
+
+.resume-section {
+    position: relative;
+}
+
+.resume-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.1) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 /* ============================================
-   CONTACT PAGE LUXURY STYLES (Phone removed)
+   SKILLS PAGE – SMALL ELEGANT BOXES
+============================================ */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.8rem;
+}
+
+.skill-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    padding: 1.8rem 1.2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--card-border);
+    width: 160px;
+    cursor: default;
+}
+
+.skill-box:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 35px var(--primary-glow);
+}
+
+.skill-box i {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.skill-box h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.skill-box .skill-percent {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(212, 175, 55, 0.15);
+    display: inline-block;
+    padding: 0.2rem 0.8rem;
+    border-radius: 50px;
+    margin-right: 2px;
+}
+
+.skill-box span:last-child {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* ============================================
+   CONTACT PAGE LUXURY STYLES
 ============================================ */
 .contact-section {
     padding: 80px 0;
@@ -1071,7 +1163,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE (consolidated)
 ============================================ */
 @media (max-width: 768px) {
     .hero-title { font-size: 2.5rem; }
@@ -1086,88 +1178,19 @@ h1, h2, h3, h4, h5, h6 {
     .contact-item { gap: 1rem; }
     .icon-box { width: 40px; height: 40px; }
     .icon-box i { font-size: 1.2rem; }
-}
 
+    /* resume page */
+    .resume-download-card { padding: 1.5rem 1.2rem; border-radius: 32px; }
+    .resume-icon { font-size: 2.5rem; }
+    .resume-download-card h3 { font-size: 1.4rem; }
+    .resume-download-card p { font-size: 0.85rem; max-width: 100%; }
+    .btn-download { padding: 0.6rem 1.4rem; font-size: 0.85rem; }
+    .btn-icon-only { width: 32px; height: 32px; font-size: 0.9rem; }
 
-
-/* ============================================
-   SKILLS PAGE – SMALL ELEGANT BOXES
-============================================ */
-.skills-section {
-    padding: 80px 0;
-}
-
-.skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.8rem;
-}
-
-.skill-box {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    border-radius: 28px;
-    padding: 1.8rem 1.2rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 1px solid var(--card-border);
-    width: 160px;
-    cursor: default;
-}
-
-.skill-box:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 35px var(--primary-glow);
-}
-
-.skill-box i {
-    font-size: 2.8rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-    display: inline-block;
-}
-
-.skill-box h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-}
-
-.skill-box .skill-percent {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    background: rgba(212, 175, 55, 0.15);
-    display: inline-block;
-    padding: 0.2rem 0.8rem;
-    border-radius: 50px;
-    margin-right: 2px;
-}
-
-.skill-box span:last-child {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--primary);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .skills-grid {
-        gap: 1rem;
-    }
-    .skill-box {
-        width: 140px;
-        padding: 1.2rem 0.8rem;
-    }
-    .skill-box i {
-        font-size: 2rem;
-    }
-    .skill-box h4 {
-        font-size: 0.9rem;
-    }
-    .skill-box .skill-percent {
-        font-size: 1.2rem;
-    }
+    /* skills page small boxes */
+    .skills-grid { gap: 1rem; }
+    .skill-box { width: 140px; padding: 1.2rem 0.8rem; }
+    .skill-box i { font-size: 2rem; }
+    .skill-box h4 { font-size: 0.9rem; }
+    .skill-box .skill-percent { font-size: 1.2rem; }
 }

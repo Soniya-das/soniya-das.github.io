@@ -1,326 +1,119 @@
-js/script.js : // ============================================
-// 1. INITIALIZE AOS (Scroll Animations)
-// ============================================
-AOS.init({
-    duration: 800,
-    once: true,
-    offset: 100
-});
-
-// ============================================
-// 2. TYPED.JS FOR HERO ROLE (Home page)
-// ============================================
-if (document.getElementById('typed-role')) {
-    new Typed('#typed-role', {
-        strings: ['Python Fullstack Developer', 'Web Designer'],
-        typeSpeed: 60,
-        backSpeed: 40,
-        loop: true
-    });
+/* New Ultra-Attractive Animations */
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
-// ============================================
-// 3. TYPING EFFECT FOR ABOUT PAGE LEAD TEXT
-// ============================================
-const leadElement = document.getElementById('typed-text');
-if (leadElement) {
-    const phrases = [
-        "Crafting elegant web experiences with Python & Django",
-        "Building clean, scalable applications",
-        "Passionate about problem-solving"
-    ];
-    let phraseIndex = 0, charIndex = 0, isDeleting = false, currentText = '';
-    function typeEffect() {
-        const fullText = phrases[phraseIndex];
-        if (isDeleting) {
-            currentText = fullText.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            currentText = fullText.substring(0, charIndex + 1);
-            charIndex++;
-        }
-        leadElement.textContent = currentText;
-        if (!isDeleting && charIndex === fullText.length) {
-            isDeleting = true;
-            setTimeout(typeEffect, 2000);
-            return;
-        }
-        if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            setTimeout(typeEffect, 500);
-            return;
-        }
-        setTimeout(typeEffect, isDeleting ? 50 : 100);
-    }
-    typeEffect();
+@keyframes pulseRing {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.2; }
+    100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
 }
 
-// ============================================
-// 4. DARK/LIGHT MODE TOGGLE (Unified)
-// ============================================
-const themeToggle = document.getElementById('theme-toggle');
-const currentTheme = localStorage.getItem('theme') || 'dark';
-
-if (currentTheme === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-} else {
-    document.documentElement.removeAttribute('data-theme');
-    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+@keyframes clickSparkle {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
 }
 
-themeToggle.addEventListener('click', () => {
-    if (document.documentElement.hasAttribute('data-theme')) {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'dark');
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
-});
-
-// ============================================
-// 5. SKILL BARS ANIMATION (Skills page)
-// ============================================
-function animateSkills() {
-    const skillItems = document.querySelectorAll('.skill-item');
-    skillItems.forEach(item => {
-        const progressBar = item.querySelector('.progress-bar');
-        const percentSpan = item.querySelector('.skill-percent');
-        if (!progressBar || !percentSpan) return;
-        const targetWidth = progressBar.getAttribute('data-width');
-        if (!targetWidth || progressBar.classList.contains('animated')) return;
-        const rect = progressBar.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-            progressBar.classList.add('animated');
-            progressBar.style.width = targetWidth + '%';
-            let current = 0;
-            const target = parseInt(targetWidth);
-            const duration = 1200;
-            const stepTime = 20;
-            const increment = target / (duration / stepTime);
-            const interval = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(interval);
-                }
-                percentSpan.textContent = Math.floor(current);
-            }, stepTime);
-        }
-    });
-}
-window.addEventListener('scroll', animateSkills);
-window.addEventListener('load', animateSkills);
-setTimeout(animateSkills, 500);
-
-// ============================================
-// 6. MOUSE-FOLLOW GLOW EFFECT (Luxury)
-// ============================================
-const glow = document.createElement('div');
-glow.className = 'mouse-glow';
-document.body.appendChild(glow);
-let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    glow.style.opacity = '1';
-});
-function animateGlow() {
-    glowX += (mouseX - glowX) * 0.08;
-    glowY += (mouseY - glowY) * 0.08;
-    glow.style.left = glowX + 'px';
-    glow.style.top = glowY + 'px';
-    requestAnimationFrame(animateGlow);
-}
-animateGlow();
-
-// ============================================
-// 7. SCROLL PROGRESS BAR (Luxury)
-// ============================================
-const progressBarScroll = document.createElement('div');
-progressBarScroll.className = 'scroll-progress';
-document.body.appendChild(progressBarScroll);
-window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    progressBarScroll.style.width = scrolled + '%';
-});
-
-// ============================================
-// 8. SMOOTH SCROLLING FOR ANCHOR LINKS
-// ============================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-});
-
-// ============================================
-// 9. PARTICLE BACKGROUND (Canvas)
-// ============================================
-const canvas = document.getElementById('particles-canvas');
-if (canvas) {
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let particles = [];
-    function initParticles() {
-        for (let i = 0; i < 80; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 3 + 1,
-                speedX: (Math.random() - 0.5) * 0.3,
-                speedY: (Math.random() - 0.5) * 0.3,
-                opacity: Math.random() * 0.5 + 0.2
-            });
-        }
-    }
-    function drawParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
-            ctx.fill();
-            p.x += p.speedX;
-            p.y += p.speedY;
-            if (p.x < 0) p.x = canvas.width;
-            if (p.x > canvas.width) p.x = 0;
-            if (p.y < 0) p.y = canvas.height;
-            if (p.y > canvas.height) p.y = 0;
-        });
-        requestAnimationFrame(drawParticles);
-    }
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        particles = [];
-        initParticles();
-    });
-    initParticles();
-    drawParticles();
+@keyframes mouseTrail {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(0); opacity: 0; }
 }
 
-// ============================================
-// 10. CARD SCROLL EFFECT (About page)
-// ============================================
-const aboutCard = document.querySelector('.about-card');
-if (aboutCard) {
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const maxScroll = 500;
-        const scale = 1 - Math.min(scrolled / maxScroll, 0.03);
-        const translateY = Math.min(scrolled / 15, 20);
-        aboutCard.style.transform = `translateY(-${translateY}px) scale(${scale})`;
-    });
+.pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    animation: pulseRing 2s ease-in-out infinite;
+    pointer-events: none;
 }
 
-// ============================================
-// 11. CONTACT FORM ENHANCEMENTS (Validation Only)
-// ============================================
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    const inputs = contactForm.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (this.value.trim() === '' && this.hasAttribute('required')) {
-                this.style.borderColor = '#dc3545';
-            } else {
-                this.style.borderColor = '';
-            }
-        });
-        input.addEventListener('focus', function() {
-            this.style.borderColor = 'var(--primary)';
-        });
-    });
+.star-ring.tertiary {
+    width: 75%;
+    height: 75%;
+    border: 1px dotted rgba(212, 175, 55, 0.4);
+    animation: rotateRing 15s linear infinite reverse;
 }
 
-// ============================================
-// 12. 3D TILT EFFECT FOR BLOB SHAPE (Home page)
-// ============================================
-const blobWrapper = document.getElementById('blobWrapper');
-if (blobWrapper) {
-    blobWrapper.addEventListener('mousemove', (e) => {
-        const rect = blobWrapper.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * 15;
-        const rotateY = ((x - centerX) / centerX) * 15;
-        blobWrapper.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-    blobWrapper.addEventListener('mouseleave', () => {
-        blobWrapper.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-    });
+.glow-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #ffd700, #d4af37);
+    border-radius: 50%;
+    animation: floatParticle 2s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+    pointer-events: none;
 }
 
-// ============================================
-// 13. IMAGE POP-OUT PARALLAX (3D depth on mousemove)
-// ============================================
-const blobShape = document.querySelector('.blob-shape');
-const blobImg = document.querySelector('.blob-shape img');
-if (blobShape && blobImg) {
-    blobWrapper.addEventListener('mousemove', (e) => {
-        const rect = blobWrapper.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        // Move image slightly opposite to cursor direction (3D depth)
-        const moveX = (x - centerX) / 20;
-        const moveY = (y - centerY) / 20;
-        blobImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.05) translateZ(20px)`;
-        blobShape.style.transform = `rotateX(${(y - centerY) / 30}deg) rotateY(${(x - centerX) / 30}deg)`;
-    });
-    blobWrapper.addEventListener('mouseleave', () => {
-        blobImg.style.transform = '';
-        blobShape.style.transform = '';
-    });
+.floating-sparkle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ffd700;
+    border-radius: 50%;
+    animation: floatSparkle 2.5s ease-in-out infinite;
+    pointer-events: none;
 }
 
-
-
-
-// ============================================
-// SKILL PERCENTAGE COUNTER (Small Boxes)
-// ============================================
-function animateSkillPercentages() {
-    const skillBoxes = document.querySelectorAll('.skill-box');
-    skillBoxes.forEach(box => {
-        const percentSpan = box.querySelector('.skill-percent');
-        if (!percentSpan || percentSpan.classList.contains('counted')) return;
-        const target = parseInt(box.getAttribute('data-skill'));
-        if (isNaN(target)) return;
-        const rect = box.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-            percentSpan.classList.add('counted');
-            let current = 0;
-            const duration = 1200;
-            const stepTime = 20;
-            const increment = target / (duration / stepTime);
-            const interval = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(interval);
-                }
-                percentSpan.textContent = Math.floor(current);
-            }, stepTime);
-        }
-    });
+.click-sparkle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #ffd700, transparent);
+    border-radius: 50%;
+    animation: clickSparkle 0.5s ease-out forwards;
+    pointer-events: none;
 }
 
-window.addEventListener('scroll', animateSkillPercentages);
-window.addEventListener('load', animateSkillPercentages);
-setTimeout(animateSkillPercentages, 500);
+.mouse-trail {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.8), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transition: all 0.05s linear;
+    opacity: 0;
+    transform: scale(0);
+}
+
+.super-sparkle {
+    width: 10px !important;
+    height: 10px !important;
+    background: radial-gradient(circle, #fff8dc, #ffd700) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 1) !important;
+    animation: superGlitter 1s ease-in-out infinite !important;
+}
+
+@keyframes superGlitter {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(2); box-shadow: 0 0 30px #ffd700; }
+}
+
+@keyframes floatSparkle {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    50% { transform: translate(var(--x, 30px), var(--y, 30px)) scale(3); opacity: 1; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+}
+
+@keyframes clickRipple {
+    0% { transform: scale(0); opacity: 0.8; }
+    100% { transform: scale(50); opacity: 0; }
+}
+
+.click-ripple {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.5), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: clickRipple 0.6s ease-out forwards;
+}

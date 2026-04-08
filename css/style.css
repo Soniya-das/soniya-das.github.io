@@ -48,6 +48,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
+   SCROLL PROGRESS BAR
+============================================ */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    z-index: 10000;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px var(--primary);
+}
+
+/* ============================================
    NAVBAR
 ============================================ */
 .navbar {
@@ -138,7 +153,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
-/* Hexagon Profile (alternative) */
+/* Hero Image */
 .hero-image {
     position: relative;
     display: flex;
@@ -146,79 +161,8 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
-.hexagon-wrapper {
-    position: relative;
-    width: 380px;
-    height: 380px;
-    margin: 0 auto;
-}
-
-.hexagon {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s ease;
-    animation: floatHexagon 4s ease-in-out infinite;
-}
-
-.hexagon::before {
-    content: '';
-    position: absolute;
-    inset: 5px;
-    background: var(--bg-dark);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    z-index: 1;
-}
-
-.hexagon img {
-    position: relative;
-    z-index: 2;
-    width: 92%;
-    height: 92%;
-    object-fit: cover;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    transition: transform 0.5s ease;
-}
-
-.hexagon:hover img {
-    transform: scale(1.05);
-}
-
-.hexagon:hover {
-    filter: drop-shadow(0 0 20px var(--primary-glow));
-}
-
-@keyframes floatHexagon {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(2deg); }
-}
-
-.glow-ring {
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-    opacity: 0.3;
-    animation: rotateGlow 8s linear infinite;
-    z-index: -1;
-}
-
-@keyframes rotateGlow {
-    0% { transform: rotate(0deg); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-    50% { transform: rotate(180deg); border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
-    100% { transform: rotate(360deg); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-}
-
 /* ============================================
-   HOME PAGE – MORPHING BLOB SHAPE (used)
+   HOME PAGE – MORPHING BLOB SHAPE
 ============================================ */
 .blob-wrapper {
     position: relative;
@@ -309,11 +253,211 @@ h1, h2, h3, h4, h5, h6 {
     filter: drop-shadow(0 0 25px var(--primary-glow));
 }
 
-@media (max-width: 768px) {
-    .blob-wrapper {
-        width: 260px;
-        height: 260px;
-    }
+/* ============================================
+   STAR & GLITTER EFFECTS FOR IMAGE
+============================================ */
+.star-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.star-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 85%;
+    height: 85%;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateRing 20s linear infinite;
+    pointer-events: none;
+}
+
+.star-ring.secondary {
+    width: 95%;
+    height: 95%;
+    border: 1px dashed rgba(212, 175, 55, 0.2);
+    animation: rotateRingReverse 25s linear infinite;
+}
+
+.star-ring.tertiary {
+    width: 75%;
+    height: 75%;
+    border: 1px dotted rgba(212, 175, 55, 0.4);
+    animation: rotateRing 15s linear infinite reverse;
+}
+
+.golden-border-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, transparent 60%, rgba(212, 175, 55, 0.1) 100%);
+    pointer-events: none;
+}
+
+.pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    animation: pulseRing 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.glit-star {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #d4af37;
+    border-radius: 50%;
+    animation: glitter 2s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.8);
+    pointer-events: none;
+}
+
+.glit-star.sparkle {
+    width: 8px;
+    height: 8px;
+    background: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+}
+
+.glit-star.super-sparkle {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #fff8dc, #ffd700);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 1);
+    animation: superGlitter 1s ease-in-out infinite;
+}
+
+.glit-star.inner-star {
+    width: 4px;
+    height: 4px;
+    background: #f5e7a3;
+}
+
+.glow-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #ffd700, #d4af37);
+    border-radius: 50%;
+    animation: floatParticle 2s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+    pointer-events: none;
+}
+
+.floating-sparkle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ffd700;
+    border-radius: 50%;
+    animation: floatSparkle 2.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.click-sparkle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #ffd700, transparent);
+    border-radius: 50%;
+    animation: clickSparkle 0.5s ease-out forwards;
+    pointer-events: none;
+}
+
+.mouse-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.8), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.05s linear;
+    opacity: 0;
+    transform: scale(0);
+}
+
+.click-ripple {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.8), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: rippleExpand 1s ease-out forwards;
+    z-index: 9999;
+}
+
+/* ============================================
+   ANIMATIONS
+============================================ */
+@keyframes rotateRing {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes rotateRingReverse {
+    from { transform: translate(-50%, -50%) rotate(360deg); }
+    to { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes glitter {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px #ffd700; }
+}
+
+@keyframes superGlitter {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(2); box-shadow: 0 0 30px #ffd700; }
+}
+
+@keyframes pulseRing {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.2; }
+    100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+}
+
+@keyframes floatParticle {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    50% { transform: translate(var(--x, 20px), var(--y, 20px)) scale(1.5); opacity: 0.8; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+}
+
+@keyframes floatSparkle {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    50% { transform: translate(var(--x, 30px), var(--y, 30px)) scale(3); opacity: 1; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+}
+
+@keyframes clickSparkle {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes rippleExpand {
+    0% { transform: scale(0); opacity: 0.8; }
+    100% { transform: scale(100); opacity: 0; }
+}
+
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
 /* ============================================
@@ -743,27 +887,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
 }
 
-.project-img img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 20px 20px 0 0;
-}
-
-.tech-stack span {
-    display: inline-block;
-    background: rgba(212, 175, 55, 0.2);
-    padding: 0.2rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-
-
-
-
 /* ============================================
    PROJECTS PAGE – FULL-WIDTH IMAGES
 ============================================ */
@@ -774,8 +897,8 @@ h1, h2, h3, h4, h5, h6 {
     transition: var(--transition);
     height: 100%;
     border: 1px solid var(--card-border);
-    overflow: hidden;          /* ensures image corners are clipped */
-    padding: 0;                /* remove inner padding */
+    overflow: hidden;
+    padding: 0;
 }
 
 .project-img {
@@ -789,19 +912,17 @@ h1, h2, h3, h4, h5, h6 {
     object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
-    border-radius: 24px 24px 0 0;  /* top corners match card */
+    border-radius: 24px 24px 0 0;
 }
 
-/* Hover effect on image (optional) */
 .project-card:hover .project-img img {
     transform: scale(1.05);
 }
 
 .project-info {
-    padding: 1.5rem;           /* spacing inside the text area */
+    padding: 1.5rem;
 }
 
-/* Ensure tech stack and links remain consistent */
 .tech-stack span {
     display: inline-block;
     background: rgba(212, 175, 55, 0.2);
@@ -815,63 +936,6 @@ h1, h2, h3, h4, h5, h6 {
 .project-links .btn-outline {
     margin-top: 1rem;
 }
-
-
-
-
-
-/* ============================================
-   PROJECTS PAGE – FULL-WIDTH IMAGES
-============================================ */
-.project-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 24px;
-    transition: var(--transition);
-    height: 100%;
-    border: 1px solid var(--card-border);
-    overflow: hidden;          /* ensures image corners are clipped */
-    padding: 0;                /* remove inner padding */
-}
-
-.project-img {
-    width: 100%;
-    overflow: hidden;
-}
-
-.project-img img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;         /* ensures image covers area without distortion */
-    display: block;
-    transition: transform 0.5s ease;
-    border-radius: 24px 24px 0 0;  /* top corners match card */
-}
-
-/* Hover effect on image (optional) */
-.project-card:hover .project-img img {
-    transform: scale(1.05);
-}
-
-.project-info {
-    padding: 1.5rem;           /* spacing inside the text area */
-}
-
-/* Ensure tech stack and links remain consistent */
-.tech-stack span {
-    display: inline-block;
-    background: rgba(212, 175, 55, 0.2);
-    padding: 0.2rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.project-links .btn-outline {
-    margin-top: 1rem;
-}
-
 
 /* ============================================
    RESUME PAGE – LUXURY CARD
@@ -879,8 +943,8 @@ h1, h2, h3, h4, h5, h6 {
 .resume-download-card {
     background: var(--card-bg);
     backdrop-filter: blur(20px);
-    border-radius: 40px;           /* reduced for compact look */
-    padding: 2rem 1.8rem;          /* compact padding */
+    border-radius: 40px;
+    padding: 2rem 1.8rem;
     text-align: center;
     border: 1px solid var(--card-border);
     transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
@@ -964,7 +1028,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 8px;
 }
 
-/* Icon‑only download button – single definition */
 .btn-icon-only {
     width: 36px;
     height: 36px;
@@ -1236,15 +1299,9 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--primary-dark);
 }
 
-
-
 /* ============================================
    CONTACT PAGE – CLEAN & PROFESSIONAL
 ============================================ */
-.contact-section {
-    padding: 80px 0;
-}
-
 .contact-info-card {
     background: var(--card-bg);
     backdrop-filter: blur(15px);
@@ -1360,43 +1417,8 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 5px 15px var(--primary-glow);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .contact-info-card {
-        padding: 2rem 1.5rem;
-        margin: 0 1rem;
-    }
-
-    .contact-item {
-        flex-direction: column;
-        text-align: center;
-        padding: 1rem;
-        gap: 0.8rem;
-    }
-
-    .contact-item:hover {
-        transform: translateY(-5px);
-        translateX(0);
-    }
-
-    .icon-box {
-        width: 50px;
-        height: 50px;
-    }
-
-    .icon-box i {
-        font-size: 1.2rem;
-    }
-
-    .contact-info-card .social-links a {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-}
-
 /* ============================================
-   LUXURY ADDITIONS – MOUSE GLOW, SCROLL PROGRESS, PARTICLES
+   LUXURY ADDITIONS – PARTICLES BACKGROUND
 ============================================ */
 #particles-canvas {
     position: fixed;
@@ -1406,7 +1428,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .mouse-glow {
@@ -1422,34 +1444,25 @@ h1, h2, h3, h4, h5, h6 {
     transition: opacity 0.5s ease;
 }
 
-.scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-    z-index: 10000;
-    transition: width 0.1s linear;
-    box-shadow: 0 0 8px var(--primary);
-}
-
 /* ============================================
    RESPONSIVE (consolidated)
 ============================================ */
 @media (max-width: 768px) {
     .hero-title { font-size: 2.5rem; }
     .hero-role { font-size: 1.5rem; }
-    .hexagon-wrapper { width: 260px; height: 260px; }
+    .blob-wrapper { width: 260px; height: 260px; }
     .page-header h1 { font-size: 2.2rem; }
     .about-card, .skill-card, .service-card, .project-card { padding: 1.5rem; }
     .profile-img { width: 180px; height: 180px; }
     .profile-ring { width: 200px; height: 200px; }
     .mouse-glow { display: none; }
+    .mouse-trail { display: none; }
     .contact-info-card, .contact-form-card { padding: 1.5rem; }
     .contact-item { gap: 1rem; }
     .icon-box { width: 40px; height: 40px; }
     .icon-box i { font-size: 1.2rem; }
+    .theme-toggle { width: 40px; height: 40px; bottom: 1rem; right: 1rem; }
+    .theme-toggle i { font-size: 1.2rem; }
 
     /* resume page */
     .resume-download-card { padding: 1.5rem 1.2rem; border-radius: 32px; }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soniya D | Python Fullstack Developer ✨</title>
+    <title>Soniya D | Python Fullstack Developer</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,20 +12,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Your External CSS -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Particle Background Canvas -->
+    <!-- Particle Background -->
     <canvas id="particles-canvas"></canvas>
     
-    <!-- Theme Toggle Button -->
+    <!-- Theme Toggle -->
     <button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
 
     <!-- Navigation -->
@@ -55,23 +55,26 @@
             <div class="row align-items-center">
                 <div class="col-lg-7" data-aos="fade-right" data-aos-duration="1000">
                     <div class="hero-content">
-                        <h1 class="hero-title">Hello, I'm <span class="highlight">Soniya D</span></h1>
-                        <h2 class="hero-role">I'm a <span id="typed-role"></span></h2>
+                        <span class="hero-greeting">Hello, I'm</span>
+                        <h1 class="hero-title"><span class="highlight">Soniya D</span></h1>
+                        <div class="hero-role-wrapper">
+                            <span class="hero-role-prefix">I'm a</span>
+                            <span class="hero-role" id="typed-role"></span>
+                        </div>
                         <p class="hero-tagline">Building clean, scalable & user-friendly web applications with Python & Django.</p>
-                        <div class="hero-buttons mt-4">
-                            <a href="projects.html" class="btn btn-primary me-3">View Work <i class="fas fa-arrow-right ms-2"></i></a>
+                        <div class="hero-buttons">
+                            <a href="projects.html" class="btn btn-primary">View Work <i class="fas fa-arrow-right ms-2"></i></a>
                             <a href="contact.html" class="btn btn-outline">Contact Me</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5 text-center" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <div class="hero-image">
-                        <!-- Morphing Blob Shape with Stars -->
-                        <div class="blob-wrapper" id="blobWrapper">
-                            <div class="blob-shape">
+                        <div class="profile-image-wrapper" id="blobWrapper">
+                            <div class="profile-image-shape">
                                 <img src="images/img2.jpeg" alt="Soniya D">
                             </div>
-                            <div class="blob-glow"></div>
+                            <div class="profile-glow"></div>
                         </div>
                     </div>
                 </div>
@@ -88,7 +91,7 @@
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div class="social-links">
-                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                         <a href="https://www.linkedin.com/in/soniyadas05" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>

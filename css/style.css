@@ -1,4 +1,4 @@
-/* ============================================
+css : /* ============================================
    GLOBAL VARIABLES & RESET
 ============================================ */
 :root {
@@ -47,22 +47,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary);
 }
 
-/* ============================================
-   SCROLL PROGRESS BAR
-============================================ */
-.scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-    z-index: 10000;
-    transition: width 0.1s linear;
-    box-shadow: 0 0 8px var(--primary);
-}
-
-/* ============================================
+/*============================================
    NAVBAR
 ============================================ */
 .navbar {
@@ -128,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   HERO SECTION
+   HERO SECTION (Home)
 ============================================ */
 .hero-section {
     min-height: 100vh;
@@ -153,6 +138,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
+/* Hexagon Profile (alternative) */
 .hero-image {
     position: relative;
     display: flex;
@@ -160,8 +146,79 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
+.hexagon-wrapper {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    margin: 0 auto;
+}
+
+.hexagon {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    animation: floatHexagon 4s ease-in-out infinite;
+}
+
+.hexagon::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background: var(--bg-dark);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    z-index: 1;
+}
+
+.hexagon img {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    height: 92%;
+    object-fit: cover;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    transition: transform 0.5s ease;
+}
+
+.hexagon:hover img {
+    transform: scale(1.05);
+}
+
+.hexagon:hover {
+    filter: drop-shadow(0 0 20px var(--primary-glow));
+}
+
+@keyframes floatHexagon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+.glow-ring {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    opacity: 0.3;
+    animation: rotateGlow 8s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotateGlow {
+    0% { transform: rotate(0deg); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    50% { transform: rotate(180deg); border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; }
+    100% { transform: rotate(360deg); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+}
+
 /* ============================================
-   MORPHING BLOB SHAPE - PERFECT IMAGE SHAPE
+   HOME PAGE – MORPHING BLOB SHAPE (used)
 ============================================ */
 .blob-wrapper {
     position: relative;
@@ -184,6 +241,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    will-change: border-radius;
 }
 
 @keyframes morphBlob {
@@ -195,11 +253,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .blob-shape img {
-    width: 100%;
-    height: 100%;
+    width: 92%;
+    height: 92%;
     object-fit: cover;
     border-radius: inherit;
     transition: transform 0.5s ease;
+    filter: brightness(1.02);
+}
+
+.blob-shape:hover img {
+    transform: scale(1.03);
 }
 
 .blob-wrapper:hover .blob-shape {
@@ -225,221 +288,32 @@ h1, h2, h3, h4, h5, h6 {
     50% { opacity: 0.35; transform: scale(1.02); }
 }
 
-/* 3D Tilt Effect */
 .blob-shape {
     transform-style: preserve-3d;
     perspective: 800px;
 }
 
 .blob-shape img {
-    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1), filter 0.3s ease;
     transform-origin: center center;
+    will-change: transform;
 }
 
 .blob-wrapper:hover .blob-shape img {
-    transform: scale(1.05) translateZ(20px);
+    transform: scale(1.08) translateZ(30px);
+    filter: brightness(1.08) drop-shadow(0 15px 25px rgba(0,0,0,0.3));
 }
 
-/* ============================================
-   STAR & GLITTER EFFECTS AROUND IMAGE
-============================================ */
-.star-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
+.blob-wrapper:hover .blob-shape {
+    transform: rotate(2deg) scale(1.01);
+    filter: drop-shadow(0 0 25px var(--primary-glow));
 }
 
-.star-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 85%;
-    height: 85%;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: rotateRing 20s linear infinite;
-    pointer-events: none;
-}
-
-.star-ring.secondary {
-    width: 95%;
-    height: 95%;
-    border: 1px dashed rgba(212, 175, 55, 0.2);
-    animation: rotateRingReverse 25s linear infinite;
-}
-
-.star-ring.tertiary {
-    width: 75%;
-    height: 75%;
-    border: 1px dotted rgba(212, 175, 55, 0.4);
-    animation: rotateRing 15s linear infinite reverse;
-}
-
-.golden-border-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, transparent 60%, rgba(212, 175, 55, 0.1) 100%);
-    pointer-events: none;
-}
-
-.pulse-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 2px solid rgba(212, 175, 55, 0.4);
-    animation: pulseRingEffect 2s ease-in-out infinite;
-    pointer-events: none;
-}
-
-.glit-star {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #d4af37;
-    border-radius: 50%;
-    animation: glitter 2s ease-in-out infinite;
-    box-shadow: 0 0 5px rgba(212, 175, 55, 0.8);
-    pointer-events: none;
-}
-
-.glit-star.sparkle {
-    width: 8px;
-    height: 8px;
-    background: #ffd700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
-}
-
-.glit-star.super-sparkle {
-    width: 10px;
-    height: 10px;
-    background: radial-gradient(circle, #fff8dc, #ffd700);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 1);
-    animation: superGlitter 1s ease-in-out infinite;
-}
-
-.glit-star.inner-star {
-    width: 4px;
-    height: 4px;
-    background: #f5e7a3;
-}
-
-.glow-dot {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: radial-gradient(circle, #ffd700, #d4af37);
-    border-radius: 50%;
-    animation: floatParticleAnim 2s ease-in-out infinite;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-    pointer-events: none;
-}
-
-.floating-sparkle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #ffd700;
-    border-radius: 50%;
-    animation: floatSparkleAnim 2.5s ease-in-out infinite;
-    pointer-events: none;
-}
-
-.click-sparkle {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, #ffd700, transparent);
-    border-radius: 50%;
-    animation: clickSparkleAnim 0.5s ease-out forwards;
-    pointer-events: none;
-}
-
-.mouse-trail {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.8), transparent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: all 0.05s linear;
-    opacity: 0;
-    transform: scale(0);
-}
-
-.click-ripple {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.8), transparent);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: rippleExpand 1s ease-out forwards;
-    z-index: 9999;
-}
-
-/* ============================================
-   ANIMATIONS
-============================================ */
-@keyframes rotateRing {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes rotateRingReverse {
-    from { transform: translate(-50%, -50%) rotate(360deg); }
-    to { transform: translate(-50%, -50%) rotate(0deg); }
-}
-
-@keyframes glitter {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px #ffd700; }
-}
-
-@keyframes superGlitter {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(2); box-shadow: 0 0 30px #ffd700; }
-}
-
-@keyframes pulseRingEffect {
-    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
-    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.2; }
-    100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
-}
-
-@keyframes floatParticleAnim {
-    0% { transform: translate(0, 0) scale(1); opacity: 0; }
-    50% { transform: translate(var(--x, 20px), var(--y, 20px)) scale(1.5); opacity: 0.8; }
-    100% { transform: translate(0, 0) scale(1); opacity: 0; }
-}
-
-@keyframes floatSparkleAnim {
-    0% { transform: translate(0, 0) scale(1); opacity: 0; }
-    50% { transform: translate(var(--x, 30px), var(--y, 30px)) scale(3); opacity: 1; }
-    100% { transform: translate(0, 0) scale(1); opacity: 0; }
-}
-
-@keyframes clickSparkleAnim {
-    0% { transform: scale(0); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
-}
-
-@keyframes rippleExpand {
-    0% { transform: scale(0); opacity: 0.8; }
-    100% { transform: scale(100); opacity: 0; }
+@media (max-width: 768px) {
+    .blob-wrapper {
+        width: 260px;
+        height: 260px;
+    }
 }
 
 /* ============================================
@@ -477,7 +351,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   PAGE HEADER
+   SCROLL INDICATOR
+============================================ */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator a {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+/* ============================================
+   PAGE HEADER (common for inner pages)
 ============================================ */
 .page-header {
     padding: 150px 0 80px;
@@ -535,7 +430,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   ABOUT PAGE
+   ABOUT PAGE – LUXURY CARD
 ============================================ */
 .about-section {
     padding: 80px 0;
@@ -697,7 +592,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   SKILLS PAGE
+   SKILLS PAGE – GLASS CARDS & PROGRESS BARS
 ============================================ */
 .skills-section {
     padding: 80px 0;
@@ -823,57 +718,8 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-3px);
 }
 
-.skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.8rem;
-}
-
-.skill-box {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    border-radius: 28px;
-    padding: 1.8rem 1.2rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 1px solid var(--card-border);
-    width: 160px;
-    cursor: default;
-}
-
-.skill-box:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 35px var(--primary-glow);
-}
-
-.skill-box i {
-    font-size: 2.8rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-    display: inline-block;
-}
-
-.skill-box h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-}
-
-.skill-box .skill-percent {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    background: rgba(212, 175, 55, 0.15);
-    display: inline-block;
-    padding: 0.2rem 0.8rem;
-    border-radius: 50px;
-    margin-right: 2px;
-}
-
 /* ============================================
-   SERVICES, PROJECTS CARDS
+   SERVICES, PROJECTS, RESUME (cards)
 ============================================ */
 .service-card, .project-card, .resume-card {
     background: var(--card-bg);
@@ -897,30 +743,11 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
 }
 
-.project-card {
-    overflow: hidden;
-    padding: 0;
-}
-
-.project-img {
-    width: 100%;
-    overflow: hidden;
-}
-
 .project-img img {
     width: 100%;
     height: 250px;
     object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.project-card:hover .project-img img {
-    transform: scale(1.05);
-}
-
-.project-info {
-    padding: 1.5rem;
+    border-radius: 20px 20px 0 0;
 }
 
 .tech-stack span {
@@ -934,13 +761,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   RESUME PAGE
+   RESUME PAGE – LUXURY CARD
 ============================================ */
 .resume-download-card {
     background: var(--card-bg);
     backdrop-filter: blur(20px);
-    border-radius: 40px;
-    padding: 2rem 1.8rem;
+    border-radius: 40px;           /* reduced for compact look */
+    padding: 2rem 1.8rem;          /* compact padding */
     text-align: center;
     border: 1px solid var(--card-border);
     transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
@@ -1020,6 +847,11 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 10px 25px var(--primary-glow);
 }
 
+.btn-download i {
+    margin-right: 8px;
+}
+
+/* Icon‑only download button – single definition */
 .btn-icon-only {
     width: 36px;
     height: 36px;
@@ -1042,8 +874,85 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 6px 12px var(--primary-glow);
 }
 
+.btn-icon-only:active {
+    transform: translateY(1px);
+}
+
+.resume-section {
+    position: relative;
+}
+
+.resume-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
 /* ============================================
-   CONTACT PAGE
+   SKILLS PAGE – SMALL ELEGANT BOXES
+============================================ */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.8rem;
+}
+
+.skill-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    padding: 1.8rem 1.2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--card-border);
+    width: 160px;
+    cursor: default;
+}
+
+.skill-box:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 35px var(--primary-glow);
+}
+
+.skill-box i {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.skill-box h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.skill-box .skill-percent {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(212, 175, 55, 0.15);
+    display: inline-block;
+    padding: 0.2rem 0.8rem;
+    border-radius: 50px;
+    margin-right: 2px;
+}
+
+.skill-box span:last-child {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* ============================================
+   CONTACT PAGE LUXURY STYLES
 ============================================ */
 .contact-section {
     padding: 80px 0;
@@ -1118,6 +1027,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.85;
 }
 
+/* Form Inputs */
 .contact-form-card .form-control {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(212, 175, 55, 0.3);
@@ -1139,6 +1049,14 @@ h1, h2, h3, h4, h5, h6 {
     outline: none;
 }
 
+.contact-form-card .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .contact-form-card .form-control::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
 .send-btn {
     width: 100%;
     padding: 1rem;
@@ -1153,6 +1071,25 @@ h1, h2, h3, h4, h5, h6 {
 .send-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 25px var(--primary-glow);
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 20px;
+    font-weight: 500;
+    padding: 1rem;
+}
+
+.alert-success {
+    background: rgba(40, 167, 69, 0.15);
+    border: 1px solid #28a745;
+    color: #28a745;
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid #dc3545;
+    color: #dc3545;
 }
 
 /* ============================================
@@ -1187,7 +1124,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
-   PARTICLE BACKGROUND
+   LUXURY ADDITIONS – MOUSE GLOW, SCROLL PROGRESS, PARTICLES
 ============================================ */
 #particles-canvas {
     position: fixed;
@@ -1197,149 +1134,63 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.4;
+}
+
+.mouse-glow {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    z-index: 10000;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px var(--primary);
 }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE (consolidated)
 ============================================ */
 @media (max-width: 768px) {
     .hero-title { font-size: 2.5rem; }
     .hero-role { font-size: 1.5rem; }
-    .blob-wrapper { width: 260px; height: 260px; }
+    .hexagon-wrapper { width: 260px; height: 260px; }
     .page-header h1 { font-size: 2.2rem; }
     .about-card, .skill-card, .service-card, .project-card { padding: 1.5rem; }
     .profile-img { width: 180px; height: 180px; }
     .profile-ring { width: 200px; height: 200px; }
     .mouse-glow { display: none; }
-    .mouse-trail { display: none; }
     .contact-info-card, .contact-form-card { padding: 1.5rem; }
     .contact-item { gap: 1rem; }
     .icon-box { width: 40px; height: 40px; }
     .icon-box i { font-size: 1.2rem; }
-    .theme-toggle { width: 40px; height: 40px; bottom: 1rem; right: 1rem; }
-    .theme-toggle i { font-size: 1.2rem; }
+
+    /* resume page */
     .resume-download-card { padding: 1.5rem 1.2rem; border-radius: 32px; }
     .resume-icon { font-size: 2.5rem; }
     .resume-download-card h3 { font-size: 1.4rem; }
+    .resume-download-card p { font-size: 0.85rem; max-width: 100%; }
     .btn-download { padding: 0.6rem 1.4rem; font-size: 0.85rem; }
+    .btn-icon-only { width: 32px; height: 32px; font-size: 0.9rem; }
+
+    /* skills page small boxes */
     .skills-grid { gap: 1rem; }
     .skill-box { width: 140px; padding: 1.2rem 0.8rem; }
     .skill-box i { font-size: 2rem; }
     .skill-box h4 { font-size: 0.9rem; }
-}
-
-
-
-/* ============================================
-   CLEAN BLOB SHAPE - NO BLACK BACKGROUND
-============================================ */
-.blob-wrapper {
-    position: relative;
-    width: 380px;
-    height: 380px;
-    margin: 0 auto;
-    cursor: pointer;
-}
-
-.blob-shape {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    animation: morphBlob 8s ease-in-out infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
-}
-
-@keyframes morphBlob {
-    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-    25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-    50% { border-radius: 50% 50% 30% 70% / 40% 60% 70% 30%; }
-    75% { border-radius: 70% 30% 50% 50% / 30% 70% 40% 60%; }
-    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-}
-
-.blob-shape img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-}
-
-/* Small Glitter Stars */
-.glit-star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: #ffd700;
-    border-radius: 50%;
-    animation: starGlitter 2s ease-in-out infinite;
-    box-shadow: 0 0 3px rgba(255, 215, 0, 0.6);
-    pointer-events: none;
-}
-
-.glit-star.inner-star {
-    width: 2px;
-    height: 2px;
-    background: #f5e7a3;
-    animation-duration: 1.5s;
-}
-
-@keyframes starGlitter {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 5px #ffd700; }
-}
-
-/* Rotating Rings - Subtle */
-.star-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    animation: rotateRing 20s linear infinite;
-    pointer-events: none;
-}
-
-.star-ring.secondary {
-    border: 1px dashed rgba(212, 175, 55, 0.15);
-    animation: rotateRingReverse 25s linear infinite;
-}
-
-.star-ring.tertiary {
-    border: 1px dotted rgba(212, 175, 55, 0.1);
-    animation: rotateRing 15s linear infinite reverse;
-}
-
-@keyframes rotateRing {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes rotateRingReverse {
-    from { transform: translate(-50%, -50%) rotate(360deg); }
-    to { transform: translate(-50%, -50%) rotate(0deg); }
-}
-
-/* Glow Dots */
-.glow-dot {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: rgba(212, 175, 55, 0.5);
-    border-radius: 50%;
-    animation: floatDot 3s ease-in-out infinite;
-    pointer-events: none;
-}
-
-@keyframes floatDot {
-    0% { transform: translate(0, 0) scale(1); opacity: 0; }
-    50% { transform: translate(var(--x, 10px), var(--y, 10px)) scale(1.5); opacity: 0.6; }
-    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+    .skill-box .skill-percent { font-size: 1.2rem; }
 }

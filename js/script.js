@@ -1,49 +1,31 @@
 // ============================================
-// 🚀 ULTIMATE LUXURY PORTFOLIO - MOST ATTRACTIVE JS
-// ============================================
-
-// ============================================
-// 1. PREMIUM AOS WITH CUSTOM EASING
+// 1. INITIALIZE AOS
 // ============================================
 AOS.init({
-    duration: 1200,
-    once: false,
-    offset: 100,
-    easing: 'ease-out-quad',
-    mirror: true,
-    anchorPlacement: 'top-bottom',
-    disable: false
+    duration: 800,
+    once: true,
+    offset: 100
 });
 
 // ============================================
-// 2. DYNAMIC TYPED.JS WITH EMOJIS
+// 2. TYPED.JS FOR HERO ROLE
 // ============================================
 if (document.getElementById('typed-role')) {
     new Typed('#typed-role', {
-        strings: [
-            'Python Fullstack Developer 🐍',
-            'UI/UX Designer 🎨',
-            'Creative Coder 💻',
-            'Problem Solver 🧠',
-            'Tech Artist ✨'
-        ],
-        typeSpeed: 70,
-        backSpeed: 45,
+        strings: ['Python Fullstack Developer', 'Web Designer', 'Creative Coder', 'Problem Solver'],
+        typeSpeed: 60,
+        backSpeed: 40,
         loop: true,
-        cursorChar: '✨',
-        smartBackspace: true,
-        backDelay: 1500,
-        startDelay: 500
+        cursorChar: '|'
     });
 }
 
 // ============================================
-// 3. THEME TOGGLE WITH DRAMATIC EFFECT
+// 3. THEME TOGGLE
 // ============================================
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
 
-// Set initial theme
 if (currentTheme === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -52,23 +34,7 @@ if (currentTheme === 'light') {
     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
 }
 
-// Theme toggle with explosion effect
-themeToggle.addEventListener('click', (e) => {
-    // Create explosion effect
-    for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'theme-particle';
-        particle.style.left = e.clientX + 'px';
-        particle.style.top = e.clientY + 'px';
-        particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
-        particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
-        document.body.appendChild(particle);
-        setTimeout(() => particle.remove(), 800);
-    }
-    
-    themeToggle.style.transform = 'scale(1.3) rotate(360deg)';
-    setTimeout(() => { themeToggle.style.transform = ''; }, 300);
-    
+themeToggle.addEventListener('click', () => {
     if (document.documentElement.hasAttribute('data-theme')) {
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem('theme', 'dark');
@@ -81,7 +47,7 @@ themeToggle.addEventListener('click', (e) => {
 });
 
 // ============================================
-// 4. 3D SCROLL PROGRESS WITH RAINBOW EFFECT
+// 4. SCROLL PROGRESS BAR
 // ============================================
 const progressBarScroll = document.createElement('div');
 progressBarScroll.className = 'scroll-progress';
@@ -92,561 +58,215 @@ window.addEventListener('scroll', () => {
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
     progressBarScroll.style.width = scrolled + '%';
-    
-    // Dynamic color based on scroll position
-    const hue = (scrolled * 3.6);
-    progressBarScroll.style.background = `linear-gradient(90deg, 
-        hsl(${hue}, 100%, 50%), 
-        hsl(${hue + 60}, 100%, 60%),
-        hsl(${hue + 120}, 100%, 50%))`;
 });
 
 // ============================================
-// 5. SPECTACULAR ROUND IMAGE WITH GALAXY EFFECTS
+// 5. LUXURY ROUND IMAGE WITH GLITTERING STARS
 // ============================================
 
-function createGalaxyEffect() {
+function createGlitterStars() {
     const blobWrapper = document.getElementById('blobWrapper');
     if (!blobWrapper) return;
     
-    // Clear existing effects
-    const existingEffects = blobWrapper.querySelectorAll('.galaxy-ring, .shooting-star, .nebula, .star-field, .orbit-ring');
-    existingEffects.forEach(effect => effect.remove());
+    // Remove existing decorations
+    const existingContainer = blobWrapper.querySelector('.star-container');
+    if (existingContainer) existingContainer.remove();
+    const existingRings = blobWrapper.querySelectorAll('.star-ring, .golden-border-ring');
+    existingRings.forEach(ring => ring.remove());
+    const existingParticles = blobWrapper.querySelectorAll('.floating-particle');
+    existingParticles.forEach(p => p.remove());
     
-    const size = blobWrapper.offsetWidth;
-    const center = size / 2;
+    // Get current size for responsive positioning
+    const wrapperSize = blobWrapper.offsetWidth;
+    const center = wrapperSize / 2;
+    const outerRadius = wrapperSize * 0.55;
+    const innerRadius = wrapperSize * 0.45;
     
-    // Create nebula background
-    const nebula = document.createElement('div');
-    nebula.className = 'nebula';
-    blobWrapper.appendChild(nebula);
+    // Create rotating rings
+    const ring1 = document.createElement('div');
+    ring1.className = 'star-ring';
+    const ring2 = document.createElement('div');
+    ring2.className = 'star-ring secondary';
+    const goldenRing = document.createElement('div');
+    goldenRing.className = 'golden-border-ring';
     
-    // Create multiple orbit rings
-    const orbits = [0.45, 0.55, 0.65, 0.75];
-    orbits.forEach((radius, idx) => {
-        const orbit = document.createElement('div');
-        orbit.className = 'orbit-ring';
-        orbit.style.width = (radius * 2 * 100) + '%';
-        orbit.style.height = (radius * 2 * 100) + '%';
-        orbit.style.animationDuration = (20 - idx * 3) + 's';
-        orbit.style.animationDirection = idx % 2 === 0 ? 'normal' : 'reverse';
-        blobWrapper.appendChild(orbit);
-    });
+    blobWrapper.appendChild(ring1);
+    blobWrapper.appendChild(ring2);
+    blobWrapper.appendChild(goldenRing);
     
-    // Create star field
-    const starField = document.createElement('div');
-    starField.className = 'star-field';
+    // Create star container
+    const starContainer = document.createElement('div');
+    starContainer.className = 'star-container';
     
-    // Add 100 stars in galaxy pattern
-    for (let i = 0; i < 100; i++) {
+    // Create outer stars
+    const outerStarCount = 24;
+    for (let i = 0; i < outerStarCount; i++) {
+        const angle = (i / outerStarCount) * Math.PI * 2;
+        const x = center + Math.cos(angle) * outerRadius;
+        const y = center + Math.sin(angle) * outerRadius;
+        
         const star = document.createElement('div');
-        star.className = 'galaxy-star';
-        const angle = Math.random() * Math.PI * 2;
-        const rad = center * (0.2 + Math.random() * 0.7);
-        const x = center + Math.cos(angle) * rad;
-        const y = center + Math.sin(angle) * rad;
+        star.className = 'glit-star';
+        if (i % 3 === 0) star.classList.add('sparkle');
         star.style.left = x + 'px';
         star.style.top = y + 'px';
-        star.style.animationDelay = (Math.random() * 5) + 's';
-        star.style.animationDuration = (1 + Math.random() * 2) + 's';
-        star.style.opacity = 0.3 + Math.random() * 0.7;
-        starField.appendChild(star);
-    }
-    blobWrapper.appendChild(starField);
-    
-    // Create shooting stars
-    for (let i = 0; i < 8; i++) {
-        const shootingStar = document.createElement('div');
-        shootingStar.className = 'shooting-star';
-        const angle = Math.random() * Math.PI * 2;
-        const startRad = center * 0.8;
-        const x = center + Math.cos(angle) * startRad;
-        const y = center + Math.sin(angle) * startRad;
-        shootingStar.style.left = x + 'px';
-        shootingStar.style.top = y + 'px';
-        shootingStar.style.setProperty('--angle', angle + 'rad');
-        shootingStar.style.animationDelay = (i * 3) + 's';
-        blobWrapper.appendChild(shootingStar);
+        star.style.animationDelay = (i * 0.15) + 's';
+        starContainer.appendChild(star);
     }
     
-    // Create floating diamonds (luxury touch)
-    for (let i = 0; i < 12; i++) {
-        const diamond = document.createElement('div');
-        diamond.className = 'floating-diamond';
+    // Create inner stars
+    const innerStarCount = 16;
+    for (let i = 0; i < innerStarCount; i++) {
+        const angle = (i / innerStarCount) * Math.PI * 2 + 0.5;
+        const x = center + Math.cos(angle) * innerRadius;
+        const y = center + Math.sin(angle) * innerRadius;
+        
+        const star = document.createElement('div');
+        star.className = 'glit-star';
+        star.style.left = x + 'px';
+        star.style.top = y + 'px';
+        star.style.width = '4px';
+        star.style.height = '4px';
+        star.style.animationDelay = (i * 0.2) + 's';
+        star.style.animationDuration = '1.5s';
+        starContainer.appendChild(star);
+    }
+    
+    blobWrapper.appendChild(starContainer);
+    
+    // Create floating particles
+    const particleCount = 12;
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
         const angle = Math.random() * Math.PI * 2;
-        const rad = center * (0.5 + Math.random() * 0.4);
-        const x = center + Math.cos(angle) * rad;
-        const y = center + Math.sin(angle) * rad;
-        diamond.style.left = x + 'px';
-        diamond.style.top = y + 'px';
-        diamond.style.animationDelay = (i * 0.4) + 's';
-        diamond.style.animationDuration = (3 + Math.random() * 2) + 's';
-        blobWrapper.appendChild(diamond);
+        const distance = innerRadius + Math.random() * 30;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        particle.style.setProperty('--x', x + 'px');
+        particle.style.setProperty('--y', y + 'px');
+        particle.style.left = center + 'px';
+        particle.style.top = center + 'px';
+        particle.style.animationDelay = (i * 0.3) + 's';
+        particle.style.animationDuration = (2 + Math.random() * 2) + 's';
+        blobWrapper.appendChild(particle);
     }
 }
 
-// Initialize galaxy effect
+// Initialize stars on load and resize
 window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        createGalaxyEffect();
-        createGlowOrb();
-    }, 100);
+    setTimeout(createGlitterStars, 100);
 });
 
-let galaxyResizeTimeout;
+let resizeTimeout;
 window.addEventListener('resize', () => {
-    clearTimeout(galaxyResizeTimeout);
-    galaxyResizeTimeout = setTimeout(createGalaxyEffect, 200);
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(createGlitterStars, 200);
 });
 
 // ============================================
-// 6. MAGNETIC 3D TILT WITH HOLOGRAPHIC EFFECT
+// 6. 3D TILT EFFECT FOR IMAGE
 // ============================================
-const magneticWrapper = document.getElementById('blobWrapper');
-const magneticImg = document.querySelector('#blobWrapper img');
+const blobWrapper = document.getElementById('blobWrapper');
+const blobShape = document.querySelector('.blob-shape');
+const blobImg = document.querySelector('.blob-shape img');
 
-if (magneticWrapper && magneticImg) {
-    let rafId = null;
-    let currentRotateX = 0;
-    let currentRotateY = 0;
-    let targetRotateX = 0;
-    let targetRotateY = 0;
-    
-    magneticWrapper.addEventListener('mousemove', (e) => {
-        const rect = magneticWrapper.getBoundingClientRect();
+if (blobWrapper && blobShape && blobImg) {
+    blobWrapper.addEventListener('mousemove', (e) => {
+        const rect = blobWrapper.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        targetRotateX = ((y - centerY) / centerY) * 25;
-        targetRotateY = ((x - centerX) / centerX) * 25;
+        const rotateX = ((y - centerY) / centerY) * 15;
+        const rotateY = ((x - centerX) / centerX) * 15;
+        const moveX = (x - centerX) / 25;
+        const moveY = (y - centerY) / 25;
         
-        const moveX = (x - centerX) / 15;
-        const moveY = (y - centerY) / 15;
-        
-        magneticImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.08)`;
-        
-        // Holographic shimmer effect
-        const shimmer = document.createElement('div');
-        shimmer.className = 'holographic-shimmer';
-        shimmer.style.left = x + 'px';
-        shimmer.style.top = y + 'px';
-        magneticWrapper.appendChild(shimmer);
-        setTimeout(() => shimmer.remove(), 300);
-        
-        if (!rafId) {
-            rafId = requestAnimationFrame(updateRotation);
+        blobWrapper.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        if (blobImg) {
+            blobImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.03)`;
         }
     });
     
-    function updateRotation() {
-        currentRotateX += (targetRotateX - currentRotateX) * 0.15;
-        currentRotateY += (targetRotateY - currentRotateY) * 0.15;
-        
-        magneticWrapper.style.transform = `perspective(2000px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
-        
-        if (Math.abs(currentRotateX - targetRotateX) > 0.01 || Math.abs(currentRotateY - targetRotateY) > 0.01) {
-            rafId = requestAnimationFrame(updateRotation);
-        } else {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-        }
-    }
-    
-    magneticWrapper.addEventListener('mouseleave', () => {
-        targetRotateX = 0;
-        targetRotateY = 0;
-        magneticImg.style.transform = '';
-        if (!rafId) {
-            rafId = requestAnimationFrame(updateRotation);
-        }
+    blobWrapper.addEventListener('mouseleave', () => {
+        blobWrapper.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        if (blobImg) blobImg.style.transform = '';
     });
 }
 
 // ============================================
-// 7. COSMIC PARTICLE BACKGROUND WITH CONNECTIONS
+// 7. PARTICLE BACKGROUND
 // ============================================
-const cosmicCanvas = document.getElementById('particles-canvas');
-if (cosmicCanvas) {
-    const ctx = cosmicCanvas.getContext('2d');
+const canvas = document.getElementById('particles-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
     let particles = [];
-    let connections = [];
-    let mouseX = null, mouseY = null;
-    let mouseRadius = 150;
     
     function resizeCanvas() {
-        cosmicCanvas.width = window.innerWidth;
-        cosmicCanvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
     
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    class CosmicParticle {
+    class Particle {
         constructor() {
-            this.x = Math.random() * cosmicCanvas.width;
-            this.y = Math.random() * cosmicCanvas.height;
-            this.size = Math.random() * 3 + 1;
-            this.speedX = (Math.random() - 0.5) * 0.5;
-            this.speedY = (Math.random() - 0.5) * 0.5;
-            this.baseHue = 45 + Math.random() * 30;
-            this.hue = this.baseHue;
-            this.angle = Math.random() * Math.PI * 2;
-            this.radius = Math.random() * 100 + 50;
-            this.centerX = this.x;
-            this.centerY = this.y;
-            this.orbitSpeed = 0.01 + Math.random() * 0.02;
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2.5 + 0.8;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.4 + 0.15;
         }
-        
         update() {
-            // Orbit around original position
-            this.angle += this.orbitSpeed;
-            this.x = this.centerX + Math.cos(this.angle) * this.radius * 0.1;
-            this.y = this.centerY + Math.sin(this.angle) * this.radius * 0.1;
-            
-            // Mouse interaction
-            if (mouseX && mouseY) {
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < mouseRadius) {
-                    const angle = Math.atan2(dy, dx);
-                    const force = (mouseRadius - distance) / mouseRadius;
-                    this.x -= Math.cos(angle) * force * 3;
-                    this.y -= Math.sin(angle) * force * 3;
-                    this.hue = (this.baseHue + force * 50) % 360;
-                } else {
-                    this.hue = this.baseHue;
-                }
-            }
-            
-            // Wrap around
-            if (this.x < -50) this.x = cosmicCanvas.width + 50;
-            if (this.x > cosmicCanvas.width + 50) this.x = -50;
-            if (this.y < -50) this.y = cosmicCanvas.height + 50;
-            if (this.y > cosmicCanvas.height + 50) this.y = -50;
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
         }
-        
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            
-            // Gradient fill
-            const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2);
-            gradient.addColorStop(0, `hsl(${this.hue}, 100%, 65%)`);
-            gradient.addColorStop(1, `hsl(${this.hue}, 80%, 45%)`);
-            ctx.fillStyle = gradient;
+            ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
             ctx.fill();
-            
-            // Glow
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = `hsl(${this.hue}, 100%, 60%)`;
         }
     }
     
-    function initCosmicParticles() {
+    function initParticles() {
         particles = [];
-        for (let i = 0; i < 200; i++) {
-            particles.push(new CosmicParticle());
-        }
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
     }
     
-    function drawConnections() {
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 120) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    const opacity = 0.15 * (1 - distance / 120);
-                    ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.stroke();
-                }
-            }
-        }
-    }
-    
-    function animateCosmic() {
-        ctx.clearRect(0, 0, cosmicCanvas.width, cosmicCanvas.height);
-        ctx.shadowBlur = 0;
-        
-        drawConnections();
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach(p => {
             p.update();
             p.draw();
         });
-        
-        requestAnimationFrame(animateCosmic);
+        requestAnimationFrame(animateParticles);
     }
     
     window.addEventListener('resize', () => {
         resizeCanvas();
-        initCosmicParticles();
+        initParticles();
     });
     
     resizeCanvas();
-    initCosmicParticles();
-    animateCosmic();
+    initParticles();
+    animateParticles();
 }
 
 // ============================================
-// 8. CURSOR MAGIC WITH TRAIL AND GLOW
-// ============================================
-const cursorTrail = [];
-const trailLength = 15;
-
-// Create cursor trail elements
-for (let i = 0; i < trailLength; i++) {
-    const trail = document.createElement('div');
-    trail.className = 'cursor-trail';
-    document.body.appendChild(trail);
-    cursorTrail.push(trail);
-}
-
-let trailPositions = [];
-let lastX = 0, lastY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    trailPositions.unshift({ x: e.clientX, y: e.clientY, time: Date.now() });
-    if (trailPositions.length > trailLength) trailPositions.pop();
-    
-    cursorTrail.forEach((trail, index) => {
-        if (trailPositions[index]) {
-            trail.style.left = trailPositions[index].x - 5 + 'px';
-            trail.style.top = trailPositions[index].y - 5 + 'px';
-            trail.style.opacity = 1 - (index / trailLength);
-            trail.style.transform = `scale(${1 - (index / trailLength)})`;
-        }
-    });
-});
-
-// Custom cursor
-const customCursor = document.createElement('div');
-customCursor.className = 'custom-cursor';
-document.body.appendChild(customCursor);
-
-const cursorRing = document.createElement('div');
-cursorRing.className = 'cursor-ring';
-document.body.appendChild(cursorRing);
-
-document.addEventListener('mousemove', (e) => {
-    customCursor.style.left = e.clientX - 8 + 'px';
-    customCursor.style.top = e.clientY - 8 + 'px';
-    
-    setTimeout(() => {
-        cursorRing.style.left = e.clientX - 20 + 'px';
-        cursorRing.style.top = e.clientY - 20 + 'px';
-    }, 80);
-});
-
-// Hover effect on clickable elements
-document.querySelectorAll('a, button, .project-card, .social-link').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        customCursor.style.transform = 'scale(1.5)';
-        cursorRing.style.transform = 'scale(1.3)';
-        cursorRing.style.borderColor = '#ffd700';
-    });
-    el.addEventListener('mouseleave', () => {
-        customCursor.style.transform = 'scale(1)';
-        cursorRing.style.transform = 'scale(1)';
-        cursorRing.style.borderColor = '#d4af37';
-    });
-});
-
-// ============================================
-// 9. SCROLL REVEAL WITH PARALLAX
-// ============================================
-const revealElements = document.querySelectorAll('.section, .project-card, .skill-category, .contact-item');
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(50px)';
-    el.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-    revealObserver.observe(el);
-});
-
-// Parallax effect on scroll
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        heroSection.style.transform = `translateY(${scrolled * 0.3}px)`;
-        heroSection.style.opacity = 1 - (scrolled * 0.002);
-    }
-});
-
-// ============================================
-// 10. SMOOTH SCROLL WITH EASING
+// 8. SMOOTH SCROLLING
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const target = document.querySelector(targetId);
-        if (target) {
-            // Ripple effect on click
-            const ripple = document.createElement('div');
-            ripple.className = 'ripple-effect';
-            ripple.style.left = e.clientX + 'px';
-            ripple.style.top = e.clientY + 'px';
-            document.body.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 1000);
-            
-            const offset = 70;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            
-            // Smooth scroll with custom easing
-            const startPosition = window.pageYOffset;
-            const distance = targetPosition - startPosition;
-            const duration = 1000;
-            let startTime = null;
-            
-            function animation(currentTime) {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const progress = Math.min(timeElapsed / duration, 1);
-                const ease = easeOutCubic(progress);
-                window.scrollTo(0, startPosition + distance * ease);
-                if (timeElapsed < duration) requestAnimationFrame(animation);
-            }
-            
-            function easeOutCubic(x) {
-                return 1 - Math.pow(1 - x, 3);
-            }
-            
-            requestAnimationFrame(animation);
-        }
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
 
-// ============================================
-// 11. GLOW ORB EFFECT (NEW)
-// ============================================
-function createGlowOrb() {
-    const orb = document.createElement('div');
-    orb.className = 'glow-orb';
-    document.body.appendChild(orb);
-    
-    document.addEventListener('mousemove', (e) => {
-        orb.style.left = e.clientX - 150 + 'px';
-        orb.style.top = e.clientY - 150 + 'px';
-    });
-}
-
-// ============================================
-// 12. NUMBER COUNTER FOR STATS
-// ============================================
-function animateNumbers() {
-    const numberElements = document.querySelectorAll('.stat-number');
-    
-    numberElements.forEach(el => {
-        const target = parseInt(el.getAttribute('data-target'));
-        let current = 0;
-        const increment = target / 50;
-        const updateNumber = () => {
-            current += increment;
-            if (current < target) {
-                el.textContent = Math.floor(current);
-                requestAnimationFrame(updateNumber);
-            } else {
-                el.textContent = target;
-            }
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                updateNumber();
-                observer.disconnect();
-            }
-        });
-        observer.observe(el);
-    });
-}
-
-// Initialize number counter when DOM loads
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(animateNumbers, 500);
-});
-
-// ============================================
-// 13. BACKGROUND MUSIC VISUALIZER (OPTIONAL)
-// ============================================
-function createAudioVisualizer() {
-    const bars = [];
-    for (let i = 0; i < 50; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'audio-bar';
-        bar.style.height = Math.random() * 100 + '%';
-        bar.style.animationDelay = i * 0.05 + 's';
-        document.querySelector('.hero')?.appendChild(bar);
-        bars.push(bar);
-    }
-    
-    setInterval(() => {
-        bars.forEach(bar => {
-            bar.style.height = Math.random() * 100 + '%';
-        });
-    }, 200);
-}
-
-// Uncomment if you want visualizer
-// createAudioVisualizer();
-
-// ============================================
-// 14. WELCOME MESSAGE WITH CONFETTI
-// ============================================
-function showWelcomeConfetti() {
-    const duration = 3000;
-    const end = Date.now() + duration;
-    
-    const colors = ['#d4af37', '#ffd700', '#ffed4a', '#f5e7a3'];
-    
-    (function frame() {
-        confetti({
-            particleCount: 3,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 },
-            colors: colors
-        });
-        confetti({
-            particleCount: 3,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 },
-            colors: colors
-        });
-        
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
-    }());
-}
-
-// Show confetti on first visit
-if (!localStorage.getItem('visited')) {
-    setTimeout(showWelcomeConfetti, 500);
-    localStorage.setItem('visited', 'true');
-}
-
-console.log('✨✨✨ ULTIMATE LUXURY PORTFOLIO ACTIVATED! ✨✨✨');
-console.log('🎨 Features: Galaxy Effect | Magnetic Tilt | Cosmic Particles | Custom Cursor | Parallax | Confetti 🎨');
+console.log('✨ Luxury Portfolio Loaded — Fully Responsive with Glitter Stars!'); 

@@ -1,5 +1,5 @@
 // ============================================
-// 1. INITIALIZE AOS WITH ENHANCED SETTINGS
+// 1. INITIALIZE AOS
 // ============================================
 AOS.init({
     duration: 1000,
@@ -11,7 +11,7 @@ AOS.init({
 });
 
 // ============================================
-// 2. TYPED.JS FOR HERO ROLE - FASTER & DYNAMIC
+// 2. TYPED.JS FOR HERO ROLE
 // ============================================
 if (document.getElementById('typed-role')) {
     new Typed('#typed-role', {
@@ -26,7 +26,7 @@ if (document.getElementById('typed-role')) {
 }
 
 // ============================================
-// 3. THEME TOGGLE WITH ANIMATION
+// 3. THEME TOGGLE
 // ============================================
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -40,7 +40,6 @@ if (currentTheme === 'light') {
 }
 
 themeToggle.addEventListener('click', () => {
-    // Add ripple effect
     themeToggle.style.transform = 'scale(1.2) rotate(180deg)';
     setTimeout(() => { themeToggle.style.transform = ''; }, 300);
     
@@ -56,7 +55,7 @@ themeToggle.addEventListener('click', () => {
 });
 
 // ============================================
-// 4. SCROLL PROGRESS BAR WITH GLOW EFFECT
+// 4. SCROLL PROGRESS BAR
 // ============================================
 const progressBarScroll = document.createElement('div');
 progressBarScroll.className = 'scroll-progress';
@@ -68,20 +67,17 @@ window.addEventListener('scroll', () => {
     const scrolled = (winScroll / height) * 100;
     progressBarScroll.style.width = scrolled + '%';
     
-    // Add glow intensity based on scroll
     const glowIntensity = scrolled / 100;
     progressBarScroll.style.boxShadow = `0 0 ${10 + glowIntensity * 20}px rgba(212, 175, 55, ${0.5 + glowIntensity * 0.5})`;
 });
 
 // ============================================
-// 5. ULTRA ATTRACTIVE ROUND IMAGE WITH PREMIUM EFFECTS
+// 5. CREATE GLITTER STARS
 // ============================================
-
 function createGlitterStars() {
     const blobWrapper = document.getElementById('blobWrapper');
     if (!blobWrapper) return;
     
-    // Remove existing decorations for clean refresh
     const existingContainer = blobWrapper.querySelector('.star-container');
     if (existingContainer) existingContainer.remove();
     const existingRings = blobWrapper.querySelectorAll('.star-ring, .golden-border-ring, .pulse-ring');
@@ -89,19 +85,16 @@ function createGlitterStars() {
     const existingParticles = blobWrapper.querySelectorAll('.floating-particle, .glow-dot');
     existingParticles.forEach(p => p.remove());
     
-    // Get current size for responsive positioning
     const wrapperSize = blobWrapper.offsetWidth;
     const center = wrapperSize / 2;
     const outerRadius = wrapperSize * 0.6;
     const innerRadius = wrapperSize * 0.44;
     const midRadius = wrapperSize * 0.52;
     
-    // Create PULSE RING (new - very attractive)
     const pulseRing = document.createElement('div');
     pulseRing.className = 'pulse-ring';
     blobWrapper.appendChild(pulseRing);
     
-    // Create rotating golden rings with different speeds
     const ring1 = document.createElement('div');
     ring1.className = 'star-ring';
     const ring2 = document.createElement('div');
@@ -116,11 +109,9 @@ function createGlitterStars() {
     blobWrapper.appendChild(ring3);
     blobWrapper.appendChild(goldenRing);
     
-    // Create star container for glittering stars
     const starContainer = document.createElement('div');
     starContainer.className = 'star-container';
     
-    // OUTER STARS - More stars for more glitter
     const outerStarCount = 32;
     for (let i = 0; i < outerStarCount; i++) {
         const angle = (i / outerStarCount) * Math.PI * 2;
@@ -138,7 +129,6 @@ function createGlitterStars() {
         starContainer.appendChild(star);
     }
     
-    // MIDDLE STARS - Twinkling stars
     const midStarCount = 20;
     for (let i = 0; i < midStarCount; i++) {
         const angle = (i / midStarCount) * Math.PI * 2 + 0.3;
@@ -154,7 +144,6 @@ function createGlitterStars() {
         starContainer.appendChild(star);
     }
     
-    // INNER STARS - Small but bright
     const innerStarCount = 24;
     for (let i = 0; i < innerStarCount; i++) {
         const angle = (i / innerStarCount) * Math.PI * 2 + 0.8;
@@ -172,7 +161,6 @@ function createGlitterStars() {
     
     blobWrapper.appendChild(starContainer);
     
-    // GLOW DOTS - Floating magical particles
     const glowDotCount = 24;
     for (let i = 0; i < glowDotCount; i++) {
         const glowDot = document.createElement('div');
@@ -190,7 +178,6 @@ function createGlitterStars() {
         blobWrapper.appendChild(glowDot);
     }
     
-    // FLOATING SPARKLES
     const sparkleCount = 12;
     for (let i = 0; i < sparkleCount; i++) {
         const sparkle = document.createElement('div');
@@ -209,17 +196,12 @@ function createGlitterStars() {
     }
 }
 
-// Initialize stars with proper timing
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         createGlitterStars();
-        
-        // Add continuous rotation animation to blob wrapper
         const blobWrapper = document.getElementById('blobWrapper');
         if (blobWrapper) {
             blobWrapper.style.transition = 'box-shadow 0.3s ease, transform 0.3s ease';
-            
-            // Add subtle floating animation
             setInterval(() => {
                 if (!blobWrapper.matches(':hover')) {
                     blobWrapper.style.animation = 'subtleFloat 3s ease-in-out infinite';
@@ -236,14 +218,12 @@ window.addEventListener('resize', () => {
 });
 
 // ============================================
-// 6. ENHANCED 3D TILT EFFECT WITH MORE DRAMA
+// 6. 3D TILT EFFECT
 // ============================================
 const blobWrapper3D = document.getElementById('blobWrapper');
 const blobImg3D = document.querySelector('#blobWrapper img');
 
 if (blobWrapper3D && blobImg3D) {
-    let tiltTimeout;
-    
     blobWrapper3D.addEventListener('mousemove', (e) => {
         const rect = blobWrapper3D.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -251,18 +231,15 @@ if (blobWrapper3D && blobImg3D) {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        // Enhanced rotation (max 20 degrees for more drama)
         const rotateX = ((y - centerY) / centerY) * 18;
         const rotateY = ((x - centerX) / centerX) * 18;
         const moveX = (x - centerX) / 20;
         const moveY = (y - centerY) / 20;
         const scale = 1 + (Math.abs(rotateX) + Math.abs(rotateY)) / 200;
         
-        // Apply dynamic 3D transform with scale
         blobWrapper3D.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
         blobImg3D.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.05)`;
         
-        // Dynamic glow effect based on tilt intensity
         const intensity = (Math.abs(rotateX) + Math.abs(rotateY)) / 36;
         blobWrapper3D.style.boxShadow = `0 30px 60px -12px rgba(212, 175, 55, ${0.2 + intensity * 0.3})`;
         blobWrapper3D.style.filter = `drop-shadow(0 0 ${5 + intensity * 10}px rgba(212, 175, 55, ${0.3 + intensity * 0.4}))`;
@@ -275,7 +252,6 @@ if (blobWrapper3D && blobImg3D) {
         blobWrapper3D.style.filter = '';
     });
     
-    // Add click sparkle effect
     blobWrapper3D.addEventListener('click', (e) => {
         const sparkle = document.createElement('div');
         sparkle.className = 'click-sparkle';
@@ -287,7 +263,7 @@ if (blobWrapper3D && blobImg3D) {
 }
 
 // ============================================
-// 7. PREMIUM PARTICLE BACKGROUND WITH COLORS
+// 7. PARTICLE BACKGROUND
 // ============================================
 const canvas = document.getElementById('particles-canvas');
 if (canvas) {
@@ -295,14 +271,12 @@ if (canvas) {
     let particles = [];
     let mouseX = null;
     let mouseY = null;
-    let time = 0;
     
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
     
-    // Mouse movement tracking for interactive particles
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
@@ -328,7 +302,6 @@ if (canvas) {
         }
         
         update() {
-            // React to mouse position with attraction/repulsion
             if (mouseX && mouseY) {
                 const dx = mouseX - this.x;
                 const dy = mouseY - this.y;
@@ -344,7 +317,6 @@ if (canvas) {
                     this.x += Math.cos(angle) * force;
                     this.y += Math.sin(angle) * force;
                 } else {
-                    // Return to original position
                     this.x += (this.originalX - this.x) * 0.01;
                     this.y += (this.originalY - this.y) * 0.01;
                 }
@@ -353,7 +325,6 @@ if (canvas) {
             this.x += this.speedX;
             this.y += this.speedY;
             
-            // Wrap around edges with smooth transition
             if (this.x < -50) this.x = canvas.width + 50;
             if (this.x > canvas.width + 50) this.x = -50;
             if (this.y < -50) this.y = canvas.height + 50;
@@ -369,14 +340,12 @@ if (canvas) {
             ctx.beginPath();
             ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
             
-            // Gradient fill for particles
             const gradient = ctx.createLinearGradient(this.x - pulseSize, this.y - pulseSize, this.x + pulseSize, this.y + pulseSize);
             gradient.addColorStop(0, this.color);
             gradient.addColorStop(1, `rgba(212, 175, 55, ${pulseOpacity})`);
             ctx.fillStyle = gradient;
             ctx.fill();
             
-            // Enhanced glow effect
             ctx.shadowBlur = 8;
             ctx.shadowColor = `rgba(212, 175, 55, ${pulseOpacity})`;
         }
@@ -391,7 +360,6 @@ if (canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.shadowBlur = 0;
         
-        // Draw connecting lines between nearby particles
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
@@ -413,7 +381,6 @@ if (canvas) {
             p.draw();
         });
         
-        time += 0.01;
         requestAnimationFrame(animateParticles);
     }
     
@@ -428,7 +395,7 @@ if (canvas) {
 }
 
 // ============================================
-// 8. SMOOTH SCROLLING WITH OFFSET AND ANIMATION
+// 8. SMOOTH SCROLLING
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -438,7 +405,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         const target = document.querySelector(targetId);
         if (target) {
-            // Add click ripple effect
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
             ripple.style.left = e.clientX + 'px';
@@ -457,31 +423,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// 9. ADD INTERSECTION OBSERVER FOR SCROLL REVEAL
-// ============================================
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.section, .card, .skill-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-});
-
-// ============================================
-// 10. ADD MOUSE TRAIL EFFECT (LUXURY TOUCH)
+// 9. MOUSE TRAIL EFFECT
 // ============================================
 const mouseTrail = [];
 const trailCount = 8;
@@ -509,4 +451,28 @@ document.addEventListener('mousemove', (e) => {
     trailIndex = (trailIndex + 1) % trailCount;
 });
 
-console.log('✨ ULTRA LUXURY PORTFOLIO LOADED — Premium Animations Active! ✨');
+// ============================================
+// 10. INTERSECTION OBSERVER
+// ============================================
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.section, .card, .skill-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
+
+console.log('✨ Luxury Portfolio Loaded — All Animations Active! ✨');

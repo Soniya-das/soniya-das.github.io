@@ -1228,3 +1228,118 @@ h1, h2, h3, h4, h5, h6 {
     .skill-box i { font-size: 2rem; }
     .skill-box h4 { font-size: 0.9rem; }
 }
+
+
+
+/* ============================================
+   CLEAN BLOB SHAPE - NO BLACK BACKGROUND
+============================================ */
+.blob-wrapper {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.blob-shape {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morphBlob 8s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+@keyframes morphBlob {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    50% { border-radius: 50% 50% 30% 70% / 40% 60% 70% 30%; }
+    75% { border-radius: 70% 30% 50% 50% / 30% 70% 40% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+.blob-shape img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+/* Small Glitter Stars */
+.glit-star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #ffd700;
+    border-radius: 50%;
+    animation: starGlitter 2s ease-in-out infinite;
+    box-shadow: 0 0 3px rgba(255, 215, 0, 0.6);
+    pointer-events: none;
+}
+
+.glit-star.inner-star {
+    width: 2px;
+    height: 2px;
+    background: #f5e7a3;
+    animation-duration: 1.5s;
+}
+
+@keyframes starGlitter {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 5px #ffd700; }
+}
+
+/* Rotating Rings - Subtle */
+.star-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateRing 20s linear infinite;
+    pointer-events: none;
+}
+
+.star-ring.secondary {
+    border: 1px dashed rgba(212, 175, 55, 0.15);
+    animation: rotateRingReverse 25s linear infinite;
+}
+
+.star-ring.tertiary {
+    border: 1px dotted rgba(212, 175, 55, 0.1);
+    animation: rotateRing 15s linear infinite reverse;
+}
+
+@keyframes rotateRing {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes rotateRingReverse {
+    from { transform: translate(-50%, -50%) rotate(360deg); }
+    to { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+/* Glow Dots */
+.glow-dot {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(212, 175, 55, 0.5);
+    border-radius: 50%;
+    animation: floatDot 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes floatDot {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    50% { transform: translate(var(--x, 10px), var(--y, 10px)) scale(1.5); opacity: 0.6; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+}

@@ -47,6 +47,40 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary);
 }
 
+
+
+
+
+/* ============================================
+   DARK MODE SMOOTH TRANSITION
+============================================ */
+body, .navbar, .footer, .card, .skill-card, .project-card, .contact-card {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Fix for light mode text in cards */
+[data-theme="light"] .about-card,
+[data-theme="light"] .skill-card,
+[data-theme="light"] .project-card,
+[data-theme="light"] .contact-info-card,
+[data-theme="light"] .contact-form-card {
+    color: #1a1a1a;
+}
+
+/* Fix for light mode particle opacity */
+[data-theme="light"] #particles-canvas {
+    opacity: 0.2;
+}
+
+/* Fix for light mode star rings */
+[data-theme="light"] .star-ring {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .star-ring.secondary {
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
 /* ============================================
    SCROLL PROGRESS BAR
 ============================================ */

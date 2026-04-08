@@ -61,21 +61,22 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// 5. SIMPLE ROUND SHAPE WITH GLITTER STARS
+// 5. PROFESSIONAL ROUND SHAPE WITH GLITTER STARS
 // ============================================
 
-// Make sure shape is perfectly round
+// Make perfect round shape
 function makeRoundShape() {
     const blobShape = document.querySelector('.blob-shape');
     if (blobShape) {
         blobShape.style.borderRadius = '50%';
         blobShape.style.clipPath = 'none';
-        blobShape.style.background = 'linear-gradient(135deg, #d4af37 0%, #f3e5ab 25%, #d4af37 50%, #b8941e 75%, #d4af37 100%)';
-        blobShape.style.boxShadow = '0 0 40px rgba(212, 175, 55, 0.4)';
+        blobShape.style.background = 'linear-gradient(135deg, #d4af37 0%, #f3e5ab 20%, #d4af37 45%, #e8c547 70%, #d4af37 100%)';
+        blobShape.style.boxShadow = '0 0 50px rgba(212, 175, 55, 0.4)';
+        blobShape.style.transition = 'all 0.3s ease';
     }
 }
 
-// Gentle floating animation (very subtle)
+// Gentle floating animation
 let floatY = 0;
 let floatDirection = 1;
 let glowIntensity = 0;
@@ -85,100 +86,163 @@ function gentleFloat() {
     const blobWrapper = document.getElementById('blobWrapper');
     if (!blobWrapper) return;
     
-    // Very gentle floating
-    floatY += 0.08 * floatDirection;
-    if (floatY > 5) floatDirection = -1;
-    if (floatY < -5) floatDirection = 1;
+    floatY += 0.06 * floatDirection;
+    if (floatY > 4) floatDirection = -1;
+    if (floatY < -4) floatDirection = 1;
     
-    // Gentle glow pulse
-    glowIntensity += 0.01 * glowDirection;
-    if (glowIntensity > 0.4) glowDirection = -1;
-    if (glowIntensity < 0.2) glowDirection = 1;
+    glowIntensity += 0.008 * glowDirection;
+    if (glowIntensity > 0.35) glowDirection = -1;
+    if (glowIntensity < 0.15) glowDirection = 1;
     
     const blobShape = document.querySelector('.blob-shape');
     if (blobShape) {
-        blobShape.style.boxShadow = `0 0 ${30 + glowIntensity * 15}px rgba(212, 175, 55, ${0.3 + glowIntensity * 0.2})`;
+        blobShape.style.boxShadow = `0 0 ${35 + glowIntensity * 20}px rgba(212, 175, 55, ${0.35 + glowIntensity * 0.15})`;
     }
     
-    blobWrapper.style.transform = `translateY(${floatY * 0.2}px)`;
+    blobWrapper.style.transform = `translateY(${floatY * 0.15}px)`;
     requestAnimationFrame(gentleFloat);
 }
 
-// Create elegant glitter stars around the circle
-function createGlitterStars() {
+// Create professional glitter stars
+function createProfessionalStars() {
     const blobWrapper = document.getElementById('blobWrapper');
     if (!blobWrapper) return;
     
     // Remove existing stars
-    const existingStars = blobWrapper.querySelectorAll('.glitter-star');
+    const existingStars = blobWrapper.querySelectorAll('.star, .ring-gold');
     existingStars.forEach(star => star.remove());
     
     const size = blobWrapper.offsetWidth;
     const center = size / 2;
-    const radius = size * 0.58; // Stars positioned around the circle
     
-    // Create 24 elegant glitter stars
+    // === OUTER RING (Gold border) ===
+    const outerRing = document.createElement('div');
+    outerRing.className = 'ring-gold';
+    outerRing.style.cssText = `
+        position: absolute;
+        top: -12px;
+        left: -12px;
+        right: -12px;
+        bottom: -12px;
+        border-radius: 50%;
+        border: 2px solid rgba(212, 175, 55, 0.5);
+        animation: rotateRing 20s linear infinite;
+        pointer-events: none;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    `;
+    blobWrapper.appendChild(outerRing);
+    
+    // === MIDDLE DASHED RING ===
+    const middleRing = document.createElement('div');
+    middleRing.className = 'ring-gold';
+    middleRing.style.cssText = `
+        position: absolute;
+        top: -25px;
+        left: -25px;
+        right: -25px;
+        bottom: -25px;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(212, 175, 55, 0.35);
+        animation: rotateRingReverse 25s linear infinite;
+        pointer-events: none;
+    `;
+    blobWrapper.appendChild(middleRing);
+    
+    // === OUTER STARS (24 stars - main decoration) ===
+    const outerRadius = size * 0.59;
     for (let i = 0; i < 24; i++) {
         const angle = (i * 15) * Math.PI / 180;
-        const x = center + Math.cos(angle) * radius;
-        const y = center + Math.sin(angle) * radius;
+        const x = center + Math.cos(angle) * outerRadius;
+        const y = center + Math.sin(angle) * outerRadius;
         
         const star = document.createElement('div');
-        star.className = 'glitter-star';
+        star.className = 'star';
         
-        // Different star sizes for elegance
-        let starSize = 4;
-        let starType = '';
+        let starSize = 5;
+        let isSparkle = false;
         
-        if (i % 4 === 0) {
-            starSize = 6;
-            starType = 'sparkle';
+        if (i % 6 === 0) {
+            starSize = 8;
+            isSparkle = true;
         } else if (i % 3 === 0) {
-            starSize = 5;
+            starSize = 6;
         } else {
-            starSize = 3;
+            starSize = 4;
         }
         
-        star.style.cssText = `
-            position: absolute;
-            left: ${x}px;
-            top: ${y}px;
-            width: ${starSize}px;
-            height: ${starSize}px;
-            background: radial-gradient(circle, #ffec80, #d4af37);
-            border-radius: 50%;
-            opacity: 0;
-            box-shadow: 0 0 ${starSize * 1.5}px #ffd700;
-            animation: starTwinkle ${1.5 + Math.random() * 1}s ease-in-out infinite;
-            animation-delay: ${i * 0.08}s;
-            pointer-events: none;
-        `;
-        
-        if (starType === 'sparkle') {
-            star.style.background = 'transparent';
-            star.style.width = '8px';
-            star.style.height = '8px';
-            star.style.fontSize = '12px';
-            star.style.color = '#ffd700';
-            star.style.textShadow = '0 0 8px #d4af37';
+        if (isSparkle) {
             star.innerHTML = '✦';
-            star.style.textAlign = 'center';
-            star.style.lineHeight = '8px';
+            star.style.cssText = `
+                position: absolute;
+                left: ${x}px;
+                top: ${y}px;
+                width: ${starSize}px;
+                height: ${starSize}px;
+                color: #ffd700;
+                font-size: ${starSize + 2}px;
+                text-align: center;
+                line-height: ${starSize}px;
+                opacity: 0;
+                text-shadow: 0 0 10px #d4af37;
+                animation: starSparkle 2s ease-in-out infinite;
+                animation-delay: ${i * 0.08}s;
+                pointer-events: none;
+            `;
+        } else {
+            star.style.cssText = `
+                position: absolute;
+                left: ${x}px;
+                top: ${y}px;
+                width: ${starSize}px;
+                height: ${starSize}px;
+                background: radial-gradient(circle, #fff0a0, #d4af37);
+                border-radius: 50%;
+                opacity: 0;
+                box-shadow: 0 0 ${starSize}px #ffd700;
+                animation: starTwinkle ${1.8 + Math.random() * 0.5}s ease-in-out infinite;
+                animation-delay: ${i * 0.08}s;
+                pointer-events: none;
+            `;
         }
-        
         blobWrapper.appendChild(star);
     }
     
-    // Add inner ring of smaller stars
-    const innerRadius = size * 0.45;
+    // === INNER STARS (16 smaller stars) ===
+    const innerRadius = size * 0.47;
     for (let i = 0; i < 16; i++) {
         const angle = (i * 22.5 + 11.25) * Math.PI / 180;
         const x = center + Math.cos(angle) * innerRadius;
         const y = center + Math.sin(angle) * innerRadius;
         
         const star = document.createElement('div');
-        star.className = 'glitter-star';
+        star.className = 'star';
         star.style.cssText = `
+            position: absolute;
+            left: ${x}px;
+            top: ${y}px;
+            width: 3px;
+            height: 3px;
+            background: #f5e6a3;
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 5px #ffd700;
+            animation: starTwinkle ${1.5 + Math.random() * 0.5}s ease-in-out infinite;
+            animation-delay: ${i * 0.12}s;
+            pointer-events: none;
+        `;
+        blobWrapper.appendChild(star);
+    }
+    
+    // === FLOATING GOLD DUST (20 tiny particles) ===
+    for (let i = 0; i < 20; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = size * (0.52 + Math.random() * 0.15);
+        const x = center + Math.cos(angle) * radius;
+        const y = center + Math.sin(angle) * radius;
+        
+        const dust = document.createElement('div');
+        dust.className = 'gold-dust';
+        dust.style.cssText = `
             position: absolute;
             left: ${x}px;
             top: ${y}px;
@@ -187,64 +251,21 @@ function createGlitterStars() {
             background: #d4af37;
             border-radius: 50%;
             opacity: 0;
-            box-shadow: 0 0 4px #ffd700;
-            animation: starTwinkle ${1.2 + Math.random() * 0.8}s ease-in-out infinite;
-            animation-delay: ${i * 0.1}s;
+            animation: dustFloat ${2 + Math.random() * 2}s ease-in-out infinite;
+            animation-delay: ${i * 0.15}s;
             pointer-events: none;
         `;
-        blobWrapper.appendChild(star);
+        blobWrapper.appendChild(dust);
     }
 }
 
-// Add elegant rotating ring
-function addElegantRing() {
-    const blobWrapper = document.getElementById('blobWrapper');
-    if (!blobWrapper) return;
-    
-    const existingRing = blobWrapper.querySelector('.elegant-ring');
-    if (existingRing) existingRing.remove();
-    
-    const ring = document.createElement('div');
-    ring.className = 'elegant-ring';
-    ring.style.cssText = `
-        position: absolute;
-        top: -18px;
-        left: -18px;
-        right: -18px;
-        bottom: -18px;
-        border-radius: 50%;
-        border: 1.5px solid rgba(212, 175, 55, 0.4);
-        animation: ringRotate 20s linear infinite;
-        pointer-events: none;
-        box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-    `;
-    blobWrapper.appendChild(ring);
-    
-    // Second subtle dashed ring
-    const ring2 = document.createElement('div');
-    ring2.className = 'elegant-ring';
-    ring2.style.cssText = `
-        position: absolute;
-        top: -30px;
-        left: -30px;
-        right: -30px;
-        bottom: -30px;
-        border-radius: 50%;
-        border: 1px dashed rgba(212, 175, 55, 0.25);
-        animation: ringRotateReverse 25s linear infinite;
-        pointer-events: none;
-    `;
-    blobWrapper.appendChild(ring2);
-}
-
-// Initialize everything
+// Initialize
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         makeRoundShape();
-        addElegantRing();
-        createGlitterStars();
+        createProfessionalStars();
         gentleFloat();
-        console.log('✨ Elegant Round Shape with Glitter Stars Loaded ✨');
+        console.log('✨ Professional Round Shape with Glitter Stars — Loaded ✨');
     }, 100);
 });
 
@@ -252,12 +273,12 @@ let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-        createGlitterStars();
+        createProfessionalStars();
     }, 200);
 });
 
 // ============================================
-// 6. 3D TILT ON HOVER (Subtle)
+// 6. PROFESSIONAL 3D TILT ON HOVER
 // ============================================
 const blobWrapper = document.getElementById('blobWrapper');
 const blobImg = document.querySelector('.blob-shape img');
@@ -270,24 +291,30 @@ if (blobWrapper && blobImg) {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const tiltX = ((y - centerY) / centerY) * 5;
-        const tiltY = ((x - centerX) / centerX) * 5;
-        const moveX = (x - centerX) / 40;
-        const moveY = (y - centerY) / 40;
+        const tiltX = ((y - centerY) / centerY) * 6;
+        const tiltY = ((x - centerX) / centerX) * 6;
+        const moveX = (x - centerX) / 35;
+        const moveY = (y - centerY) / 35;
         
-        blobWrapper.style.transform = `translateY(${floatY * 0.2}px) perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-        blobImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.02)`;
+        blobWrapper.style.transform = `translateY(${floatY * 0.15}px) perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        blobImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.03)`;
         blobImg.style.transition = 'transform 0.05s linear';
+        
+        // Enhance glow on hover
+        const blobShape = document.querySelector('.blob-shape');
+        if (blobShape) {
+            blobShape.style.boxShadow = '0 0 70px rgba(212, 175, 55, 0.7)';
+        }
     });
     
     blobWrapper.addEventListener('mouseleave', () => {
         blobImg.style.transform = '';
-        blobWrapper.style.transform = `translateY(${floatY * 0.2}px)`;
+        blobWrapper.style.transform = `translateY(${floatY * 0.15}px)`;
     });
 }
 
 // ============================================
-// 7. BACKGROUND PARTICLES (Subtle)
+// 7. BACKGROUND PARTICLES
 // ============================================
 const canvas = document.getElementById('particles-canvas');
 if (canvas) {
@@ -303,10 +330,10 @@ if (canvas) {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.1;
-            this.speedY = (Math.random() - 0.5) * 0.1;
-            this.opacity = Math.random() * 0.12 + 0.03;
+            this.size = Math.random() * 2 + 0.8;
+            this.speedX = (Math.random() - 0.5) * 0.08;
+            this.speedY = (Math.random() - 0.5) * 0.08;
+            this.opacity = Math.random() * 0.12 + 0.04;
         }
         update() {
             this.x += this.speedX;
@@ -326,7 +353,7 @@ if (canvas) {
     
     function initParticles() {
         particles = [];
-        for (let i = 0; i < 60; i++) particles.push(new Particle());
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
     }
     
     function animateParticles() {
@@ -356,15 +383,26 @@ styleSheet.textContent = `
     @keyframes starTwinkle {
         0%, 100% { opacity: 0; transform: scale(0.5); }
         40% { opacity: 1; transform: scale(1.2); }
-        60% { opacity: 0.8; transform: scale(1); }
+        70% { opacity: 0.7; transform: scale(1); }
     }
     
-    @keyframes ringRotate {
+    @keyframes starSparkle {
+        0%, 100% { opacity: 0; transform: scale(0.6); }
+        50% { opacity: 1; transform: scale(1.3); text-shadow: 0 0 15px #ffd700; }
+    }
+    
+    @keyframes dustFloat {
+        0%, 100% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+        30% { opacity: 0.6; transform: translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px) scale(1); }
+        70% { opacity: 0.3; transform: translate(${Math.random() * 8 - 4}px, ${Math.random() * 8 - 4}px) scale(0.8); }
+    }
+    
+    @keyframes rotateRing {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
     
-    @keyframes ringRotateReverse {
+    @keyframes rotateRingReverse {
         from { transform: rotate(360deg); }
         to { transform: rotate(0deg); }
     }
@@ -377,10 +415,10 @@ styleSheet.textContent = `
         transition: transform 0.05s linear;
     }
     
-    .glitter-star {
+    .star, .gold-dust {
         will-change: opacity, transform;
     }
 `;
 document.head.appendChild(styleSheet);
 
-console.log('✨ Simple Round Shape + Elegant Glitter Stars — Luxury Portfolio Ready ✨');
+console.log('✨ Professional Round + Glitter Stars — Attractive & Elegant ✨');

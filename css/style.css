@@ -155,7 +155,8 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateX(-50%) scaleX(1);
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
     color: var(--primary) !important;
 }
 
@@ -1063,7 +1064,6 @@ h1, h2, h3, h4, h5, h6 {
     .hero-buttons .btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
     .blob-wrapper { width: 220px; height: 220px; }
     .page-header h1 { font-size: 1.8rem; }
-    .section-title { font-size: 2rem; }
     .skill-box { width: 120px; padding: 1rem 0.5rem; }
     .skill-box i { font-size: 1.6rem; }
     .skill-box h4 { font-size: 0.8rem; }

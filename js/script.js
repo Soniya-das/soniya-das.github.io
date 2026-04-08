@@ -4,7 +4,8 @@
 AOS.init({
     duration: 800,
     once: true,
-    offset: 100
+    offset: 100,
+    easing: 'ease-in-out'
 });
 
 // ============================================
@@ -12,12 +13,13 @@ AOS.init({
 // ============================================
 if (document.getElementById('typed-role')) {
     new Typed('#typed-role', {
-        strings: ['Python Fullstack Developer', 'Web Designer', 'Creative Coder', 'Problem Solver'],
+        strings: ['Python Fullstack Developer', 'Web Designer', 'Creative Coder', 'Problem Solver', 'UI/UX Enthusiast'],
         typeSpeed: 60,
         backSpeed: 40,
         loop: true,
         cursorChar: '|',
-        smartBackspace: true
+        smartBackspace: true,
+        backDelay: 1500
     });
 }
 
@@ -27,6 +29,7 @@ if (document.getElementById('typed-role')) {
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
 
+// Apply saved theme on page load
 if (currentTheme === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
     if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -35,26 +38,32 @@ if (currentTheme === 'light') {
     if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
 }
 
+// Toggle theme on button click
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
+        // Add smooth animation to button
         themeToggle.style.transform = 'scale(1.2) rotate(180deg)';
         setTimeout(() => { if (themeToggle) themeToggle.style.transform = ''; }, 300);
         
         if (document.documentElement.hasAttribute('data-theme')) {
+            // Switch to Dark Mode
             document.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'dark');
             themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             updateParticleOpacity();
         } else {
+            // Switch to Light Mode
             document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             updateParticleOpacity();
         }
+        
         refreshThemeDependentElements();
     });
 }
 
+// Function to update particle opacity based on theme
 function updateParticleOpacity() {
     const canvas = document.getElementById('particles-canvas');
     if (canvas) {
@@ -66,6 +75,7 @@ function updateParticleOpacity() {
     }
 }
 
+// Function to refresh theme-dependent elements
 function refreshThemeDependentElements() {
     const glow = document.querySelector('.mouse-glow');
     if (glow) {
@@ -90,7 +100,7 @@ function animateSkills() {
             const targetWidth = bar.getAttribute('data-width');
             if (targetWidth) {
                 bar.style.width = targetWidth + '%';
-                const percentSpan = bar.parentElement.parentElement.querySelector('.skill-percent');
+                const percentSpan = bar.closest('.skill-item')?.querySelector('.skill-percent');
                 if (percentSpan) {
                     let current = 0;
                     const target = parseInt(targetWidth);
@@ -116,7 +126,39 @@ window.addEventListener('load', animateSkills);
 setTimeout(animateSkills, 500);
 
 // ============================================
-// 5. MOUSE GLOW EFFECT
+// 5. SKILL PERCENTAGE COUNTER (Small Boxes)
+// ============================================
+function animateSkillPercentages() {
+    const skillBoxes = document.querySelectorAll('.skill-box');
+    skillBoxes.forEach(box => {
+        const percentSpan = box.querySelector('.skill-percent');
+        if (!percentSpan || percentSpan.classList.contains('counted')) return;
+        const target = parseInt(box.getAttribute('data-skill'));
+        if (isNaN(target)) return;
+        const rect = box.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            percentSpan.classList.add('counted');
+            let current = 0;
+            const duration = 1200;
+            const stepTime = 20;
+            const increment = target / (duration / stepTime);
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(interval);
+                }
+                percentSpan.textContent = Math.floor(current) + '%';
+            }, stepTime);
+        }
+    });
+}
+
+window.addEventListener('scroll', animateSkillPercentages);
+window.addEventListener('load', animateSkillPercentages);
+
+// ============================================
+// 6. MOUSE GLOW EFFECT
 // ============================================
 const glow = document.querySelector('.mouse-glow');
 if (glow) {
@@ -143,7 +185,7 @@ if (glow) {
 }
 
 // ============================================
-// 6. SCROLL PROGRESS BAR
+// 7. SCROLL PROGRESS BAR
 // ============================================
 window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -154,29 +196,34 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// 7. SMOOTH SCROLLING
+// 8. SMOOTH SCROLLING FOR ANCHOR LINKS
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
+        
         const target = document.querySelector(targetId);
         if (target) {
             e.preventDefault();
             const offset = 80;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
         }
     });
 });
 
 // ============================================
-// 8. PARTICLE BACKGROUND
+// 9. PARTICLE BACKGROUND
 // ============================================
 const canvas = document.getElementById('particles-canvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     let particles = [];
+    let animationId = null;
     
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -196,6 +243,7 @@ if (canvas) {
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
+            
             if (this.x < -50) this.x = canvas.width + 50;
             if (this.x > canvas.width + 50) this.x = -50;
             if (this.y < -50) this.y = canvas.height + 50;
@@ -224,7 +272,7 @@ if (canvas) {
             particle.update();
             particle.draw();
         });
-        requestAnimationFrame(animateParticles);
+        animationId = requestAnimationFrame(animateParticles);
     }
     
     window.addEventListener('resize', () => {
@@ -235,16 +283,19 @@ if (canvas) {
     resizeCanvas();
     initParticles();
     animateParticles();
+    
+    // Set initial opacity based on theme
     updateParticleOpacity();
 }
 
 // ============================================
-// 9. CREATE GLITTER STARS AROUND BLOB
+// 10. CREATE GLITTER STARS AROUND BLOB
 // ============================================
 function createGlitterStars() {
     const wrapper = document.getElementById('blobWrapper');
     if (!wrapper) return;
     
+    // Remove existing star container if any
     const existingContainer = wrapper.querySelector('.star-container');
     if (existingContainer) existingContainer.remove();
     
@@ -253,27 +304,41 @@ function createGlitterStars() {
     const outerRadius = size * 0.55;
     const innerRadius = size * 0.42;
     
+    // Create stars container
     const starContainer = document.createElement('div');
     starContainer.className = 'star-container';
+    starContainer.style.position = 'absolute';
+    starContainer.style.top = '0';
+    starContainer.style.left = '0';
+    starContainer.style.width = '100%';
+    starContainer.style.height = '100%';
+    starContainer.style.pointerEvents = 'none';
+    starContainer.style.zIndex = '3';
     
+    // Outer stars (24 stars)
     for (let i = 0; i < 24; i++) {
         const angle = (i / 24) * Math.PI * 2;
         const x = center + Math.cos(angle) * outerRadius;
         const y = center + Math.sin(angle) * outerRadius;
+        
         const star = document.createElement('div');
         star.className = 'glit-star';
+        star.style.position = 'absolute';
         star.style.left = x + 'px';
         star.style.top = y + 'px';
         star.style.animationDelay = (i * 0.15) + 's';
         starContainer.appendChild(star);
     }
     
+    // Inner stars (16 smaller stars)
     for (let i = 0; i < 16; i++) {
         const angle = (i / 16) * Math.PI * 2 + 0.5;
         const x = center + Math.cos(angle) * innerRadius;
         const y = center + Math.sin(angle) * innerRadius;
+        
         const star = document.createElement('div');
         star.className = 'glit-star inner-star';
+        star.style.position = 'absolute';
         star.style.left = x + 'px';
         star.style.top = y + 'px';
         star.style.animationDelay = (i * 0.2) + 's';
@@ -283,10 +348,12 @@ function createGlitterStars() {
     wrapper.appendChild(starContainer);
 }
 
+// Initialize stars after DOM loads
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(createGlitterStars, 100);
 });
 
+// Recreate stars on window resize
 let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
@@ -294,7 +361,7 @@ window.addEventListener('resize', () => {
 });
 
 // ============================================
-// 10. ACTIVE NAV LINK HIGHLIGHTING
+// 11. ACTIVE NAV LINK HIGHLIGHTING
 // ============================================
 function setActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
@@ -325,19 +392,49 @@ function setActiveNavLink() {
 setActiveNavLink();
 
 // ============================================
-// 11. CONTACT FORM HANDLER
+// 12. CONTACT FORM HANDLER
 // ============================================
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        alert('✨ Thank you for your message! I will get back to you soon. ✨');
-        contactForm.reset();
+        
+        // Get form data
+        const name = document.getElementById('name')?.value || '';
+        const email = document.getElementById('email')?.value || '';
+        const message = document.getElementById('message')?.value || '';
+        
+        // Simple validation
+        if (name && email && message) {
+            // Show success message
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-success mt-3';
+            alertDiv.innerHTML = '<i class="fas fa-check-circle me-2"></i> Thank you for your message! I will get back to you soon.';
+            contactForm.appendChild(alertDiv);
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Remove alert after 5 seconds
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        } else {
+            // Show error message
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger mt-3';
+            alertDiv.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i> Please fill in all fields.';
+            contactForm.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
     });
 }
 
 // ============================================
-// 12. NAVBAR SCROLL EFFECT
+// 13. NAVBAR SCROLL EFFECT
 // ============================================
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
@@ -351,7 +448,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// 13. 3D TILT FOR BLOB
+// 14. 3D TILT FOR BLOB SHAPE
 // ============================================
 const blobWrapper = document.getElementById('blobWrapper');
 const blobShape = document.querySelector('.blob-shape');
@@ -376,5 +473,33 @@ if (blobWrapper && blobShape && blobImg) {
     });
 }
 
-console.log('✨ Portfolio Loaded Successfully! ✨');
-console.log('🌓 Theme: ' + (document.documentElement.hasAttribute('data-theme') ? 'Light' : 'Dark'));
+// ============================================
+// 15. SYSTEM PREFERENCE DETECTION FOR DARK MODE
+// ============================================
+const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (!localStorage.getItem('theme') && prefersDarkMode) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'dark');
+    if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    updateParticleOpacity();
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+            document.documentElement.removeAttribute('data-theme');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        updateParticleOpacity();
+        refreshThemeDependentElements();
+    }
+});
+
+// ============================================
+// 16. LOADING COMPLETE MESSAGE
+// ============================================
+console.log('✨ Luxury Portfolio Loaded Successfully! ✨');
+console.log('🌓 Current Theme: ' + (document.documentElement.hasAttribute('data-theme') ? 'Light' : 'Dark'));

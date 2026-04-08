@@ -503,3 +503,249 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
 // ============================================
 console.log('✨ Luxury Portfolio Loaded Successfully! ✨');
 console.log('🌓 Current Theme: ' + (document.documentElement.hasAttribute('data-theme') ? 'Light' : 'Dark'));
+
+
+
+
+
+// ============================================
+// THEME TOGGLE FUNCTIONALITY
+// ============================================
+const themeToggle = document.getElementById('theme-toggle');
+const currentTheme = localStorage.getItem('theme');
+
+if (currentTheme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+}
+
+themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+});
+
+// ============================================
+// SCROLL PROGRESS BAR
+// ============================================
+window.addEventListener('scroll', function() {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const progressBar = document.querySelector('.scroll-progress');
+    if (progressBar) {
+        progressBar.style.width = scrolled + '%';
+    }
+});
+
+// Create scroll progress bar
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.appendChild(progressBar);
+
+// ============================================
+// MOUSE GLOW EFFECT
+// ============================================
+const mouseGlow = document.createElement('div');
+mouseGlow.className = 'mouse-glow';
+document.body.appendChild(mouseGlow);
+
+document.addEventListener('mousemove', function(e) {
+    mouseGlow.style.left = e.clientX + 'px';
+    mouseGlow.style.top = e.clientY + 'px';
+    mouseGlow.style.opacity = '1';
+    
+    setTimeout(() => {
+        if (mouseGlow.style.opacity === '1') {
+            setTimeout(() => {
+                mouseGlow.style.opacity = '0';
+            }, 100);
+        }
+    }, 50);
+});
+
+// ============================================
+// NAVBAR SCROLL EFFECT
+// ============================================
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// ============================================
+// TYPED TEXT EFFECT FOR ABOUT PAGE
+// ============================================
+const typedTextElement = document.getElementById('typed-text');
+if (typedTextElement) {
+    const phrases = [
+        'Python Full-Stack Developer',
+        'Django Expert',
+        'UI/UX Enthusiast',
+        'Problem Solver'
+    ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function typeEffect() {
+        const currentPhrase = phrases[phraseIndex];
+        
+        if (isDeleting) {
+            typedTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typedTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        if (!isDeleting && charIndex === currentPhrase.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+        }
+        
+        if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(typeEffect, 500);
+            return;
+        }
+        
+        const speed = isDeleting ? 50 : 100;
+        setTimeout(typeEffect, speed);
+    }
+    
+    typeEffect();
+}
+
+// ============================================
+// FLOATING SHAPES FOR INDEX PAGE
+// ============================================
+function createFloatingShapes() {
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
+        for (let i = 0; i < 15; i++) {
+            const shape = document.createElement('div');
+            shape.className = 'floating-shape';
+            const size = Math.random() * 100 + 20;
+            shape.style.width = size + 'px';
+            shape.style.height = size + 'px';
+            shape.style.left = Math.random() * 100 + '%';
+            shape.style.top = Math.random() * 100 + '%';
+            shape.style.animation = `floatShape ${Math.random() * 10 + 10}s ease-in-out infinite`;
+            shape.style.animationDelay = Math.random() * 5 + 's';
+            heroSection.appendChild(shape);
+        }
+    }
+}
+
+// Add float animation keyframes dynamically
+const styleSheet = document.createElement("style");
+styleSheet.textContent = `
+    @keyframes floatShape {
+        0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.05; }
+        25% { transform: translateY(-30px) translateX(20px) rotate(90deg); opacity: 0.1; }
+        50% { transform: translateY(20px) translateX(-20px) rotate(180deg); opacity: 0.08; }
+        75% { transform: translateY(-20px) translateX(30px) rotate(270deg); opacity: 0.12; }
+    }
+`;
+document.head.appendChild(styleSheet);
+createFloatingShapes();
+
+// ============================================
+// SKILL BOXES SCROLL ANIMATION
+// ============================================
+const skillBoxes = document.querySelectorAll('.skill-box');
+const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            skillObserver.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+skillBoxes.forEach(box => {
+    box.style.opacity = '0';
+    box.style.transform = 'translateY(30px)';
+    box.style.transition = 'all 0.6s ease';
+    skillObserver.observe(box);
+});
+
+// ============================================
+// PROJECT CARD HOVER EFFECT
+// ============================================
+const projectCards = document.querySelectorAll('.project-card');
+projectCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px)';
+    });
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+
+// ============================================
+// SMOOTH SCROLL FOR NAVIGATION
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '' && href !== 'javascript:void(0)') {
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+});
+
+// ============================================
+// INITIALIZE AOS
+// ============================================
+if (typeof AOS !== 'undefined') {
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+        easing: 'ease-out-cubic'
+    });
+}
+
+// ============================================
+// PAGE LOAD ANIMATION
+// ============================================
+window.addEventListener('load', function() {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '1';
+    
+    // Add loading class removal
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+});

@@ -61,194 +61,151 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// 5. SINGLE PROFESSIONAL LUXURY SHAPE
+// 5. SINGLE PROFESSIONAL SHAPE - NO LOTUS, NO DIAMOND
 // ============================================
 
-// Only ONE shape - Royal Diamond Elite (24-point professional polygon)
-const professionalShape = 'polygon(50% 0%, 62% 6%, 74% 4%, 84% 12%, 92% 22%, 97% 36%, 99% 50%, 97% 64%, 92% 78%, 84% 88%, 74% 96%, 62% 94%, 50% 100%, 38% 94%, 26% 96%, 16% 88%, 8% 78%, 3% 64%, 1% 50%, 3% 36%, 8% 22%, 16% 12%, 26% 4%, 38% 6%)';
+// ONLY ONE SHAPE - Clean, Balanced, Professional 24-point Soft Polygon
+// This is a unique custom shape - elegant, symmetrical, modern
+const uniqueProfessionalShape = 'polygon(50% 0%, 58% 5%, 66% 3%, 74% 8%, 82% 6%, 89% 14%, 94% 22%, 97% 32%, 99% 42%, 99% 52%, 97% 62%, 94% 72%, 89% 80%, 82% 88%, 74% 92%, 66% 97%, 58% 95%, 50% 100%, 42% 95%, 34% 97%, 26% 92%, 18% 88%, 11% 80%, 6% 72%, 3% 62%, 1% 52%, 1% 42%, 3% 32%, 6% 22%, 11% 14%, 18% 6%, 26% 8%, 34% 3%, 42% 5%)';
 
-// Premium gradient
-const premiumGradient = 'linear-gradient(135deg, #d4af37 0%, #f3e5ab 25%, #d4af37 50%, #b8941e 75%, #d4af37 100%)';
+// Premium gold gradient
+const premiumGradient = 'linear-gradient(135deg, #d4af37 0%, #f3e5ab 20%, #d4af37 45%, #e8c547 70%, #d4af37 100%)';
 
 // Animation variables
-let rotationAngle = 0;
-let rotationDirection = 1;
-let pulseScale = 1;
-let pulseDirection = 1;
+let floatY = 0;
+let floatDirection = 1;
 let glowIntensity = 0;
 let glowDirection = 1;
 
-// Apply the professional shape
-function applyProfessionalShape() {
+// Apply the shape once
+function applyShape() {
     const blobShape = document.querySelector('.blob-shape');
     if (blobShape) {
-        blobShape.style.clipPath = professionalShape;
+        blobShape.style.clipPath = uniqueProfessionalShape;
         blobShape.style.background = premiumGradient;
-        blobShape.style.transition = 'all 0.4s ease';
     }
 }
 
-// Subtle floating animation (continuous)
-function continuousFloatAnimation() {
+// Gentle floating animation
+function gentleFloatAnimation() {
     const blobWrapper = document.getElementById('blobWrapper');
     if (!blobWrapper) return;
     
-    // Gentle rotation
-    rotationAngle += 0.08 * rotationDirection;
-    if (rotationAngle > 2.5) rotationDirection = -1;
-    if (rotationAngle < -2.5) rotationDirection = 1;
+    // Smooth vertical floating
+    floatY += 0.15 * floatDirection;
+    if (floatY > 8) floatDirection = -1;
+    if (floatY < -8) floatDirection = 1;
     
-    // Gentle pulse
-    pulseScale += 0.0012 * pulseDirection;
-    if (pulseScale > 1.006) pulseDirection = -1;
-    if (pulseScale < 0.994) pulseDirection = 1;
-    
-    // Dynamic glow effect
-    glowIntensity += 0.02 * glowDirection;
-    if (glowIntensity > 0.6) glowDirection = -1;
-    if (glowIntensity < 0.3) glowDirection = 1;
+    // Pulsing glow effect
+    glowIntensity += 0.015 * glowDirection;
+    if (glowIntensity > 0.5) glowDirection = -1;
+    if (glowIntensity < 0.2) glowDirection = 1;
     
     const blobShape = document.querySelector('.blob-shape');
     if (blobShape) {
-        blobShape.style.boxShadow = `0 0 ${30 + glowIntensity * 20}px rgba(212, 175, 55, ${0.3 + glowIntensity * 0.3})`;
+        blobShape.style.boxShadow = `0 0 ${35 + glowIntensity * 20}px rgba(212, 175, 55, ${0.3 + glowIntensity * 0.2})`;
     }
     
-    blobWrapper.style.transform = `perspective(1200px) rotateY(${rotationAngle}deg) rotateX(${rotationAngle * 0.15}deg) scale(${pulseScale})`;
-    requestAnimationFrame(continuousFloatAnimation);
+    blobWrapper.style.transform = `translateY(${floatY * 0.3}px)`;
+    requestAnimationFrame(gentleFloatAnimation);
 }
 
-// Create elegant decorations
-function createElegantDecorations() {
+// Create subtle elegant decorations
+function createSubtleDecorations() {
     const blobWrapper = document.getElementById('blobWrapper');
     if (!blobWrapper) return;
     
-    // Remove existing decorations
-    const existingStars = blobWrapper.querySelectorAll('.star-element, .ring-element, .particle-element');
-    existingStars.forEach(el => el.remove());
+    // Remove any existing decorations
+    const existingDeco = blobWrapper.querySelectorAll('.deco-ring, .deco-star, .deco-particle');
+    existingDeco.forEach(el => el.remove());
     
-    const wrapperSize = blobWrapper.offsetWidth;
-    const center = wrapperSize / 2;
+    const size = blobWrapper.offsetWidth;
+    const center = size / 2;
     
-    // === SINGLE ELEGANT RING ===
+    // Single elegant rotating ring
     const ring = document.createElement('div');
-    ring.className = 'ring-element';
+    ring.className = 'deco-ring';
     ring.style.cssText = `
         position: absolute;
-        top: -15px;
-        left: -15px;
-        right: -15px;
-        bottom: -15px;
+        top: -12px;
+        left: -12px;
+        right: -12px;
+        bottom: -12px;
         border-radius: 50%;
-        border: 2px solid rgba(212, 175, 55, 0.5);
-        animation: ringRotate 20s linear infinite;
+        border: 1.5px solid rgba(212, 175, 55, 0.4);
+        animation: rotateRing 18s linear infinite;
         pointer-events: none;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
     `;
     blobWrapper.appendChild(ring);
     
-    // === SECOND SUBTLE RING ===
+    // Second subtle dashed ring
     const ring2 = document.createElement('div');
-    ring2.className = 'ring-element';
+    ring2.className = 'deco-ring';
     ring2.style.cssText = `
         position: absolute;
-        top: -28px;
-        left: -28px;
-        right: -28px;
-        bottom: -28px;
+        top: -24px;
+        left: -24px;
+        right: -24px;
+        bottom: -24px;
         border-radius: 50%;
-        border: 1px dashed rgba(212, 175, 55, 0.35);
-        animation: ringRotateReverse 25s linear infinite;
+        border: 1px dashed rgba(212, 175, 55, 0.25);
+        animation: rotateRingReverse 22s linear infinite;
         pointer-events: none;
     `;
     blobWrapper.appendChild(ring2);
     
-    // === STARS AROUND THE SHAPE ===
+    // Small elegant stars around (very subtle)
     const starContainer = document.createElement('div');
-    starContainer.className = 'star-element';
     starContainer.style.cssText = `position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;`;
     
-    // 16 elegant stars at key positions
-    const starAngles = [0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5];
-    
-    starAngles.forEach((angle, idx) => {
-        const rad = (angle * Math.PI) / 180;
-        const radius = wrapperSize * 0.58;
-        const x = center + Math.cos(rad) * radius;
-        const y = center + Math.sin(rad) * radius;
-        
-        const star = document.createElement('div');
-        star.className = 'elegant-star';
-        star.style.cssText = `
-            position: absolute;
-            left: ${x}px;
-            top: ${y}px;
-            width: 5px;
-            height: 5px;
-            background: radial-gradient(circle, #ffec80, #d4af37);
-            border-radius: 50%;
-            opacity: 0;
-            box-shadow: 0 0 8px #ffd700;
-            animation: starTwinkle 2s ease-in-out infinite;
-            animation-delay: ${idx * 0.12}s;
-        `;
-        starContainer.appendChild(star);
-    });
-    
-    // 8 larger accent stars
-    const accentAngles = [0, 45, 90, 135, 180, 225, 270, 315];
-    accentAngles.forEach((angle, idx) => {
-        const rad = (angle * Math.PI) / 180;
-        const radius = wrapperSize * 0.67;
-        const x = center + Math.cos(rad) * radius;
-        const y = center + Math.sin(rad) * radius;
-        
-        const star = document.createElement('div');
-        star.className = 'accent-star';
-        star.style.cssText = `
-            position: absolute;
-            left: ${x}px;
-            top: ${y}px;
-            width: 8px;
-            height: 8px;
-            background: transparent;
-            color: #ffd700;
-            font-size: 14px;
-            text-align: center;
-            line-height: 8px;
-            opacity: 0;
-            animation: starSparkle 2.5s ease-in-out infinite;
-            animation-delay: ${idx * 0.2}s;
-        `;
-        star.innerHTML = '✦';
-        starContainer.appendChild(star);
-    });
-    
-    blobWrapper.appendChild(starContainer);
-    
-    // === FLOATING GOLD PARTICLES ===
-    const particleContainer = document.createElement('div');
-    particleContainer.className = 'particle-element';
-    particleContainer.style.cssText = `position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;`;
-    
-    for (let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        const angle = Math.random() * Math.PI * 2;
-        const radius = wrapperSize * (0.4 + Math.random() * 0.35);
+    // 12 subtle star dots
+    for (let i = 0; i < 12; i++) {
+        const angle = (i * 30) * Math.PI / 180;
+        const radius = size * 0.6;
         const x = center + Math.cos(angle) * radius;
         const y = center + Math.sin(angle) * radius;
         
+        const star = document.createElement('div');
+        star.className = 'deco-star';
+        star.style.cssText = `
+            position: absolute;
+            left: ${x}px;
+            top: ${y}px;
+            width: 3px;
+            height: 3px;
+            background: #d4af37;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: starPulse 2.5s ease-in-out infinite;
+            animation-delay: ${i * 0.15}s;
+        `;
+        starContainer.appendChild(star);
+    }
+    
+    blobWrapper.appendChild(starContainer);
+    
+    // Floating particles (very subtle)
+    const particleContainer = document.createElement('div');
+    particleContainer.style.cssText = `position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;`;
+    
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        const angle = Math.random() * Math.PI * 2;
+        const radius = size * (0.45 + Math.random() * 0.3);
+        const x = center + Math.cos(angle) * radius;
+        const y = center + Math.sin(angle) * radius;
+        
+        particle.className = 'deco-particle';
         particle.style.cssText = `
             position: absolute;
             left: ${x}px;
             top: ${y}px;
             width: 2px;
             height: 2px;
-            background: #d4af37;
+            background: rgba(212, 175, 55, 0.4);
             border-radius: 50%;
-            opacity: 0;
-            animation: floatParticle ${3 + Math.random() * 2}s ease-in-out infinite;
+            animation: particleFloat ${3 + Math.random() * 2}s ease-in-out infinite;
             animation-delay: ${i * 0.1}s;
-            filter: blur(0.5px);
         `;
         particleContainer.appendChild(particle);
     }
@@ -256,13 +213,13 @@ function createElegantDecorations() {
     blobWrapper.appendChild(particleContainer);
 }
 
-// Initialize everything
+// Initialize
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-        applyProfessionalShape();
-        createElegantDecorations();
-        continuousFloatAnimation();
-        console.log('✨ Professional Luxury Portfolio Loaded — Single Premium Shape ✨');
+        applyShape();
+        createSubtleDecorations();
+        gentleFloatAnimation();
+        console.log('✨ Professional Clean Shape Loaded — One Unique Shape ✨');
     }, 100);
 });
 
@@ -270,19 +227,19 @@ let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-        createElegantDecorations();
+        createSubtleDecorations();
     }, 200);
 });
 
 // ============================================
-// 6. PROFESSIONAL 3D TILT ON HOVER
+// 6. SMOOTH 3D TILT ON HOVER
 // ============================================
 const blobWrapper = document.getElementById('blobWrapper');
 const blobShape = document.querySelector('.blob-shape');
 const blobImg = document.querySelector('.blob-shape img');
 
 if (blobWrapper && blobShape && blobImg) {
-    let currentTiltX = 0, currentTiltY = 0;
+    let hoverActive = false;
     
     blobWrapper.addEventListener('mousemove', (e) => {
         const rect = blobWrapper.getBoundingClientRect();
@@ -291,30 +248,29 @@ if (blobWrapper && blobShape && blobImg) {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        currentTiltX = ((y - centerY) / centerY) * 10;
-        currentTiltY = ((x - centerX) / centerX) * 10;
-        const moveX = (x - centerX) / 30;
-        const moveY = (y - centerY) / 30;
+        const tiltX = ((y - centerY) / centerY) * 6;
+        const tiltY = ((x - centerX) / centerX) * 6;
+        const moveX = (x - centerX) / 35;
+        const moveY = (y - centerY) / 35;
         
-        blobWrapper.style.transform = `perspective(1200px) rotateY(${currentTiltY + rotationAngle}deg) rotateX(${currentTiltX + rotationAngle * 0.15}deg) scale(${pulseScale})`;
+        blobWrapper.style.transform = `translateY(${floatY * 0.3}px) perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
         
         if (blobImg) {
-            blobImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.03)`;
+            blobImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.02)`;
             blobImg.style.transition = 'transform 0.05s linear';
         }
     });
     
     blobWrapper.addEventListener('mouseleave', () => {
-        currentTiltX = 0;
-        currentTiltY = 0;
         if (blobImg) {
             blobImg.style.transform = '';
         }
+        blobWrapper.style.transform = `translateY(${floatY * 0.3}px)`;
     });
 }
 
 // ============================================
-// 7. PROFESSIONAL PARTICLE BACKGROUND
+// 7. BACKGROUND PARTICLES
 // ============================================
 const canvas = document.getElementById('particles-canvas');
 if (canvas) {
@@ -331,9 +287,9 @@ if (canvas) {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
             this.size = Math.random() * 2 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.12;
-            this.speedY = (Math.random() - 0.5) * 0.12;
-            this.opacity = Math.random() * 0.2 + 0.05;
+            this.speedX = (Math.random() - 0.5) * 0.1;
+            this.speedY = (Math.random() - 0.5) * 0.1;
+            this.opacity = Math.random() * 0.15 + 0.05;
         }
         update() {
             this.x += this.speedX;
@@ -353,7 +309,7 @@ if (canvas) {
     
     function initParticles() {
         particles = [];
-        for (let i = 0; i < 80; i++) particles.push(new Particle());
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
     }
     
     function animateParticles() {
@@ -376,38 +332,33 @@ if (canvas) {
 }
 
 // ============================================
-// 8. ADD CSS ANIMATIONS
+// 8. CSS ANIMATIONS
 // ============================================
 const styleSheet = document.createElement("style");
 styleSheet.textContent = `
-    @keyframes ringRotate {
+    @keyframes rotateRing {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
     
-    @keyframes ringRotateReverse {
+    @keyframes rotateRingReverse {
         from { transform: rotate(360deg); }
         to { transform: rotate(0deg); }
     }
     
-    @keyframes starTwinkle {
-        0%, 100% { opacity: 0; transform: scale(0.5); }
-        50% { opacity: 1; transform: scale(1.2); }
+    @keyframes starPulse {
+        0%, 100% { opacity: 0.2; transform: scale(0.8); }
+        50% { opacity: 0.8; transform: scale(1.2); }
     }
     
-    @keyframes starSparkle {
-        0%, 100% { opacity: 0; transform: scale(0.6); }
-        50% { opacity: 1; transform: scale(1.3); text-shadow: 0 0 15px #ffd700; }
-    }
-    
-    @keyframes floatParticle {
-        0%, 100% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-        20% { opacity: 0.6; transform: translate(var(--x, 0), var(--y, 0)) scale(1); }
-        80% { opacity: 0.3; transform: translate(calc(var(--x, 0) * 0.8), calc(var(--y, 0) * 0.8)) scale(0.8); }
+    @keyframes particleFloat {
+        0%, 100% { opacity: 0; transform: translate(0, 0); }
+        20% { opacity: 0.5; transform: translate(var(--dx, 5px), var(--dy, 5px)); }
+        80% { opacity: 0.3; transform: translate(var(--dx, -3px), var(--dy, -3px)); }
     }
     
     .blob-shape {
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        transition: box-shadow 0.3s ease !important;
     }
     
     .blob-wrapper {
@@ -416,4 +367,4 @@ styleSheet.textContent = `
 `;
 document.head.appendChild(styleSheet);
 
-console.log('✨ Professional Single Shape Portfolio Loaded — Clean, Elegant & Luxurious ✨');
+console.log('✨ Single Professional Shape — Clean, Unique & Elegant ✨');

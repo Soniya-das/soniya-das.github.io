@@ -327,3 +327,118 @@ setTimeout(animateSkillPercentages, 500);
 
 
 
+// ============================================
+// 14. LUXURY ROUND IMAGE WITH GLITTERING STARS
+// ============================================
+
+function createGlitterStars() {
+    const blobWrapper = document.getElementById('blobWrapper');
+    if (!blobWrapper) return;
+    
+    // Remove existing star container if any
+    const existingContainer = blobWrapper.querySelector('.star-container');
+    if (existingContainer) existingContainer.remove();
+    
+    // Remove existing rings if any
+    const existingRings = blobWrapper.querySelectorAll('.star-ring, .golden-border-ring');
+    existingRings.forEach(ring => ring.remove());
+    
+    // Create star container
+    const starContainer = document.createElement('div');
+    starContainer.className = 'star-container';
+    
+    // Create rotating rings
+    const ring1 = document.createElement('div');
+    ring1.className = 'star-ring';
+    const ring2 = document.createElement('div');
+    ring2.className = 'star-ring secondary';
+    const goldenRing = document.createElement('div');
+    goldenRing.className = 'golden-border-ring';
+    
+    blobWrapper.appendChild(ring1);
+    blobWrapper.appendChild(ring2);
+    blobWrapper.appendChild(goldenRing);
+    
+    // Create stars around the circle
+    const starCount = 24;
+    const radius = 210; // Radius for star positions
+    
+    for (let i = 0; i < starCount; i++) {
+        const angle = (i / starCount) * Math.PI * 2;
+        const x = 190 + Math.cos(angle) * radius;
+        const y = 190 + Math.sin(angle) * radius;
+        
+        const star = document.createElement('div');
+        star.className = 'glit-star';
+        // Make every 3rd star a sparkle
+        if (i % 3 === 0) {
+            star.classList.add('sparkle');
+        }
+        star.style.left = x + 'px';
+        star.style.top = y + 'px';
+        star.style.animationDelay = (i * 0.15) + 's';
+        starContainer.appendChild(star);
+    }
+    
+    // Create inner stars (closer to image)
+    const innerStarCount = 16;
+    const innerRadius = 175;
+    for (let i = 0; i < innerStarCount; i++) {
+        const angle = (i / innerStarCount) * Math.PI * 2 + 0.5;
+        const x = 190 + Math.cos(angle) * innerRadius;
+        const y = 190 + Math.sin(angle) * innerRadius;
+        
+        const star = document.createElement('div');
+        star.className = 'glit-star';
+        star.style.left = x + 'px';
+        star.style.top = y + 'px';
+        star.style.width = '4px';
+        star.style.height = '4px';
+        star.style.animationDelay = (i * 0.2) + 's';
+        star.style.animationDuration = '1.5s';
+        starContainer.appendChild(star);
+    }
+    
+    blobWrapper.appendChild(starContainer);
+    
+    // Create floating particles
+    createFloatingParticles(blobWrapper);
+}
+
+function createFloatingParticles(container) {
+    const particleCount = 12;
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 140 + Math.random() * 80;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        particle.style.setProperty('--x', x + 'px');
+        particle.style.setProperty('--y', y + 'px');
+        particle.style.left = '190px';
+        particle.style.top = '190px';
+        particle.style.animationDelay = (i * 0.3) + 's';
+        particle.style.animationDuration = (2 + Math.random() * 2) + 's';
+        container.appendChild(particle);
+    }
+}
+
+// Initialize glitter stars when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    createGlitterStars();
+    
+    // Recreate stars on window resize (adjust positions)
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            createGlitterStars();
+        }, 300);
+    });
+});
+
+// Also run after a short delay to ensure everything is loaded
+setTimeout(createGlitterStars, 500);
+
+

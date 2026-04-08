@@ -1,5 +1,5 @@
 // ============================================
-// 1. INITIALIZE AOS
+// 1. INITIALIZE AOS - PROFESSIONAL SETUP
 // ============================================
 AOS.init({
     duration: 1000,
@@ -26,7 +26,7 @@ if (document.getElementById('typed-role')) {
 }
 
 // ============================================
-// 3. THEME TOGGLE
+// 3. THEME TOGGLE WITH SMOOTH TRANSITION
 // ============================================
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -72,47 +72,56 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// 5. CREATE GLITTER STARS AROUND IMAGE
+// 5. CREATE PROFESSIONAL GLITTER STARS AROUND IMAGE
 // ============================================
 function createGlitterStars() {
     const blobWrapper = document.getElementById('blobWrapper');
     if (!blobWrapper) return;
     
-    const existingContainer = blobWrapper.querySelector('.star-container');
-    if (existingContainer) existingContainer.remove();
-    const existingRings = blobWrapper.querySelectorAll('.star-ring, .golden-border-ring, .pulse-ring');
-    existingRings.forEach(ring => ring.remove());
-    const existingParticles = blobWrapper.querySelectorAll('.glow-dot');
-    existingParticles.forEach(p => p.remove());
+    // Clear existing elements for clean refresh
+    const existingElements = blobWrapper.querySelectorAll('.star-container, .star-ring, .golden-border-ring, .pulse-ring, .glow-dot, .floating-sparkle');
+    existingElements.forEach(el => el.remove());
     
     const wrapperSize = blobWrapper.offsetWidth;
     const center = wrapperSize / 2;
-    const outerRadius = wrapperSize * 0.6;
-    const innerRadius = wrapperSize * 0.44;
-    const midRadius = wrapperSize * 0.52;
+    const outerRadius = wrapperSize * 0.58;
+    const innerRadius = wrapperSize * 0.42;
     
+    // Create elegant rotating rings
+    const rings = [
+        { className: 'star-ring', width: 88, speed: 20 },
+        { className: 'star-ring secondary', width: 94, speed: 25, reverse: true },
+        { className: 'star-ring tertiary', width: 80, speed: 15 }
+    ];
+    
+    rings.forEach(ring => {
+        const ringEl = document.createElement('div');
+        ringEl.className = ring.className;
+        ringEl.style.width = ring.width + '%';
+        ringEl.style.height = ring.width + '%';
+        ringEl.style.animationDuration = ring.speed + 's';
+        if (ring.reverse) {
+            ringEl.style.animationDirection = 'reverse';
+        }
+        blobWrapper.appendChild(ringEl);
+    });
+    
+    // Golden border ring
+    const goldenRing = document.createElement('div');
+    goldenRing.className = 'golden-border-ring';
+    blobWrapper.appendChild(goldenRing);
+    
+    // Pulse ring effect
     const pulseRing = document.createElement('div');
     pulseRing.className = 'pulse-ring';
     blobWrapper.appendChild(pulseRing);
     
-    const ring1 = document.createElement('div');
-    ring1.className = 'star-ring';
-    const ring2 = document.createElement('div');
-    ring2.className = 'star-ring secondary';
-    const ring3 = document.createElement('div');
-    ring3.className = 'star-ring tertiary';
-    const goldenRing = document.createElement('div');
-    goldenRing.className = 'golden-border-ring';
-    
-    blobWrapper.appendChild(ring1);
-    blobWrapper.appendChild(ring2);
-    blobWrapper.appendChild(ring3);
-    blobWrapper.appendChild(goldenRing);
-    
+    // Star container
     const starContainer = document.createElement('div');
     starContainer.className = 'star-container';
     
-    const outerStarCount = 32;
+    // Outer stars (small glittering stars)
+    const outerStarCount = 24;
     for (let i = 0; i < outerStarCount; i++) {
         const angle = (i / outerStarCount) * Math.PI * 2;
         const x = center + Math.cos(angle) * outerRadius;
@@ -120,33 +129,16 @@ function createGlitterStars() {
         
         const star = document.createElement('div');
         star.className = 'glit-star';
-        if (i % 2 === 0) star.classList.add('sparkle');
-        if (i % 4 === 0) star.classList.add('super-sparkle');
-        star.style.left = x + 'px';
-        star.style.top = y + 'px';
-        star.style.animationDelay = (i * 0.1) + 's';
-        star.style.animationDuration = (1 + Math.random() * 1.5) + 's';
-        starContainer.appendChild(star);
-    }
-    
-    const midStarCount = 20;
-    for (let i = 0; i < midStarCount; i++) {
-        const angle = (i / midStarCount) * Math.PI * 2 + 0.3;
-        const x = center + Math.cos(angle) * midRadius;
-        const y = center + Math.sin(angle) * midRadius;
-        
-        const star = document.createElement('div');
-        star.className = 'glit-star mid-star';
         star.style.left = x + 'px';
         star.style.top = y + 'px';
         star.style.animationDelay = (i * 0.15) + 's';
-        star.style.animationDuration = '1.2s';
         starContainer.appendChild(star);
     }
     
-    const innerStarCount = 24;
+    // Inner stars (smaller, more subtle)
+    const innerStarCount = 16;
     for (let i = 0; i < innerStarCount; i++) {
-        const angle = (i / innerStarCount) * Math.PI * 2 + 0.8;
+        const angle = (i / innerStarCount) * Math.PI * 2 + 0.5;
         const x = center + Math.cos(angle) * innerRadius;
         const y = center + Math.sin(angle) * innerRadius;
         
@@ -155,47 +147,30 @@ function createGlitterStars() {
         star.style.left = x + 'px';
         star.style.top = y + 'px';
         star.style.animationDelay = (i * 0.2) + 's';
-        star.style.animationDuration = '1s';
         starContainer.appendChild(star);
     }
     
     blobWrapper.appendChild(starContainer);
     
-    const glowDotCount = 24;
+    // Floating glow dots (very subtle)
+    const glowDotCount = 12;
     for (let i = 0; i < glowDotCount; i++) {
         const glowDot = document.createElement('div');
         glowDot.className = 'glow-dot';
         const angle = Math.random() * Math.PI * 2;
-        const radius = innerRadius + Math.random() * (outerRadius - innerRadius);
+        const radius = innerRadius + 5 + Math.random() * (outerRadius - innerRadius - 10);
         const x = Math.cos(angle) * radius;
         const y = Math.sin(angle) * radius;
         glowDot.style.setProperty('--x', x + 'px');
         glowDot.style.setProperty('--y', y + 'px');
         glowDot.style.left = center + 'px';
         glowDot.style.top = center + 'px';
-        glowDot.style.animationDelay = (i * 0.2) + 's';
-        glowDot.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+        glowDot.style.animationDelay = (i * 0.3) + 's';
         blobWrapper.appendChild(glowDot);
-    }
-    
-    const sparkleCount = 12;
-    for (let i = 0; i < sparkleCount; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'floating-sparkle';
-        const angle = Math.random() * Math.PI * 2;
-        const distance = outerRadius + 5 + Math.random() * 15;
-        const x = Math.cos(angle) * distance;
-        const y = Math.sin(angle) * distance;
-        sparkle.style.setProperty('--x', x + 'px');
-        sparkle.style.setProperty('--y', y + 'px');
-        sparkle.style.left = center + 'px';
-        sparkle.style.top = center + 'px';
-        sparkle.style.animationDelay = (i * 0.3) + 's';
-        sparkle.style.animationDuration = (2 + Math.random() * 2.5) + 's';
-        blobWrapper.appendChild(sparkle);
     }
 }
 
+// Initialize stars after DOM loads
 window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         createGlitterStars();
@@ -213,12 +188,14 @@ window.addEventListener('resize', () => {
 });
 
 // ============================================
-// 6. 3D TILT EFFECT
+// 6. PROFESSIONAL 3D TILT EFFECT
 // ============================================
 const blobWrapper3D = document.getElementById('blobWrapper');
 const blobImg3D = document.querySelector('#blobWrapper img');
 
 if (blobWrapper3D && blobImg3D) {
+    let tiltActive = false;
+    
     blobWrapper3D.addEventListener('mousemove', (e) => {
         const rect = blobWrapper3D.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -226,39 +203,35 @@ if (blobWrapper3D && blobImg3D) {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateX = ((y - centerY) / centerY) * 18;
-        const rotateY = ((x - centerX) / centerX) * 18;
-        const moveX = (x - centerX) / 20;
-        const moveY = (y - centerY) / 20;
-        const scale = 1 + (Math.abs(rotateX) + Math.abs(rotateY)) / 200;
+        const rotateX = ((y - centerY) / centerY) * 12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+        const moveX = (x - centerX) / 25;
+        const moveY = (y - centerY) / 25;
         
-        blobWrapper3D.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
-        blobImg3D.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.05)`;
-        
-        const intensity = (Math.abs(rotateX) + Math.abs(rotateY)) / 36;
-        blobWrapper3D.style.boxShadow = `0 30px 60px -12px rgba(212, 175, 55, ${0.2 + intensity * 0.3})`;
-        blobWrapper3D.style.filter = `drop-shadow(0 0 ${5 + intensity * 10}px rgba(212, 175, 55, ${0.3 + intensity * 0.4}))`;
+        blobWrapper3D.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        blobImg3D.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.02)`;
+        blobWrapper3D.style.boxShadow = `0 20px 40px -12px rgba(212, 175, 55, 0.25)`;
     });
     
     blobWrapper3D.addEventListener('mouseleave', () => {
-        blobWrapper3D.style.transform = 'perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)';
+        blobWrapper3D.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
         blobImg3D.style.transform = '';
         blobWrapper3D.style.boxShadow = '';
-        blobWrapper3D.style.filter = '';
     });
     
+    // Subtle click effect
     blobWrapper3D.addEventListener('click', (e) => {
         const sparkle = document.createElement('div');
         sparkle.className = 'click-sparkle';
         sparkle.style.left = e.offsetX + 'px';
         sparkle.style.top = e.offsetY + 'px';
         blobWrapper3D.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 500);
+        setTimeout(() => sparkle.remove(), 400);
     });
 }
 
 // ============================================
-// 7. PARTICLE BACKGROUND (STARS IN BACKGROUND)
+// 7. PROFESSIONAL PARTICLE BACKGROUND
 // ============================================
 const canvas = document.getElementById('particles-canvas');
 if (canvas) {
@@ -278,21 +251,19 @@ if (canvas) {
         setTimeout(() => {
             mouseX = null;
             mouseY = null;
-        }, 150);
+        }, 100);
     });
     
     class Particle {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2.5 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.2;
-            this.speedY = (Math.random() - 0.5) * 0.2;
-            this.opacity = Math.random() * 0.4 + 0.1;
+            this.size = Math.random() * 2 + 0.8;
+            this.speedX = (Math.random() - 0.5) * 0.15;
+            this.speedY = (Math.random() - 0.5) * 0.15;
+            this.opacity = Math.random() * 0.3 + 0.1;
             this.originalX = this.x;
             this.originalY = this.y;
-            this.pulseSpeed = 0.02 + Math.random() * 0.03;
-            this.pulsePhase = Math.random() * Math.PI * 2;
         }
         
         update() {
@@ -300,14 +271,14 @@ if (canvas) {
                 const dx = mouseX - this.x;
                 const dy = mouseY - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 150) {
+                if (distance < 120) {
                     const angle = Math.atan2(dy, dx);
-                    const force = (150 - distance) / 150;
-                    this.x -= Math.cos(angle) * force * 1.5;
-                    this.y -= Math.sin(angle) * force * 1.5;
+                    const force = (120 - distance) / 120;
+                    this.x -= Math.cos(angle) * force;
+                    this.y -= Math.sin(angle) * force;
                 } else {
-                    this.x += (this.originalX - this.x) * 0.01;
-                    this.y += (this.originalY - this.y) * 0.01;
+                    this.x += (this.originalX - this.x) * 0.005;
+                    this.y += (this.originalY - this.y) * 0.005;
                 }
             }
             
@@ -318,37 +289,27 @@ if (canvas) {
             if (this.x > canvas.width + 50) this.x = -50;
             if (this.y < -50) this.y = canvas.height + 50;
             if (this.y > canvas.height + 50) this.y = -50;
-            
-            this.pulsePhase += this.pulseSpeed;
         }
         
         draw() {
-            const pulseOpacity = this.opacity + Math.sin(this.pulsePhase) * 0.15;
-            const pulseSize = this.size + Math.sin(this.pulsePhase) * 0.3;
-            
             ctx.beginPath();
-            ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(212, 175, 55, ${pulseOpacity})`;
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
             ctx.fill();
-            ctx.shadowBlur = 5;
-            ctx.shadowColor = `rgba(212, 175, 55, ${pulseOpacity})`;
         }
     }
     
     function initParticles() {
         particles = [];
-        for (let i = 0; i < 120; i++) particles.push(new Particle());
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
     }
     
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.shadowBlur = 0;
-        
         particles.forEach(p => {
             p.update();
             p.draw();
         });
-        
         requestAnimationFrame(animateParticles);
     }
     
@@ -363,7 +324,7 @@ if (canvas) {
 }
 
 // ============================================
-// 8. SMOOTH SCROLLING
+// 8. SMOOTH SCROLLING WITH OFFSET
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -378,9 +339,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             ripple.style.left = e.clientX + 'px';
             ripple.style.top = e.clientY + 'px';
             document.body.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
+            setTimeout(() => ripple.remove(), 500);
             
-            const offset = 80;
+            const offset = 70;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
             window.scrollTo({
                 top: targetPosition,
@@ -391,10 +352,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// 9. MOUSE TRAIL EFFECT
+// 9. SUBTLE MOUSE TRAIL (OPTIONAL - LESS INTRUSIVE)
 // ============================================
 const mouseTrail = [];
-const trailCount = 8;
+const trailCount = 5;
 
 for (let i = 0; i < trailCount; i++) {
     const trail = document.createElement('div');
@@ -404,19 +365,25 @@ for (let i = 0; i < trailCount; i++) {
 }
 
 let trailIndex = 0;
+let lastMoveTime = 0;
+
 document.addEventListener('mousemove', (e) => {
-    const trail = mouseTrail[trailIndex];
-    trail.style.left = e.clientX - 5 + 'px';
-    trail.style.top = e.clientY - 5 + 'px';
-    trail.style.opacity = '1';
-    trail.style.transform = 'scale(1)';
-    
-    setTimeout(() => {
-        trail.style.opacity = '0';
-        trail.style.transform = 'scale(0)';
-    }, 200);
-    
-    trailIndex = (trailIndex + 1) % trailCount;
+    const now = Date.now();
+    if (now - lastMoveTime > 30) {
+        lastMoveTime = now;
+        const trail = mouseTrail[trailIndex];
+        trail.style.left = e.clientX - 4 + 'px';
+        trail.style.top = e.clientY - 4 + 'px';
+        trail.style.opacity = '0.6';
+        trail.style.transform = 'scale(1)';
+        
+        setTimeout(() => {
+            trail.style.opacity = '0';
+            trail.style.transform = 'scale(0)';
+        }, 150);
+        
+        trailIndex = (trailIndex + 1) % trailCount;
+    }
 });
 
-console.log('✨ Luxury Portfolio Loaded — All Animations Active! ✨');
+console.log('✨ Professional Portfolio Loaded — All Animations Active! ✨');

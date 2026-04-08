@@ -82,7 +82,7 @@ function createGlitterStars() {
     if (existingContainer) existingContainer.remove();
     const existingRings = blobWrapper.querySelectorAll('.star-ring, .golden-border-ring, .pulse-ring');
     existingRings.forEach(ring => ring.remove());
-    const existingParticles = blobWrapper.querySelectorAll('.floating-particle, .glow-dot');
+    const existingParticles = blobWrapper.querySelectorAll('.glow-dot');
     existingParticles.forEach(p => p.remove());
     
     const wrapperSize = blobWrapper.offsetWidth;

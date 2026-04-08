@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soniya D | Python Fullstack Developer</title>
+    <title>Soniya D | Python Full-Stack Developer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Emergency fallback styles if CSS doesn't load */
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+        }
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 0;
+        }
+        .hero-section {
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+        .btn-primary {
+            background: #d4af37;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
-    <canvas id="particles-canvas"></canvas>
     <button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
 
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -35,29 +58,32 @@
         </div>
     </nav>
 
-    <section class="hero-section d-flex align-items-center">
+    <section class="hero-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7" data-aos="fade-right" data-aos-duration="1000">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
                     <div class="hero-content">
-                        <h1 class="hero-title">Hello, I'm <span class="highlight">Soniya D</span></h1>
-                        <h2 class="hero-role">I'm a <span id="typed-role"></span></h2>
-                        <p class="hero-tagline">Building clean, scalable & user-friendly web applications with Python & Django.</p>
-                        <div class="hero-buttons mt-4">
-                            <a href="projects.html" class="btn btn-primary me-3">View Work <i class="fas fa-arrow-right ms-2"></i></a>
-                            <a href="contact.html" class="btn btn-outline">Contact Me</a>
+                        <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-4 py-2 rounded-pill" style="background: rgba(212, 175, 55, 0.1); color: #d4af37; display: inline-block;">
+                            <i class="fas fa-code me-2"></i>Python Full-Stack Developer
+                        </span>
+                        <h1 class="hero-title">Soniya D</h1>
+                        <h2 class="hero-role">I'm a <span class="highlight" style="color: #d4af37;">Developer</span></h2>
+                        <p class="hero-tagline">Crafting elegant, scalable web solutions with Python, Django, and modern technologies. Let's build something extraordinary together.</p>
+                        <div class="hero-buttons">
+                            <a href="contact.html" class="btn btn-primary me-3">Let's Talk</a>
+                            <a href="projects.html" class="btn btn-outline" style="border: 2px solid #d4af37; background: transparent; color: #d4af37; padding: 0.8rem 2rem; border-radius: 50px;">View Work</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 text-center" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                    <div class="hero-image">
-                        <!-- Unique Morphing Blob Shape -->
-                        <div class="blob-wrapper" id="blobWrapper">
-                            <div class="blob-shape">
-                                <img src="images/img2.jpeg" alt="Soniya D">
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="blob-wrapper" id="blobWrapper">
+                        <div class="blob-shape">
+                            <!-- Use a placeholder image since img2.jpeg might be missing -->
+                            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #d4af37, #b8941e); border-radius: inherit; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-user-circle" style="font-size: 120px; color: #0a0a0a; opacity: 0.8;"></i>
                             </div>
-                            <div class="blob-glow"></div>
                         </div>
+                        <div class="blob-glow"></div>
                     </div>
                 </div>
             </div>
@@ -65,26 +91,50 @@
     </section>
 
     <footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <p>&copy; 2025 Soniya D. All rights reserved.</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/soniyadas05" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2025 Soniya D. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/soniyadas05" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="js/script.js"></script>
+    <script>
+        // Fallback initialization if AOS doesn't load
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100,
+                easing: 'ease-out-cubic'
+            });
+        }
+        
+        // Simple fallback theme toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('theme-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', function() {
+                    if (document.documentElement.getAttribute('data-theme') === 'light') {
+                        document.documentElement.removeAttribute('data-theme');
+                        toggle.innerHTML = '<i class="fas fa-moon"></i>';
+                    } else {
+                        document.documentElement.setAttribute('data-theme', 'light');
+                        toggle.innerHTML = '<i class="fas fa-sun"></i>';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -23,11 +23,12 @@ if (document.getElementById('typed-role')) {
 }
 
 // ============================================
-// 3. THEME TOGGLE WITH LOCAL STORAGE
+// 3. DARK MODE / LIGHT MODE TOGGLE
 // ============================================
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
 
+// Apply saved theme on page load
 if (currentTheme === 'light') {
     document.documentElement.setAttribute('data-theme', 'light');
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -36,18 +37,25 @@ if (currentTheme === 'light') {
     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
 }
 
+// Toggle theme on button click
 themeToggle.addEventListener('click', () => {
+    // Add animation to button
     themeToggle.style.transform = 'scale(1.2) rotate(180deg)';
     setTimeout(() => { themeToggle.style.transform = ''; }, 300);
     
+    // Check current theme and switch
     if (document.documentElement.hasAttribute('data-theme')) {
+        // Switch to Dark Mode
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem('theme', 'dark');
         themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        console.log('🌙 Dark Mode Activated');
     } else {
+        // Switch to Light Mode
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
         themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        console.log('☀️ Light Mode Activated');
     }
 });
 
@@ -63,6 +71,13 @@ window.addEventListener('scroll', () => {
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
     progressBar.style.width = scrolled + '%';
+    
+    // Change progress bar color based on theme
+    if (document.documentElement.hasAttribute('data-theme')) {
+        progressBar.style.background = '#d4af37';
+    } else {
+        progressBar.style.background = '#d4af37';
+    }
 });
 
 // ============================================
@@ -306,4 +321,29 @@ function setActiveNavLink() {
 
 setActiveNavLink();
 
+// ============================================
+// 11. DARK MODE DETECTION FOR SYSTEM PREFERENCE
+// ============================================
+// Check if user prefers dark mode
+const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (!localStorage.getItem('theme') && prefersDarkMode) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'dark');
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+}
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+            document.documentElement.removeAttribute('data-theme');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    }
+});
+
 console.log('✨ Professional Portfolio Loaded Successfully! ✨');
+console.log('🌓 Dark Mode: ' + (document.documentElement.hasAttribute('data-theme') ? 'Light' : 'Dark'));

@@ -47,6 +47,110 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary);
 }
 
+
+
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #d4af37, #f5e7a3);
+    z-index: 10000;
+    transition: width 0.1s ease;
+}
+
+/* Star Rings */
+.star-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 85%;
+    height: 85%;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateRing 20s linear infinite;
+}
+
+.star-ring.secondary {
+    width: 95%;
+    height: 95%;
+    border: 1px dashed rgba(212, 175, 55, 0.2);
+    animation: rotateRingReverse 25s linear infinite;
+}
+
+.golden-border-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, transparent 60%, rgba(212, 175, 55, 0.1) 100%);
+    pointer-events: none;
+}
+
+/* Glitter Stars */
+.glit-star {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #d4af37;
+    border-radius: 50%;
+    animation: glitter 2s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.8);
+}
+
+.glit-star.sparkle {
+    width: 8px;
+    height: 8px;
+    background: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+}
+
+.glit-star.inner-star {
+    width: 4px;
+    height: 4px;
+    background: #f5e7a3;
+}
+
+/* Floating Particles */
+.floating-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: radial-gradient(circle, #d4af37, transparent);
+    border-radius: 50%;
+    animation: floatParticle 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes rotateRing {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes rotateRingReverse {
+    from { transform: translate(-50%, -50%) rotate(360deg); }
+    to { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes glitter {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 15px #ffd700; }
+}
+
+@keyframes floatParticle {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    50% { transform: translate(var(--x, 20px), var(--y, 20px)) scale(1.5); opacity: 0.8; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+}
+
 /* ============================================
    NAVBAR
 ============================================ */

@@ -1,5 +1,5 @@
-// ============================================
-// 1. INITIALIZE AOS
+js/script.js : // ============================================
+// 1. INITIALIZE AOS (Scroll Animations)
 // ============================================
 AOS.init({
     duration: 800,
@@ -8,20 +8,56 @@ AOS.init({
 });
 
 // ============================================
-// 2. TYPED.JS FOR HERO ROLE
+// 2. TYPED.JS FOR HERO ROLE (Home page)
 // ============================================
 if (document.getElementById('typed-role')) {
     new Typed('#typed-role', {
-        strings: ['Python Fullstack Developer', 'Web Designer', 'Creative Coder', 'Problem Solver'],
+        strings: ['Python Fullstack Developer', 'Web Designer'],
         typeSpeed: 60,
         backSpeed: 40,
-        loop: true,
-        cursorChar: '|'
+        loop: true
     });
 }
 
 // ============================================
-// 3. THEME TOGGLE
+// 3. TYPING EFFECT FOR ABOUT PAGE LEAD TEXT
+// ============================================
+const leadElement = document.getElementById('typed-text');
+if (leadElement) {
+    const phrases = [
+        "Crafting elegant web experiences with Python & Django",
+        "Building clean, scalable applications",
+        "Passionate about problem-solving"
+    ];
+    let phraseIndex = 0, charIndex = 0, isDeleting = false, currentText = '';
+    function typeEffect() {
+        const fullText = phrases[phraseIndex];
+        if (isDeleting) {
+            currentText = fullText.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            currentText = fullText.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        leadElement.textContent = currentText;
+        if (!isDeleting && charIndex === fullText.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+        }
+        if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(typeEffect, 500);
+            return;
+        }
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+    }
+    typeEffect();
+}
+
+// ============================================
+// 4. DARK/LIGHT MODE TOGGLE (Unified)
 // ============================================
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -47,12 +83,67 @@ themeToggle.addEventListener('click', () => {
 });
 
 // ============================================
-// 4. SCROLL PROGRESS BAR
+// 5. SKILL BARS ANIMATION (Skills page)
+// ============================================
+function animateSkills() {
+    const skillItems = document.querySelectorAll('.skill-item');
+    skillItems.forEach(item => {
+        const progressBar = item.querySelector('.progress-bar');
+        const percentSpan = item.querySelector('.skill-percent');
+        if (!progressBar || !percentSpan) return;
+        const targetWidth = progressBar.getAttribute('data-width');
+        if (!targetWidth || progressBar.classList.contains('animated')) return;
+        const rect = progressBar.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            progressBar.classList.add('animated');
+            progressBar.style.width = targetWidth + '%';
+            let current = 0;
+            const target = parseInt(targetWidth);
+            const duration = 1200;
+            const stepTime = 20;
+            const increment = target / (duration / stepTime);
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(interval);
+                }
+                percentSpan.textContent = Math.floor(current);
+            }, stepTime);
+        }
+    });
+}
+window.addEventListener('scroll', animateSkills);
+window.addEventListener('load', animateSkills);
+setTimeout(animateSkills, 500);
+
+// ============================================
+// 6. MOUSE-FOLLOW GLOW EFFECT (Luxury)
+// ============================================
+const glow = document.createElement('div');
+glow.className = 'mouse-glow';
+document.body.appendChild(glow);
+let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    glow.style.opacity = '1';
+});
+function animateGlow() {
+    glowX += (mouseX - glowX) * 0.08;
+    glowY += (mouseY - glowY) * 0.08;
+    glow.style.left = glowX + 'px';
+    glow.style.top = glowY + 'px';
+    requestAnimationFrame(animateGlow);
+}
+animateGlow();
+
+// ============================================
+// 7. SCROLL PROGRESS BAR (Luxury)
 // ============================================
 const progressBarScroll = document.createElement('div');
 progressBarScroll.className = 'scroll-progress';
 document.body.appendChild(progressBarScroll);
-
 window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -61,268 +152,175 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// 5. PROFESSIONAL ROUND IMAGE WITH LUXURY EFFECTS
-// ============================================
-
-function createGlitterStars() {
-    const blobWrapper = document.getElementById('blobWrapper');
-    if (!blobWrapper) return;
-    
-    // Remove existing decorations for clean refresh
-    const existingContainer = blobWrapper.querySelector('.star-container');
-    if (existingContainer) existingContainer.remove();
-    const existingRings = blobWrapper.querySelectorAll('.star-ring, .golden-border-ring');
-    existingRings.forEach(ring => ring.remove());
-    const existingParticles = blobWrapper.querySelectorAll('.floating-particle');
-    existingParticles.forEach(p => p.remove());
-    
-    // Get current size for responsive positioning
-    const wrapperSize = blobWrapper.offsetWidth;
-    const center = wrapperSize / 2;
-    const outerRadius = wrapperSize * 0.58;
-    const innerRadius = wrapperSize * 0.42;
-    
-    // Create rotating golden rings
-    const ring1 = document.createElement('div');
-    ring1.className = 'star-ring';
-    const ring2 = document.createElement('div');
-    ring2.className = 'star-ring secondary';
-    const goldenRing = document.createElement('div');
-    goldenRing.className = 'golden-border-ring';
-    
-    blobWrapper.appendChild(ring1);
-    blobWrapper.appendChild(ring2);
-    blobWrapper.appendChild(goldenRing);
-    
-    // Create star container for glittering stars
-    const starContainer = document.createElement('div');
-    starContainer.className = 'star-container';
-    
-    // Outer stars (24 stars for full rotation)
-    const outerStarCount = 24;
-    for (let i = 0; i < outerStarCount; i++) {
-        const angle = (i / outerStarCount) * Math.PI * 2;
-        const x = center + Math.cos(angle) * outerRadius;
-        const y = center + Math.sin(angle) * outerRadius;
-        
-        const star = document.createElement('div');
-        star.className = 'glit-star';
-        if (i % 3 === 0) star.classList.add('sparkle');
-        star.style.left = x + 'px';
-        star.style.top = y + 'px';
-        star.style.animationDelay = (i * 0.15) + 's';
-        starContainer.appendChild(star);
-    }
-    
-    // Inner stars for depth
-    const innerStarCount = 16;
-    for (let i = 0; i < innerStarCount; i++) {
-        const angle = (i / innerStarCount) * Math.PI * 2 + 0.5;
-        const x = center + Math.cos(angle) * innerRadius;
-        const y = center + Math.sin(angle) * innerRadius;
-        
-        const star = document.createElement('div');
-        star.className = 'glit-star inner-star';
-        star.style.left = x + 'px';
-        star.style.top = y + 'px';
-        star.style.animationDelay = (i * 0.2) + 's';
-        star.style.animationDuration = '1.5s';
-        starContainer.appendChild(star);
-    }
-    
-    blobWrapper.appendChild(starContainer);
-    
-    // Floating particles for magical effect
-    const particleCount = 16;
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'floating-particle';
-        const angle = Math.random() * Math.PI * 2;
-        const distance = innerRadius + Math.random() * 40;
-        const x = Math.cos(angle) * distance;
-        const y = Math.sin(angle) * distance;
-        particle.style.setProperty('--x', x + 'px');
-        particle.style.setProperty('--y', y + 'px');
-        particle.style.left = center + 'px';
-        particle.style.top = center + 'px';
-        particle.style.animationDelay = (i * 0.25) + 's';
-        particle.style.animationDuration = (2 + Math.random() * 2) + 's';
-        blobWrapper.appendChild(particle);
-    }
-}
-
-// Initialize stars with proper timing
-window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        createGlitterStars();
-        // Add hover glow effect to blob wrapper
-        const blobWrapper = document.getElementById('blobWrapper');
-        if (blobWrapper) {
-            blobWrapper.style.transition = 'box-shadow 0.3s ease';
-        }
-    }, 100);
-});
-
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(createGlitterStars, 200);
-});
-
-// ============================================
-// 6. 3D TILT EFFECT FOR PROFESSIONAL LOOK
-// ============================================
-const blobWrapper3D = document.getElementById('blobWrapper');
-const blobImg3D = document.querySelector('#blobWrapper img');
-
-if (blobWrapper3D && blobImg3D) {
-    blobWrapper3D.addEventListener('mousemove', (e) => {
-        const rect = blobWrapper3D.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        // Calculate rotation (max 12 degrees)
-        const rotateX = ((y - centerY) / centerY) * 12;
-        const rotateY = ((x - centerX) / centerX) * 12;
-        const moveX = (x - centerX) / 30;
-        const moveY = (y - centerY) / 30;
-        
-        // Apply smooth 3D transform
-        blobWrapper3D.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        blobImg3D.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.02)`;
-        
-        // Add glow effect on hover
-        blobWrapper3D.style.boxShadow = '0 25px 50px -12px rgba(212, 175, 55, 0.3)';
-    });
-    
-    blobWrapper3D.addEventListener('mouseleave', () => {
-        blobWrapper3D.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
-        blobImg3D.style.transform = '';
-        blobWrapper3D.style.boxShadow = '';
-    });
-}
-
-// ============================================
-// 7. PROFESSIONAL PARTICLE BACKGROUND
-// ============================================
-const canvas = document.getElementById('particles-canvas');
-if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let mouseX = null;
-    let mouseY = null;
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    
-    // Mouse movement tracking for interactive particles
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        setTimeout(() => {
-            mouseX = null;
-            mouseY = null;
-        }, 100);
-    });
-    
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2.5 + 0.8;
-            this.speedX = (Math.random() - 0.5) * 0.2;
-            this.speedY = (Math.random() - 0.5) * 0.2;
-            this.opacity = Math.random() * 0.4 + 0.1;
-            this.originalX = this.x;
-            this.originalY = this.y;
-        }
-        update() {
-            // React to mouse position
-            if (mouseX && mouseY) {
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 150) {
-                    const angle = Math.atan2(dy, dx);
-                    const force = (150 - distance) / 150;
-                    this.x -= Math.cos(angle) * force * 1.5;
-                    this.y -= Math.sin(angle) * force * 1.5;
-                } else {
-                    // Return to original position
-                    this.x += (this.originalX - this.x) * 0.02;
-                    this.y += (this.originalY - this.y) * 0.02;
-                }
-            }
-            
-            this.x += this.speedX;
-            this.y += this.speedY;
-            
-            // Wrap around edges
-            if (this.x < -50) this.x = canvas.width + 50;
-            if (this.x > canvas.width + 50) this.x = -50;
-            if (this.y < -50) this.y = canvas.height + 50;
-            if (this.y > canvas.height + 50) this.y = -50;
-        }
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
-            ctx.fill();
-            
-            // Add glow effect
-            ctx.shadowBlur = 5;
-            ctx.shadowColor = 'rgba(212, 175, 55, 0.5)';
-        }
-    }
-    
-    function initParticles() {
-        particles = [];
-        for (let i = 0; i < 120; i++) particles.push(new Particle());
-    }
-    
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.shadowBlur = 0; // Reset shadow
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        requestAnimationFrame(animateParticles);
-    }
-    
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        initParticles();
-    });
-    
-    resizeCanvas();
-    initParticles();
-    animateParticles();
-}
-
-// ============================================
-// 8. SMOOTH SCROLLING WITH OFFSET
+// 8. SMOOTH SCROLLING FOR ANCHOR LINKS
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const target = document.querySelector(targetId);
+        const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const offset = 80;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
 
-console.log('✨ Luxury Portfolio Loaded — Professional Animations Active!');
+// ============================================
+// 9. PARTICLE BACKGROUND (Canvas)
+// ============================================
+const canvas = document.getElementById('particles-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particles = [];
+    function initParticles() {
+        for (let i = 0; i < 80; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.3,
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
+    }
+    function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
+            ctx.fill();
+            p.x += p.speedX;
+            p.y += p.speedY;
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+        });
+        requestAnimationFrame(drawParticles);
+    }
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+        initParticles();
+    });
+    initParticles();
+    drawParticles();
+}
+
+// ============================================
+// 10. CARD SCROLL EFFECT (About page)
+// ============================================
+const aboutCard = document.querySelector('.about-card');
+if (aboutCard) {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const maxScroll = 500;
+        const scale = 1 - Math.min(scrolled / maxScroll, 0.03);
+        const translateY = Math.min(scrolled / 15, 20);
+        aboutCard.style.transform = `translateY(-${translateY}px) scale(${scale})`;
+    });
+}
+
+// ============================================
+// 11. CONTACT FORM ENHANCEMENTS (Validation Only)
+// ============================================
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    const inputs = contactForm.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.value.trim() === '' && this.hasAttribute('required')) {
+                this.style.borderColor = '#dc3545';
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+        input.addEventListener('focus', function() {
+            this.style.borderColor = 'var(--primary)';
+        });
+    });
+}
+
+// ============================================
+// 12. 3D TILT EFFECT FOR BLOB SHAPE (Home page)
+// ============================================
+const blobWrapper = document.getElementById('blobWrapper');
+if (blobWrapper) {
+    blobWrapper.addEventListener('mousemove', (e) => {
+        const rect = blobWrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * 15;
+        const rotateY = ((x - centerX) / centerX) * 15;
+        blobWrapper.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    blobWrapper.addEventListener('mouseleave', () => {
+        blobWrapper.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    });
+}
+
+// ============================================
+// 13. IMAGE POP-OUT PARALLAX (3D depth on mousemove)
+// ============================================
+const blobShape = document.querySelector('.blob-shape');
+const blobImg = document.querySelector('.blob-shape img');
+if (blobShape && blobImg) {
+    blobWrapper.addEventListener('mousemove', (e) => {
+        const rect = blobWrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        // Move image slightly opposite to cursor direction (3D depth)
+        const moveX = (x - centerX) / 20;
+        const moveY = (y - centerY) / 20;
+        blobImg.style.transform = `translateX(${moveX}px) translateY(${moveY}px) scale(1.05) translateZ(20px)`;
+        blobShape.style.transform = `rotateX(${(y - centerY) / 30}deg) rotateY(${(x - centerX) / 30}deg)`;
+    });
+    blobWrapper.addEventListener('mouseleave', () => {
+        blobImg.style.transform = '';
+        blobShape.style.transform = '';
+    });
+}
+
+
+
+
+// ============================================
+// SKILL PERCENTAGE COUNTER (Small Boxes)
+// ============================================
+function animateSkillPercentages() {
+    const skillBoxes = document.querySelectorAll('.skill-box');
+    skillBoxes.forEach(box => {
+        const percentSpan = box.querySelector('.skill-percent');
+        if (!percentSpan || percentSpan.classList.contains('counted')) return;
+        const target = parseInt(box.getAttribute('data-skill'));
+        if (isNaN(target)) return;
+        const rect = box.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+            percentSpan.classList.add('counted');
+            let current = 0;
+            const duration = 1200;
+            const stepTime = 20;
+            const increment = target / (duration / stepTime);
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(interval);
+                }
+                percentSpan.textContent = Math.floor(current);
+            }, stepTime);
+        }
+    });
+}
+
+window.addEventListener('scroll', animateSkillPercentages);
+window.addEventListener('load', animateSkillPercentages);
+setTimeout(animateSkillPercentages, 500);

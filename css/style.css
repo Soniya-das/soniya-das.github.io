@@ -1466,3 +1466,97 @@ h1, h2, h3, h4, h5, h6 {
     .skill-box h4 { font-size: 0.9rem; }
     .skill-box .skill-percent { font-size: 1.2rem; }
 }
+
+
+/* ============================================
+   MOUSE GLOW EFFECT
+============================================ */
+.mouse-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+/* ============================================
+   GLITTER STARS ANIMATION
+============================================ */
+@keyframes starGlitter {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.glit-star {
+    animation: starGlitter 2.5s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+}
+
+.glit-star.inner-star {
+    animation-duration: 1.8s;
+}
+
+/* ============================================
+   STAR CONTAINER POSITIONING
+============================================ */
+.star-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* ============================================
+   NAVBAR SCROLLED STATE
+============================================ */
+.navbar.scrolled {
+    padding: 0.7rem 0;
+    background: rgba(10, 10, 12, 0.95);
+}
+
+[data-theme="light"] .navbar.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* ============================================
+   SKILL BOX STYLES
+============================================ */
+.skill-box {
+    background: var(--card-bg-dark);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    padding: 1.8rem 1.2rem;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid var(--card-border-dark);
+}
+
+.skill-box:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 35px var(--primary-glow);
+}
+
+.skill-box i {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.skill-box h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.skill-percent {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.2rem;
+}

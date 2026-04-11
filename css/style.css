@@ -209,131 +209,6 @@ body {
   display: none;
 }
 
-/* ========== NAVBAR ========== */
-/* .luxury-nav {
-  position: fixed;
-  top: 25px;
-  left: 5%;
-  width: 90%;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border-radius: 60px;
-  border: 1px solid var(--glass-border);
-  z-index: 1000;
-  padding: 8px 32px;
-  transition: all 0.4s ease;
-  animation: navSlideDown 0.8s ease-out;
-}
-
-@keyframes navSlideDown {
-  0% { transform: translateY(-100px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-.luxury-nav.scrolled {
-  background: rgba(5, 7, 12, 0.95);
-  top: 15px;
-  width: 92%;
-  left: 4%;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #fff8e7, var(--gold-light), var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transition: transform 0.3s ease;
-}
-
-.logo:hover {
-  transform: scale(1.05);
-}
-
-.logo-initial {
-  font-size: 1.9rem;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.logo-accent {
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.logo-dot {
-  width: 5px;
-  height: 5px;
-  background: var(--gold);
-  border-radius: 50%;
-  display: inline-block;
-  margin-left: 4px;
-  animation: pulseGlow 1.5s infinite;
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: var(--text-dim);
-  font-weight: 500;
-  transition: 0.3s;
-  font-size: 0.9rem;
-  position: relative;
-}
-
-.nav-links a.active, .nav-links a:hover {
-  color: var(--gold);
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gold);
-  transition: 0.3s;
-}
-
-.nav-links a:hover::after, .nav-links a.active::after {
-  width: 100%;
-}
-
-.nav-toggle {
-  display: none;
-  font-size: 1.4rem;
-  cursor: pointer;
-  color: var(--gold);
-} */
-
-
-
-
-
 /* ========== CREATIVE LUXURY NAVBAR - UNIQUE DESIGN ========== */
 
 .luxury-nav {
@@ -3928,6 +3803,17 @@ body {
   text-transform: uppercase;
 }
 
+.contact-details p,
+.email-hyperlink {
+  color: var(--text-light);  /* Both Location and Email same white */
+  text-decoration: none;
+}
+
+.email-hyperlink:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
 .contact-details p {
   font-size: 0.9rem;
   font-weight: 500;
@@ -4168,12 +4054,6 @@ body {
 .mt-2 {
   margin-top: 1rem;
 }
-
-
-
-
-
-
 
 
 /* ========== CLOSE ICON - RIGHT SIDE ONLY ========== */

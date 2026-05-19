@@ -4122,3 +4122,32 @@ body {
     font-size: 1rem;
   }
 }
+
+
+
+/* GitHub Icon Styling for Project Cards */
+.project-github-wrapper {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.project-github-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #24292e;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.project-github-icon:hover {
+  background: #2c974b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}

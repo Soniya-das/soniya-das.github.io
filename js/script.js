@@ -1,4 +1,5 @@
-// js/script.js - 3 More Ultra-Luxury Professional Entry Animations
+// js/script.js - Complete Fully Responsive JavaScript
+// Ultra Luxury Portfolio - Mobile, Tablet, Desktop, TV Responsive
 
 (function() {
   'use strict';
@@ -921,10 +922,7 @@
     document.body.style.overflow = 'hidden';
   }
   
-  // ========== REST OF YOUR EXISTING JS CODE ==========
-  // (Typing effect, navbar, mobile menu, tilt effect, scroll reveal, button hover effects)
-  
-  // TYPING EFFECT
+  // ========== TYPING EFFECT ==========
   const typedElement = document.querySelector('.typed-role');
   if (typedElement) {
     const phrases = [
@@ -963,7 +961,7 @@
     typeEffect();
   }
   
-  // NAVBAR SCROLL EFFECT
+  // ========== NAVBAR SCROLL EFFECT ==========
   const nav = document.querySelector('.luxury-nav');
   if (nav) {
     window.addEventListener('scroll', () => {
@@ -975,46 +973,79 @@
     });
   }
   
-  // MOBILE MENU
+  // ========== MOBILE MENU - FULLY FIXED & RESPONSIVE ==========
   const toggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
+  
   if (toggle && navLinks) {
+    // Toggle menu on button click
     toggle.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
       navLinks.classList.toggle('active');
-    });
-    
-    document.addEventListener('click', (e) => {
-      if (nav && !nav.contains(e.target) && navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
+      
+      // Change icon between bars and times
+      const icon = toggle.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
       }
     });
     
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => navLinks.classList.remove('active'));
-    });
-  }
-  
-  // HERO IMAGE 3D TILT EFFECT
-  const heroImageContainer = document.querySelector('.hero-image-container');
-  if (heroImageContainer) {
-    heroImageContainer.addEventListener('mousemove', (e) => {
-      const rect = heroImageContainer.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      heroImageContainer.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${y * -6}deg) scale(1.02)`;
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (nav && !nav.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = toggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      }
     });
     
-    heroImageContainer.addEventListener('mouseleave', () => {
-      heroImageContainer.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
+    // Close menu when clicking on any link (for responsive)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        const icon = toggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
     });
   }
   
-  // SCROLL REVEAL
+  // ========== HERO IMAGE 3D TILT EFFECT (Desktop only) ==========
+  const heroImageContainer = document.querySelector('.hero-image-container');
+  if (heroImageContainer) {
+    // Only apply tilt effect on devices that support hover (not touch devices)
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (!isTouchDevice) {
+      heroImageContainer.addEventListener('mousemove', (e) => {
+        const rect = heroImageContainer.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroImageContainer.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${y * -6}deg) scale(1.02)`;
+      });
+      
+      heroImageContainer.addEventListener('mouseleave', () => {
+        heroImageContainer.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
+      });
+    }
+  }
+  
+  // ========== SCROLL REVEAL ANIMATION ==========
   const revealElements = document.querySelectorAll(
     '.resume-block, .skill-item, .service-card, .project-card, .premium-card'
   );
   
+  // Use Intersection Observer for scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
@@ -1028,7 +1059,7 @@
   
   revealElements.forEach(el => observer.observe(el));
   
-  // BUTTON HOVER EFFECTS
+  // ========== BUTTON HOVER EFFECTS ==========
   const buttons = document.querySelectorAll('.btn-primary, .btn-outline, .premium-social-btn, .close-icon-right');
   buttons.forEach(btn => {
     btn.addEventListener('mouseenter', function() {
@@ -1039,5 +1070,65 @@
     });
   });
   
-  console.log(`✨ ULTRA-LUXURY ANIMATION STYLE ${ANIMATION_STYLE} ACTIVATED ✨`);
+  // ========== RESPONSIVE WINDOW RESIZE HANDLER ==========
+  window.addEventListener('resize', function() {
+    // Close mobile menu on resize if screen becomes larger than tablet
+    if (window.innerWidth > 850 && navLinks) {
+      navLinks.classList.remove('active');
+      const icon = toggle?.querySelector('i');
+      if (icon) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    }
+    
+    // Recalculate any responsive-specific styles
+    if (heroImageContainer && window.innerWidth <= 850) {
+      heroImageContainer.style.transform = '';
+    }
+  });
+  
+  // ========== TOUCH DEVICE OPTIMIZATIONS ==========
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (isTouchDevice) {
+    // Remove hover effects that might cause issues on touch
+    document.body.classList.add('touch-device');
+    
+    // Ensure buttons are touch-friendly
+    buttons.forEach(btn => {
+      btn.addEventListener('touchstart', function() {
+        this.style.transform = 'translateY(-2px) scale(1.01)';
+      });
+      btn.addEventListener('touchend', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  }
+  
+  // ========== LAZY LOAD IMAGES FOR BETTER PERFORMANCE ==========
+  const images = document.querySelectorAll('img');
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+          }
+          imageObserver.unobserve(img);
+        }
+      });
+    });
+    images.forEach(img => imageObserver.observe(img));
+  }
+  
+  // ========== PREVENT BROKEN LINKS ==========
+  document.querySelectorAll('a[href="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+  });
+  
+  console.log(`✨ ULTRA-LUXURY PORTFOLIO FULLY RESPONSIVE - ANIMATION STYLE ${ANIMATION_STYLE} ACTIVATED ✨`);
+  console.log('📱 Responsive Breakpoints: Mobile (≤550px) | Tablet (551-850px) | Desktop (851-1400px) | TV (≥1400px)');
 })();

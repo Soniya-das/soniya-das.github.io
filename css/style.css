@@ -1153,7 +1153,7 @@ body {
 
 /* Zoom animation for hero image */
 .zoom-animation {
-  animation: imageZoomIn 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+  animation: imageZoomIn 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.2) forwards;
 }
 
 @keyframes imageZoomIn {
@@ -4311,4 +4311,81 @@ body {
 
 .mt-2 {
   margin-top: 1rem;
+}
+
+/* ===== MOBILE CONTACT FIXES (ADDED) ===== */
+@media (max-width: 550px) {
+  /* Fix for the contact card container */
+  .contact-luxury-card {
+    padding: 1.2rem;
+  }
+
+  /* Each contact item (email, location) */
+  .contact-luxury-item {
+    gap: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  /* Email link - prevent overflow and break long email */
+  .email-hyperlink {
+    word-break: break-all;
+    overflow-wrap: break-word;
+    display: inline-block;
+    max-width: 100%;
+    font-size: 0.75rem;
+  }
+
+  /* Keep icon circle smaller but aligned */
+  .contact-icon-circle {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .contact-icon-circle i {
+    font-size: 1rem;
+  }
+
+  /* Contact details text area */
+  .contact-details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .contact-details h4 {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+
+  .contact-details p {
+    font-size: 0.7rem;
+  }
+
+  /* Email arrow icon (if present) */
+  .email-arrow {
+    display: none;
+  }
+
+  /* Social buttons row */
+  .contact-social-luxury {
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .social-luxury-link {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+
+  /* Availability badge */
+  .availability-badge {
+    padding: 5px 12px;
+    gap: 6px;
+  }
+
+  .availability-badge span:last-child {
+    font-size: 0.6rem;
+  }
 }

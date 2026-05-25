@@ -223,7 +223,7 @@ body {
   display: none;
 }
 
-/* ========== CREATIVE LUXURY NAVBAR ========== */
+/* ========== NAVIGATION BAR ========== */
 .luxury-nav {
   position: fixed;
   top: 25px;
@@ -575,6 +575,7 @@ body {
 
 /* ========== MOBILE MENU (SLIDE-IN) – ONLY CORRECT VERSION ========== */
 @media (max-width: 850px) {
+  /* Hidden state: off‑screen to the right */
   .nav-links {
     position: fixed;
     top: 70px;
@@ -595,6 +596,7 @@ body {
     border-radius: 0;
   }
   
+  /* Active state: slide in */
   .nav-links.active {
     right: 0;
   }

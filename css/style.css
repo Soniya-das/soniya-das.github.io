@@ -4372,3 +4372,31 @@ body {
     font-size: 0.6rem;
   }
 }
+
+
+@media (max-width: 850px) {
+  .nav-links.active {
+    display: flex !important;
+    position: fixed !important;
+    top: 70px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 90% !important;
+    margin: 0 auto !important;
+    background: #0a0c10 !important;
+    backdrop-filter: blur(25px) !important;
+    border-radius: 24px !important;
+    padding: 20px !important;
+    flex-direction: column !important;
+    z-index: 10001 !important;
+    border: 1px solid #d4af37 !important;
+  }
+  .nav-links li {
+    text-align: center !important;
+  }
+  .nav-links a {
+    display: block !important;
+    padding: 12px !important;
+    color: #f5e6b0 !important;
+  }
+}

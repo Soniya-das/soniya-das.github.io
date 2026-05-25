@@ -492,7 +492,7 @@ body {
 }
 
 .nav-links.active {
-  display: flex;
+  display: flex !important;
 }
 
 .nav-links li {
@@ -3990,15 +3990,20 @@ body {
   border-radius: 50%;
   border: 1px solid rgba(212, 175, 55, 0.3);
   transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  /* Force perfect circle on all devices */
+  aspect-ratio: 1 / 1 !important;
+  flex: 0 0 auto !important;
+  overflow: hidden !important;
 }
 
 @media (max-width: 550px) {
   .contact-icon-circle {
-    width: 45px;
-    height: 45px;
+    width: 44px;
+    height: 44px;
   }
   .contact-icon-circle i {
-    font-size: 1.2rem;
+    font-size: 1rem;
+    line-height: 1 !important;
   }
 }
 
@@ -4103,7 +4108,7 @@ body {
     font-size: 1rem;
   }
   .social-luxury-link span {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -4336,10 +4341,10 @@ body {
     font-size: 0.75rem;
   }
 
-  /* Keep icon circle smaller but aligned */
+  /* Keep icon circle perfectly round */
   .contact-icon-circle {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
   }
 

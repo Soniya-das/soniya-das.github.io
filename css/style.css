@@ -4394,3 +4394,18 @@ body {
     font-size: 0.6rem;
   }
 }
+
+
+/* Ensure mobile menu appears above all content */
+@media (max-width: 850px) {
+  .nav-links.active {
+    display: flex !important;
+    z-index: 10000 !important;
+    top: 70px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(5, 7, 12, 0.98) !important;
+    backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  }
+}

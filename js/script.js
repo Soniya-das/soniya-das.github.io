@@ -352,6 +352,7 @@
           setTimeout(() => {
             overlay.style.transition = 'opacity 1.5s ease';
             overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none'; // ← THE FIX: allow clicks to pass through
             setTimeout(() => {
               overlay.style.display = 'none';
               if (mainContent) {

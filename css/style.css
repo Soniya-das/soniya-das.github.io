@@ -223,7 +223,7 @@ body {
   display: none;
 }
 
-/* ========== NAVIGATION BAR ========== */
+/* ========== CREATIVE LUXURY NAVBAR ========== */
 .luxury-nav {
   position: fixed;
   top: 25px;
@@ -575,7 +575,6 @@ body {
 
 /* ========== MOBILE MENU (SLIDE-IN) – ONLY CORRECT VERSION ========== */
 @media (max-width: 850px) {
-  /* Hidden state: off‑screen to the right */
   .nav-links {
     position: fixed;
     top: 70px;
@@ -596,7 +595,6 @@ body {
     border-radius: 0;
   }
   
-  /* Active state: slide in */
   .nav-links.active {
     right: 0;
   }
@@ -620,7 +618,6 @@ body {
     color: var(--gold);
   }
   
-  /* Hide desktop pseudo‑elements on mobile */
   .nav-links a::before,
   .nav-links a::after {
     display: none;

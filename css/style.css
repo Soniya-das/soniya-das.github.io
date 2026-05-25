@@ -486,7 +486,7 @@ body {
 @media (max-width: 550px) {
   .nav-links {
     width: 94%;
-    top: 60px; /* Adjusted to fit smaller navbar */
+    top: 60px;
     padding: 15px;
   }
 }
@@ -588,7 +588,7 @@ body {
   border: 1px solid rgba(212, 175, 55, 0.25);
   position: relative;
   overflow: hidden;
-  z-index: 1001; /* Ensure it's above overlay after animation */
+  z-index: 1001;
 }
 
 @media (max-width: 850px) {
@@ -3991,7 +3991,6 @@ body {
   border-radius: 50%;
   border: 1px solid rgba(212, 175, 55, 0.3);
   transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-  /* Force perfect circle on all devices */
   aspect-ratio: 1 / 1 !important;
   flex: 0 0 auto !important;
   overflow: hidden !important;

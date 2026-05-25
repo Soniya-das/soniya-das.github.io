@@ -352,7 +352,7 @@
           setTimeout(() => {
             overlay.style.transition = 'opacity 1.5s ease';
             overlay.style.opacity = '0';
-            overlay.style.pointerEvents = 'none'; // ← FIX: allow clicks to pass through
+            overlay.style.pointerEvents = 'none';
             setTimeout(() => {
               overlay.style.display = 'none';
               if (mainContent) {
@@ -429,7 +429,6 @@
   const navBar = document.querySelector('.luxury-nav');
   
   if (menuToggle && mobileNavLinks) {
-    // Toggle menu when burger icon clicked
     menuToggle.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -447,7 +446,6 @@
       }
     });
     
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (navBar && !navBar.contains(e.target) && mobileNavLinks.classList.contains('active')) {
         mobileNavLinks.classList.remove('active');
@@ -460,7 +458,6 @@
       }
     });
     
-    // Close menu when any nav link is clicked
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         mobileNavLinks.classList.remove('active');

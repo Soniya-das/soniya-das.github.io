@@ -352,7 +352,7 @@
           setTimeout(() => {
             overlay.style.transition = 'opacity 1.5s ease';
             overlay.style.opacity = '0';
-            overlay.style.pointerEvents = 'none'; // ← THE FIX: allow clicks to pass through
+            overlay.style.pointerEvents = 'none'; // ← FIX: allow clicks to pass through
             setTimeout(() => {
               overlay.style.display = 'none';
               if (mainContent) {
@@ -439,7 +439,6 @@
       if (mobileNavLinks.classList.contains('active')) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
-        // Prevent background scroll when menu is open
         document.body.style.overflow = 'hidden';
       } else {
         icon.classList.remove('fa-times');
@@ -448,7 +447,7 @@
       }
     });
     
-    // Close menu when clicking outside the navbar
+    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (navBar && !navBar.contains(e.target) && mobileNavLinks.classList.contains('active')) {
         mobileNavLinks.classList.remove('active');

@@ -486,7 +486,7 @@ body {
 @media (max-width: 550px) {
   .nav-links {
     width: 94%;
-    top: 65px;
+    top: 60px; /* Adjusted to fit smaller navbar */
     padding: 15px;
   }
 }
@@ -588,6 +588,7 @@ body {
   border: 1px solid rgba(212, 175, 55, 0.25);
   position: relative;
   overflow: hidden;
+  z-index: 1001; /* Ensure it's above overlay after animation */
 }
 
 @media (max-width: 850px) {
@@ -4318,21 +4319,16 @@ body {
   margin-top: 1rem;
 }
 
-/* ===== MOBILE CONTACT FIXES (ADDED) ===== */
+/* ===== MOBILE CONTACT FIXES ===== */
 @media (max-width: 550px) {
-  /* Fix for the contact card container */
   .contact-luxury-card {
     padding: 1.2rem;
   }
-
-  /* Each contact item (email, location) */
   .contact-luxury-item {
     gap: 0.8rem;
     padding: 0.6rem 0.8rem;
     flex-wrap: wrap;
   }
-
-  /* Email link - prevent overflow and break long email */
   .email-hyperlink {
     word-break: break-all;
     overflow-wrap: break-word;
@@ -4340,72 +4336,40 @@ body {
     max-width: 100%;
     font-size: 0.75rem;
   }
-
-  /* Keep icon circle perfectly round */
   .contact-icon-circle {
     width: 44px;
     height: 44px;
     flex-shrink: 0;
   }
-
   .contact-icon-circle i {
     font-size: 1rem;
   }
-
-  /* Contact details text area */
   .contact-details {
     flex: 1;
     min-width: 0;
   }
-
   .contact-details h4 {
     font-size: 0.6rem;
     letter-spacing: 1px;
   }
-
   .contact-details p {
     font-size: 0.7rem;
   }
-
-  /* Email arrow icon (if present) */
   .email-arrow {
     display: none;
   }
-
-  /* Social buttons row */
   .contact-social-luxury {
     gap: 0.6rem;
-    flex-wrap: wrap;
-    justify-content: center;
   }
-
   .social-luxury-link {
     padding: 6px 12px;
     font-size: 0.7rem;
   }
-
-  /* Availability badge */
   .availability-badge {
     padding: 5px 12px;
     gap: 6px;
   }
-
   .availability-badge span:last-child {
     font-size: 0.6rem;
-  }
-}
-
-
-/* Ensure mobile menu appears above all content */
-@media (max-width: 850px) {
-  .nav-links.active {
-    display: flex !important;
-    z-index: 10000 !important;
-    top: 70px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    background: rgba(5, 7, 12, 0.98) !important;
-    backdrop-filter: blur(25px) !important;
-    border: 1px solid rgba(212, 175, 55, 0.4) !important;
   }
 }

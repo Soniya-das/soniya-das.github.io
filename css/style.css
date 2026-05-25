@@ -223,7 +223,7 @@ body {
   display: none;
 }
 
-/* ========== NAVIGATION BAR ========== */
+/* ========== CREATIVE LUXURY NAVBAR ========== */
 .luxury-nav {
   position: fixed;
   top: 25px;
@@ -522,7 +522,7 @@ body {
   border: 1px solid rgba(212, 175, 55, 0.25);
   position: relative;
   overflow: hidden;
-  z-index: 10001; /* above overlay */
+  z-index: 10001;
 }
 
 @media (max-width: 850px) {
@@ -573,7 +573,7 @@ body {
   transform: scale(1.1);
 }
 
-/* ========== MOBILE MENU (SLIDE-IN) ========== */
+/* ========== MOBILE MENU (SLIDE-IN) – ONLY CORRECT VERSION ========== */
 @media (max-width: 850px) {
   .nav-links {
     position: fixed;

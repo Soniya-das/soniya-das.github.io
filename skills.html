@@ -10,168 +10,60 @@
 </head>
 <body>
 
-  <!-- ========== NAVIGATION BAR ========== -->
+  <!-- NAVIGATION BAR -->
   <nav class="luxury-nav">
     <div class="nav-container">
       <div class="logo">
         <span class="logo-initial">S</span>oniya <span class="logo-accent">D</span>
         <div class="logo-dot"></div>
       </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="skills.html" class="active">Skills</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="nav-toggle"><i class="fas fa-bars"></i></div>
+       <!-- Hamburger (Unicode ☰) – works even if Font Awesome is blocked -->
+        <div class="hamburger" id="hamburger">
+          <span style="font-size: 1.8rem; color: #d4af37;">☰</span>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
     </div>
   </nav>
 
-  <!-- Close Icon - RIGHT SIDE (optional – you can remove if you only want navbar) -->
   <a href="index.html" class="close-icon-right">
     <i class="fas fa-times"></i>
   </a>
 
   <main class="page-section">
-    
-    <!-- Luxury Skills Heading -->
     <div class="skills-heading-luxury">
-      <div class="skills-heading-icon">
-        <i class="fas fa-code"></i>
-      </div>
+      <div class="skills-heading-icon"><i class="fas fa-code"></i></div>
       <h2 class="skills-luxury-title">Technical Expertise</h2>
       <div class="skills-heading-underline">
         <span class="skills-underline-dot"></span>
         <span class="skills-underline-line"></span>
         <span class="skills-underline-dot"></span>
       </div>
-      <p class="skills-heading-subtitle">Technologies & tools I master</p>
+      <p class="skills-heading-subtitle">Technologies & tools</p>
     </div>
-
-    <!-- Premium Skills Container - 9 Skills -->
     <div class="skills-premium-container">
-      
-      <!-- 1. HTML5 -->
-      <div class="skill-premium-card" data-delay="0">
-        <div class="skill-premium-icon">
-          <i class="fab fa-html5"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>HTML5</h3>
-        <p>Structure & Semantics</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 2. CSS3 -->
-      <div class="skill-premium-card" data-delay="1">
-        <div class="skill-premium-icon">
-          <i class="fab fa-css3-alt"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>CSS3</h3>
-        <p>Styling & Animation</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 3. Bootstrap -->
-      <div class="skill-premium-card" data-delay="2">
-        <div class="skill-premium-icon">
-          <i class="fab fa-bootstrap"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>Bootstrap</h3>
-        <p>Responsive Design</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 4. JavaScript -->
-      <div class="skill-premium-card" data-delay="3">
-        <div class="skill-premium-icon">
-          <i class="fab fa-js"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>JavaScript</h3>
-        <p>Frontend Logic</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 5. Python -->
-      <div class="skill-premium-card" data-delay="4">
-        <div class="skill-premium-icon">
-          <i class="fab fa-python"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>Python</h3>
-        <p>Core Programming</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 6. Django -->
-      <div class="skill-premium-card" data-delay="5">
-        <div class="skill-premium-icon">
-          <i class="fas fa-cogs"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>Django</h3>
-        <p>Backend Framework</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 7. MySQL -->
-      <div class="skill-premium-card" data-delay="6">
-        <div class="skill-premium-icon">
-          <i class="fas fa-database"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>MySQL</h3>
-        <p>Database Management</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 8. REST API -->
-      <div class="skill-premium-card" data-delay="7">
-        <div class="skill-premium-icon">
-          <i class="fas fa-cloud-upload-alt"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>REST API</h3>
-        <p>API Development</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
-
-      <!-- 9. VS Code -->
-      <div class="skill-premium-card" data-delay="8">
-        <div class="skill-premium-icon">
-          <i class="fas fa-code"></i>
-        </div>
-        <div class="skill-premium-glow"></div>
-        <h3>VS Code</h3>
-        <p>Code Editor</p>
-        <div class="skill-level">
-          <div class="level-bar"></div>
-        </div>
-      </div>
+      <div class="skill-premium-card" data-delay="0"><div class="skill-premium-icon"><i class="fab fa-html5"></i></div><div class="skill-premium-glow"></div><h3>HTML5</h3><p>Structure & Semantics</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="1"><div class="skill-premium-icon"><i class="fab fa-css3-alt"></i></div><div class="skill-premium-glow"></div><h3>CSS3</h3><p>Styling & Animation</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="2"><div class="skill-premium-icon"><i class="fab fa-bootstrap"></i></div><div class="skill-premium-glow"></div><h3>Bootstrap</h3><p>Responsive Design</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="3"><div class="skill-premium-icon"><i class="fab fa-js"></i></div><div class="skill-premium-glow"></div><h3>JavaScript</h3><p>Frontend Logic</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="4"><div class="skill-premium-icon"><i class="fab fa-python"></i></div><div class="skill-premium-glow"></div><h3>Python</h3><p>Core Programming</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="5"><div class="skill-premium-icon"><i class="fas fa-cogs"></i></div><div class="skill-premium-glow"></div><h3>Django</h3><p>Backend Framework</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="6"><div class="skill-premium-icon"><i class="fas fa-database"></i></div><div class="skill-premium-glow"></div><h3>MySQL</h3><p>Database Management</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="7"><div class="skill-premium-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="skill-premium-glow"></div><h3>REST API</h3><p>API Development</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="8"><div class="skill-premium-icon"><i class="fas fa-code"></i></div><div class="skill-premium-glow"></div><h3>VS Code</h3><p>Code Editor</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="9"><div class="skill-premium-icon"><i class="fab fa-git-alt"></i></div><div class="skill-premium-glow"></div><h3>Git</h3><p>Version Control</p><div class="skill-level"><div class="level-bar"></div></div></div>
+      <div class="skill-premium-card" data-delay="10"><div class="skill-premium-icon"><i class="fab fa-github"></i></div><div class="skill-premium-glow"></div><h3>GitHub</h3><p>Collaboration & Hosting</p><div class="skill-level"><div class="level-bar"></div></div></div>
     </div>
   </main>
+
 
   <script src="js/script.js"></script>
 </body>

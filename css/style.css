@@ -4312,3 +4312,28 @@ body {
 .mt-2 {
   margin-top: 1rem;
 }
+
+
+
+
+@media (max-width: 850px) {
+  .nav-links {
+    display: none !important;
+  }
+  .nav-links.active {
+    display: flex !important;
+    flex-direction: column !important;
+    position: fixed !important;
+    top: 70px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #0a0c10 !important;
+    padding: 20px !important;
+    z-index: 9999 !important;
+  }
+  .nav-toggle {
+    display: flex !important;
+    z-index: 10001 !important;
+    pointer-events: auto !important;
+  }
+}

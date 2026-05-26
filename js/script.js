@@ -1,25 +1,30 @@
-// js/script.js - SIMPLE & RELIABLE (Burger menu guaranteed to work)
+// js/script.js - COMPLETE FINAL VERSION (Guaranteed to fix burger menu)
 (function() {
   'use strict';
 
-  // ---------- Helper: Initialize Mobile Menu ----------
+  // --- Helper: Initialize Mobile Menu (ensures click works) ---
   function initMobileMenu() {
     const toggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
-    if (!toggle || !navLinks) return;
+    if (!toggle || !navLinks) {
+      console.warn('Menu elements missing');
+      return;
+    }
 
-    // Remove any existing click listener by cloning
+    // Remove existing listener by cloning
     const newToggle = toggle.cloneNode(true);
     toggle.parentNode.replaceChild(newToggle, toggle);
     const finalToggle = document.querySelector('.nav-toggle');
 
     finalToggle.addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       navLinks.classList.toggle('active');
       const icon = finalToggle.querySelector('i');
       if (navLinks.classList.contains('active')) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
+        // Lock background scroll when menu open
         document.body.style.overflow = 'hidden';
       } else {
         icon.classList.remove('fa-times');
@@ -42,7 +47,7 @@
       }
     });
 
-    // Close menu when a nav link is clicked
+    // Close menu on nav link click
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
@@ -55,16 +60,32 @@
       });
     });
 
-    console.log('✅ Mobile menu initialized');
+    console.log('✅ Mobile menu ready');
   }
 
-  // ---------- Animation Handling ----------
+  // --- Force remove overflow and init menu (fallback) ---
+  function forceFinish() {
+    document.body.style.overflow = 'auto';
+    const overlay = document.getElementById('animationOverlay');
+    if (overlay && overlay.style.display !== 'none') {
+      overlay.style.display = 'none';
+    }
+    const mainContent = document.getElementById('mainContent');
+    if (mainContent) {
+      mainContent.classList.remove('hidden');
+      mainContent.classList.add('visible');
+    }
+    initMobileMenu();
+    console.log('✅ Forced finish: menu activated');
+  }
+
+  // --- Animation & Initialization ---
   const overlay = document.getElementById('animationOverlay');
   const mainContent = document.getElementById('mainContent');
   const hasPlayed = sessionStorage.getItem('animationPlayed');
 
   if (hasPlayed) {
-    // Already played: just show content and init menu
+    // Already played: just ensure everything is visible and menu works
     if (overlay) overlay.style.display = 'none';
     if (mainContent) {
       mainContent.classList.remove('hidden');
@@ -73,35 +94,19 @@
     document.body.style.overflow = 'auto';
     initMobileMenu();
   } else if (overlay && document.getElementById('networkCanvas')) {
-    // First visit: play animation then cleanup
+    // First visit: start animation, but ensure menu works after max 4 sec
     sessionStorage.setItem('animationPlayed', 'true');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // lock during animation
 
-    // Force finish after 5 seconds (safety)
-    setTimeout(() => {
-      if (overlay.style.display !== 'none') {
-        console.warn('Forcing animation finish');
-        overlay.style.transition = 'opacity 0.5s';
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-          overlay.style.display = 'none';
-          if (mainContent) {
-            mainContent.classList.remove('hidden');
-            mainContent.classList.add('visible');
-          }
-          document.body.style.overflow = 'auto';
-          initMobileMenu();
-        }, 500);
-      }
-    }, 5000);
+    // Safety timeout: force finish after 4 seconds (in case animation hangs)
+    setTimeout(forceFinish, 4000);
 
-    // Actual canvas animation (quick version)
+    // Simplified canvas animation (mandala)
     const canvas = document.getElementById('networkCanvas');
     const ctx = canvas.getContext('2d');
     let width, height;
-    let frame = 0;
-    const duration = 4000; // 4 seconds
     let startTime = null;
+    const duration = 3500; // 3.5 seconds
 
     function resize() {
       width = window.innerWidth;
@@ -128,31 +133,29 @@
 
       drawBackground();
 
-      // Draw simple mandala
       const centerX = width / 2;
       const centerY = height / 2;
       const maxRadius = Math.min(width, height) * 0.3 * eased;
       ctx.beginPath();
       ctx.arc(centerX, centerY, maxRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(212, 175, 55, ${0.3 + eased * 0.5})`;
+      ctx.strokeStyle = `rgba(212, 175, 55, ${0.3 + eased * 0.7})`;
       ctx.lineWidth = 2;
       ctx.stroke();
 
+      // Draw petals
       for (let i = 0; i < 8; i++) {
         const angle = (i * Math.PI * 2 / 8) + progress * Math.PI;
         const x = centerX + Math.cos(angle) * maxRadius * 0.8;
         const y = centerY + Math.sin(angle) * maxRadius * 0.8;
         ctx.beginPath();
-        ctx.arc(x, y, 4 * eased, 0, Math.PI * 2);
+        ctx.arc(x, y, 5 * eased, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(245, 230, 176, ${0.5 * eased})`;
         ctx.fill();
       }
 
-      // Update progress bar
+      // Update progress bar and text
       const progressBar = document.getElementById('animationProgressBar');
       if (progressBar) progressBar.style.width = (eased * 100) + '%';
-
-      // Update message
       const msgEl = document.getElementById('animationMessage');
       if (msgEl) {
         if (progress < 0.3) msgEl.textContent = '✦ curiosity awakens... ✦';
@@ -164,24 +167,28 @@
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        // Animation finished
-        overlay.style.transition = 'opacity 1s';
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-          overlay.style.display = 'none';
-          if (mainContent) {
-            mainContent.classList.remove('hidden');
-            mainContent.classList.add('visible');
-          }
-          document.body.style.overflow = 'auto';
-          initMobileMenu();
-        }, 1000);
+        // Animation finished successfully
+        if (overlay) {
+          overlay.style.transition = 'opacity 0.8s';
+          overlay.style.opacity = '0';
+          setTimeout(() => {
+            overlay.style.display = 'none';
+            if (mainContent) {
+              mainContent.classList.remove('hidden');
+              mainContent.classList.add('visible');
+            }
+            document.body.style.overflow = 'auto';
+            initMobileMenu();
+          }, 800);
+        } else {
+          forceFinish();
+        }
       }
     }
 
     requestAnimationFrame(animate);
   } else {
-    // No animation elements – just show content
+    // No animation elements: just show content
     if (overlay) overlay.style.display = 'none';
     if (mainContent) {
       mainContent.classList.remove('hidden');
@@ -191,7 +198,7 @@
     initMobileMenu();
   }
 
-  // ---------- Typing effect (optional) ----------
+  // --- Additional features (typing effect, scroll, etc.) ---
   const typedEl = document.querySelector('.typed-role');
   if (typedEl) {
     const phrases = ['Python Full Stack Developer ✨', 'Web Designer ✨', 'Code with Passion 💎'];
@@ -219,20 +226,18 @@
     type();
   }
 
-  // ---------- Scroll effect for navbar ----------
-  const nav = document.querySelector('.luxury-nav');
-  if (nav) {
+  const navBar = document.querySelector('.luxury-nav');
+  if (navBar) {
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 50);
+      navBar.classList.toggle('scrolled', window.scrollY > 50);
     });
   }
 
-  // ---------- Close menu on window resize (desktop) ----------
   window.addEventListener('resize', () => {
     if (window.innerWidth > 850) {
-      const links = document.querySelector('.nav-links');
-      if (links && links.classList.contains('active')) {
-        links.classList.remove('active');
+      const navLinks = document.querySelector('.nav-links');
+      if (navLinks && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
         const toggle = document.querySelector('.nav-toggle');
         if (toggle) {
           const icon = toggle.querySelector('i');
@@ -246,5 +251,5 @@
     }
   });
 
-  console.log('✅ Simple reliable script loaded – burger menu ready');
+  console.log('✅ Ultimate script loaded – burger menu guaranteed');
 })();

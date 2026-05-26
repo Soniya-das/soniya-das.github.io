@@ -1,5 +1,5 @@
-// js/script.js - Complete Fully Responsive JavaScript
-// ULTRA LUXURY PORTFOLIO - FIXED MOBILE HAMBURGER MENU & SYNTAX ERROR
+// js/script.js - COMPLETE FULLY CORRECTED VERSION
+// Ultra Luxury Portfolio - Mobile Menu Fixed + Animation Timeout
 
 (function() {
   'use strict';
@@ -14,7 +14,7 @@
   const messageEl = document.getElementById('animationMessage');
   const progressBar = document.getElementById('animationProgressBar');
 
-  // ========== MOBILE MENU SETUP (DEFINED EARLY) ==========
+  // ========== MOBILE MENU SETUP (TO BE CALLED AFTER ANIMATION) ==========
   function initMobileMenu() {
     const menuToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
@@ -25,7 +25,7 @@
       return;
     }
 
-    // Remove any existing listeners to avoid duplicates
+    // Remove existing listeners to avoid duplicates
     const newToggle = menuToggle.cloneNode(true);
     menuToggle.parentNode.replaceChild(newToggle, menuToggle);
     const finalToggle = document.querySelector('.nav-toggle');
@@ -39,7 +39,7 @@
       if (navLinks.classList.contains('active')) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
-        document.body.style.overflow = 'hidden'; // prevent background scroll
+        document.body.style.overflow = 'hidden'; // lock background scroll
       } else {
         icon.classList.remove('fa-times');
         icon.classList.add('fa-bars');
@@ -72,21 +72,42 @@
         document.body.style.overflow = '';
       });
     });
+
+    console.log('✅ Mobile menu initialized');
+  }
+
+  // ========== FORCE HIDE OVERLAY & INIT MENU (FALLBACK) ==========
+  function forceFinishAnimation() {
+    if (!overlay) return;
+    console.warn('Safety timeout: forcing animation finish');
+    overlay.style.transition = 'opacity 0.5s ease';
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      if (mainContent) {
+        mainContent.classList.remove('hidden');
+        mainContent.classList.add('visible');
+      }
+      document.body.style.overflow = 'auto';
+      initMobileMenu();
+    }, 500);
   }
 
   // ========== ANIMATION HANDLING ==========
   if (hasAnimationPlayed) {
+    // Animation already played before – just show content and init menu
     if (overlay) overlay.style.display = 'none';
     if (mainContent) {
       mainContent.classList.remove('hidden');
       mainContent.classList.add('visible');
     }
     document.body.style.overflow = 'auto';
-    initMobileMenu(); // Menu works immediately
+    initMobileMenu();
   } 
   else if (canvas && overlay) {
     sessionStorage.setItem('animationPlayed', 'true');
-    document.body.style.overflow = 'hidden'; // prevent scroll during animation
+    document.body.style.overflow = 'hidden'; // lock scroll during animation
     
     const ctx = canvas.getContext('2d');
     let width, height;
@@ -95,6 +116,7 @@
     let startTime = null;
     let progress = 0;
     let frame = 0;
+    let animationCompleted = false;
     const ANIMATION_DURATION = 5200;
     
     function resize() {
@@ -107,6 +129,15 @@
     }
     window.addEventListener('resize', resize);
     resize();
+    
+    // ========== SAFETY TIMEOUT (6 SECONDS) ==========
+    setTimeout(() => {
+      if (!animationCompleted) {
+        forceFinishAnimation();
+        animationCompleted = true;
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+      }
+    }, 6000);
     
     // ========== MANDALA ANIMATION (STYLE 4) ==========
     if (ANIMATION_STYLE === 4) {
@@ -375,6 +406,8 @@
         if (progress < 1) {
           animationFrame = requestAnimationFrame(animate);
         } else {
+          // Animation completed successfully
+          animationCompleted = true;
           cancelAnimationFrame(animationFrame);
           setTimeout(() => {
             overlay.style.transition = 'opacity 1.5s ease';
@@ -387,7 +420,7 @@
                 mainContent.classList.add('visible');
               }
               document.body.style.overflow = 'auto';
-              initMobileMenu(); // ✅ Enable burger menu AFTER animation
+              initMobileMenu(); // ✅ Initialize menu after animation
             }, 1500);
           }, 500);
         }
@@ -450,7 +483,7 @@
 
   // ========== HERO IMAGE 3D TILT (DESKTOP ONLY) ==========
   const heroImageContainer = document.querySelector('.hero-image-container');
-  // ✅ Define isTouchDevice only once (no duplicate)
+  // ✅ Declare isTouchDevice ONLY ONCE
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   if (heroImageContainer && !isTouchDevice && window.innerWidth > 850) {
     heroImageContainer.addEventListener('mousemove', (e) => {
@@ -498,7 +531,7 @@
     });
   });
 
-  // ========== TOUCH DEVICE OPTIMIZATIONS (Reusing isTouchDevice) ==========
+  // ========== TOUCH DEVICE OPTIMIZATIONS (REUSE isTouchDevice) ==========
   if (isTouchDevice) {
     document.body.classList.add('touch-device');
     buttons.forEach(btn => {
@@ -554,5 +587,5 @@
     }
   });
 
-  console.log('✅ ULTRA-LUXURY PORTFOLIO FULLY RESPONSIVE - MENU FIXED & NO DUPLICATE ERRORS');
+  console.log('✅ ULTRA-LUXURY PORTFOLIO FULLY RESPONSIVE - BURGER MENU FIXED');
 })();

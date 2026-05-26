@@ -10,38 +10,38 @@
 </head>
 <body>
 
-  <!-- ========== NAVIGATION BAR ========== -->
+  <!-- NAVIGATION BAR -->
   <nav class="luxury-nav">
     <div class="nav-container">
       <div class="logo">
         <span class="logo-initial">S</span>oniya <span class="logo-accent">D</span>
         <div class="logo-dot"></div>
       </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="resume.html" class="active">Resume</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="nav-toggle"><i class="fas fa-bars"></i></div>
+
+       <!-- Hamburger (Unicode ☰) – works even if Font Awesome is blocked -->
+        <div class="hamburger" id="hamburger">
+          <span style="font-size: 1.8rem; color: #d4af37;">☰</span>
+        </div>
+
+       <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+       </ul>
     </div>
   </nav>
 
-  <!-- Close Icon - RIGHT SIDE ONLY (optional – you can remove if you only want navbar) -->
   <a href="index.html" class="close-icon-right">
     <i class="fas fa-times"></i>
   </a>
 
   <main class="page-section">
-    
-    <!-- Luxury Resume Heading -->
     <div class="resume-heading-luxury">
-      <div class="resume-heading-icon">
-        <i class="fas fa-file-alt"></i>
-      </div>
+      <div class="resume-heading-icon"><i class="fas fa-file-alt"></i></div>
       <h2 class="resume-luxury-title">Resume</h2>
       <div class="resume-heading-underline">
         <span class="resume-underline-dot"></span>
@@ -50,24 +50,14 @@
       </div>
       <p class="resume-heading-subtitle">View my professional journey</p>
     </div>
-
-    <!-- Medium Luxury Box Container -->
     <div class="resume-medium-box">
-      <div class="resume-box-icon">
-        <i class="fas fa-file-pdf"></i>
-      </div>
+      <div class="resume-box-icon"><i class="fas fa-file-pdf"></i></div>
       <h3 class="resume-box-title">Professional Resume</h3>
       <p class="resume-box-desc">My complete professional profile including education, experience, skills, and certifications.</p>
-      
-      <!-- Open Resume Button Inside Box -->
       <a href="assests/resume.pdf" target="_blank" class="resume-box-btn">
-        <span class="btn-text">Open Resume</span>
-        <i class="fas fa-arrow-right"></i>
+        <span class="btn-text">Open Resume</span><i class="fas fa-arrow-right"></i>
       </a>
-      
-      <p class="resume-box-note">
-        <i class="fas fa-info-circle"></i> PDF will open in new tab
-      </p>
+      <p class="resume-box-note"><i class="fas fa-info-circle"></i> PDF will open in new tab</p>
     </div>
   </main>
 

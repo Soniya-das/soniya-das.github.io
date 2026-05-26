@@ -25,23 +25,27 @@
   <!-- Main Content -->
   <div id="mainContent" class="main-content hidden">
     
-    <!-- Navigation Bar - ONLY ON HOME PAGE -->
+    <!-- Navigation Bar -->
     <nav class="luxury-nav">
       <div class="nav-container">
         <div class="logo">
           <span class="logo-initial">S</span>oniya <span class="logo-accent">D</span>
           <div class="logo-dot"></div>
         </div>
+         <!-- Hamburger (Unicode ☰) – works even if Font Awesome is blocked -->
+        <div class="hamburger" id="hamburger">
+          <span style="font-size: 1.8rem; color: #d4af37;">☰</span>
+        </div>
+
         <ul class="nav-links">
-          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="skills.html">Skills</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="projects.html">Projects</a></li>
           <li><a href="resume.html">Resume</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
         </ul>
-        <div class="nav-toggle"><i class="fas fa-bars"></i></div>
       </div>
     </nav>
 
@@ -63,8 +67,8 @@
           <a href="contact.html" class="btn-outline"><i class="fas fa-comment"></i> Let's Connect</a>
         </div>
         <div class="hero-social">
-          <a href="#"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/soniyadas05"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/soniyadas" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/soniyadas05" target="_blank"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
       
@@ -92,6 +96,7 @@
       </div>
     </main>
   </div>
+  
 
   <script src="js/script.js"></script>
 </body>

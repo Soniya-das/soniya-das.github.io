@@ -10,38 +10,39 @@
 </head>
 <body>
 
-  <!-- ========== NAVIGATION BAR (same as index.html) ========== -->
+  <!-- NAVIGATION BAR (same as index.html) -->
   <nav class="luxury-nav">
     <div class="nav-container">
       <div class="logo">
         <span class="logo-initial">S</span>oniya <span class="logo-accent">D</span>
         <div class="logo-dot"></div>
       </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="nav-toggle"><i class="fas fa-bars"></i></div>
+
+       <!-- Hamburger (Unicode ☰) – works even if Font Awesome is blocked -->
+        <div class="hamburger" id="hamburger">
+          <span style="font-size: 1.8rem; color: #d4af37;">☰</span>
+        </div>
+      
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
     </div>
   </nav>
 
-  <!-- Close Icon - RIGHT SIDE (optional, you can keep or remove) -->
+  <!-- Optional close icon (kept for consistency) -->
   <a href="index.html" class="close-icon-right">
     <i class="fas fa-times"></i>
   </a>
 
   <main class="page-section">
-    
-    <!-- ========== ABOUT ME HEADING - VERY TOP ========== -->
     <div class="about-heading-verytop">
-      <div class="heading-icon-verytop">
-        <i class="fas fa-user-astronaut"></i>
-      </div>
+      <div class="heading-icon-verytop"><i class="fas fa-user-astronaut"></i></div>
       <h2 class="luxury-heading-verytop">About Me</h2>
       <div class="heading-underline-verytop">
         <span class="underline-dot-verytop"></span>
@@ -52,8 +53,6 @@
     </div>
 
     <div class="about-premium-container">
-      
-      <!-- Premium Image Section with Star Effect -->
       <div class="about-premium-image">
         <div class="premium-image-wrapper">
           <div class="star-glow-effect"></div>
@@ -72,30 +71,21 @@
             <div class="premium-ring ring-2"></div>
             <div class="premium-ring ring-3"></div>
             <div class="premium-particles">
-              <span class="particle"></span>
-              <span class="particle"></span>
-              <span class="particle"></span>
-              <span class="particle"></span>
-              <span class="particle"></span>
-              <span class="particle"></span>
-              <span class="particle"></span>
-              <span class="particle"></span>
+              <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+              <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+              <span class="particle"></span><span class="particle"></span>
             </div>
           </div>
         </div>
       </div>
-
       <div class="about-premium-content">
         <div class="premium-name-section">
           <span class="premium-greeting">✦ discover the developer ✦</span>
           <h1 class="premium-name">Soniya D</h1>
           <div class="premium-divider">
-            <span class="divider-line"></span>
-            <span class="divider-star">✦</span>
-            <span class="divider-line"></span>
+            <span class="divider-line"></span><span class="divider-star">✦</span><span class="divider-line"></span>
           </div>
         </div>
-
         <div class="premium-summary">
           <div class="premium-text">
             <span class="premium-dropcap">I</span>
@@ -109,9 +99,7 @@
             efficient code and creating smooth user experiences.
           </div>
         </div>
-
         <div class="premium-contact-grid">
-          <!-- Location Card -->
           <div class="premium-card">
             <div class="card-icon-circle"><i class="fas fa-map-marker-alt"></i></div>
             <div class="card-details">
@@ -120,8 +108,6 @@
             </div>
             <div class="card-hover-glow"></div>
           </div>
-          
-          <!-- Freelance Card -->
           <div class="premium-card freelance-card">
             <div class="card-icon-circle"><i class="fas fa-bolt"></i></div>
             <div class="card-details">
@@ -132,12 +118,10 @@
             <div class="card-hover-glow"></div>
           </div>
         </div>
-
         <div class="premium-social">
           <a href="https://github.com/soniyadas" target="_blank" class="premium-social-btn"><i class="fab fa-github"></i><span>GitHub</span></a>
           <a href="https://www.linkedin.com/in/soniyadas05" target="_blank" class="premium-social-btn"><i class="fab fa-linkedin-in"></i><span>LinkedIn</span></a>
         </div>
-
         <div class="premium-signature">
           <span class="signature-quote">code with purpose, create with passion</span>
           <span class="signature-icon">⚡</span>
@@ -145,6 +129,7 @@
       </div>
     </div>
   </main>
+
 
   <script src="js/script.js"></script>
 </body>

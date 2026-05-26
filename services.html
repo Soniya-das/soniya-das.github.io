@@ -10,38 +10,37 @@
 </head>
 <body>
 
-  <!-- ========== NAVIGATION BAR ========== -->
+  <!-- NAVIGATION BAR -->
   <nav class="luxury-nav">
     <div class="nav-container">
       <div class="logo">
         <span class="logo-initial">S</span>oniya <span class="logo-accent">D</span>
         <div class="logo-dot"></div>
       </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="services.html" class="active">Services</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="nav-toggle"><i class="fas fa-bars"></i></div>
+       <!-- Hamburger (Unicode ☰) – works even if Font Awesome is blocked -->
+        <div class="hamburger" id="hamburger">
+          <span style="font-size: 1.8rem; color: #d4af37;">☰</span>
+        </div>
+    
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
     </div>
   </nav>
 
-  <!-- Close Icon - RIGHT SIDE (optional – you can remove if you only want navbar) -->
   <a href="index.html" class="close-icon-right">
     <i class="fas fa-times"></i>
   </a>
 
   <main class="page-section">
-    
-    <!-- Luxury Services Heading -->
     <div class="services-heading-luxury">
-      <div class="services-heading-icon">
-        <i class="fas fa-cogs"></i>
-      </div>
+      <div class="services-heading-icon"><i class="fas fa-cogs"></i></div>
       <h2 class="services-luxury-title">What I Do</h2>
       <div class="services-heading-underline">
         <span class="services-underline-dot"></span>
@@ -50,59 +49,37 @@
       </div>
       <p class="services-heading-subtitle">Services & expertise I offer</p>
     </div>
-
-    <!-- Premium Services Container - 5 Services -->
     <div class="services-premium-container">
-      
-      <!-- Service 1 - Web Development -->
       <div class="service-premium-card" data-delay="0">
-        <div class="service-premium-icon">
-          <i class="fas fa-globe"></i>
-        </div>
+        <div class="service-premium-icon"><i class="fas fa-globe"></i></div>
         <div class="service-premium-glow"></div>
         <h3>Web Development</h3>
         <p>Full-stack web applications using Python, Django, and modern frontend technologies.</p>
         <div class="service-hover-line"></div>
       </div>
-
-      <!-- Service 2 - Web Design (NEW) -->
       <div class="service-premium-card" data-delay="1">
-        <div class="service-premium-icon">
-          <i class="fas fa-paint-brush"></i>
-        </div>
+        <div class="service-premium-icon"><i class="fas fa-paint-brush"></i></div>
         <div class="service-premium-glow"></div>
         <h3>Web Design</h3>
         <p>Modern, responsive, and user-friendly website designs with focus on UI/UX and visual appeal.</p>
         <div class="service-hover-line"></div>
       </div>
-
-      <!-- Service 3 - Database Design -->
       <div class="service-premium-card" data-delay="2">
-        <div class="service-premium-icon">
-          <i class="fas fa-database"></i>
-        </div>
+        <div class="service-premium-icon"><i class="fas fa-database"></i></div>
         <div class="service-premium-glow"></div>
         <h3>Database Design</h3>
         <p>Efficient MySQL database architecture and optimization for scalability.</p>
         <div class="service-hover-line"></div>
       </div>
-
-      <!-- Service 4 - Responsive Design -->
       <div class="service-premium-card" data-delay="3">
-        <div class="service-premium-icon">
-          <i class="fas fa-mobile-alt"></i>
-        </div>
+        <div class="service-premium-icon"><i class="fas fa-mobile-alt"></i></div>
         <div class="service-premium-glow"></div>
         <h3>Responsive Design</h3>
         <p>Mobile-first, responsive web applications that work seamlessly on all devices.</p>
         <div class="service-hover-line"></div>
       </div>
-
-      <!-- Service 5 - Debugging -->
       <div class="service-premium-card" data-delay="4">
-        <div class="service-premium-icon">
-          <i class="fas fa-bug"></i>
-        </div>
+        <div class="service-premium-icon"><i class="fas fa-bug"></i></div>
         <div class="service-premium-glow"></div>
         <h3>Debugging</h3>
         <p>Expert debugging and code optimization for better performance and reliability.</p>

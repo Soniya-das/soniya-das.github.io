@@ -25,8 +25,8 @@ body {
   background: radial-gradient(ellipse at 30% 40%, var(--dark-bg), var(--darker-bg));
   color: var(--text-light);
   scroll-behavior: smooth;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
+  overflow-x: hidden;
+  
 }
 
 /* ========== CLOSE/HOME BUTTON ========== */
